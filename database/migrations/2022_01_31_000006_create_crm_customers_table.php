@@ -1,0 +1,89 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateCrmCustomersTable extends Migration
+{
+    public function up()
+    {
+        Schema::create('crm_customers', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('email')->nullable()->unique();
+            $table->string('phone')->nullable()->unique();
+            $table->string('address')->nullable();
+            $table->longText('description')->nullable();
+            $table->integer('age')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('living_with')->nullable();
+            $table->string('dependents')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->string('nationality')->nullable();
+            $table->string('marital_status')->nullable();
+            $table->string('curp')->nullable();
+            $table->string('rfc')->nullable();
+            $table->string('ssn')->nullable();
+            $table->string('health_status')->nullable();
+            $table->string('chronic_illness')->nullable();
+            $table->longText('goal_in_life')->nullable();
+            $table->string('elementary_school_name')->nullable();
+            $table->date('elementary_graduate_date')->nullable();
+            $table->string('middle_school_name')->nullable();
+            $table->date('middle_school_graduate_date')->nullable();
+            $table->string('high_school_name')->nullable();
+            $table->date('high_school_graduate_date')->nullable();
+            $table->string('college_name')->nullable();
+            $table->date('college_graduate_date')->nullable();
+            $table->string('career')->nullable();
+            $table->string('lived_in_usa')->nullable();
+            $table->string('speak_english')->nullable();
+            $table->string('english_level')->nullable();
+            $table->string('written_english')->nullable();
+            $table->string('father_name')->nullable();
+            $table->integer('father_age')->nullable();
+            $table->string('mother_name')->nullable();
+            $table->integer('mother_age')->nullable();
+            $table->string('emergency_contact_name')->nullable();
+            $table->string('emergency_contact_relationship')->nullable();
+            $table->string('reference_name_1')->nullable();
+            $table->string('reference_relationship_1')->nullable();
+            $table->integer('reference_phone_1')->nullable();
+            $table->string('reference_name_2')->nullable();
+            $table->string('reference_relationship_2')->nullable();
+            $table->integer('reference_phone_2')->nullable();
+            $table->string('reference_name_3')->nullable();
+            $table->string('reference_relationship_3')->nullable();
+            $table->integer('reference_phone_3')->nullable();
+            $table->string('company_name_1')->nullable();
+            $table->integer('company_phone_1')->nullable();
+            $table->date('worked_from_1')->nullable();
+            $table->date('worked_until_1')->nullable();
+            $table->string('reason_for_leaving_1')->nullable();
+            $table->string('company_name_2')->nullable();
+            $table->integer('company_phone_2')->nullable();
+            $table->date('worked_from_2')->nullable();
+            $table->date('worked_until_2')->nullable();
+            $table->string('reason_for_leaving_2')->nullable();
+            $table->longText('office_skills')->nullable();
+            $table->date('when_start')->nullable();
+            $table->boolean('official_valid')->default(0)->nullable();
+            $table->boolean('birth_certificate')->default(0)->nullable();
+            $table->boolean('have_curp')->default(0)->nullable();
+            $table->boolean('have_rfc')->default(0)->nullable();
+            $table->string('have_had_covid')->nullable();
+            $table->string('covid_vaccine')->nullable();
+            $table->string('additional_comments')->nullable();
+            $table->boolean('imss_number')->default(0)->nullable();
+            $table->boolean('proof_of_residence')->default(0)->nullable();
+            $table->boolean('highschool_diploma')->default(0)->nullable();
+            $table->string('infonavit_credit')->nullable();
+            $table->boolean('payment_method')->default(0)->nullable();
+            $table->string('how_you_knew')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+}
