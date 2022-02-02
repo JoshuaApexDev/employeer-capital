@@ -1,4 +1,7 @@
 <?php
+Route::get('apply', function(){
+    return view('apply');
+});
 
 Route::redirect('/', '/login');
 Route::get('/home', function () {
