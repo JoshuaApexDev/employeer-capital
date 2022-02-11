@@ -1,6 +1,14 @@
 <?php
-Route::get('apply', function(){
-    return view('apply');
+//Route::get('apply', function(){
+//    return view('apply');
+//});
+Route::get('/apply', 'ApplyController@Index');
+Route::post('/store/applicant', 'ApplyController@Store');
+Route::get('print/{id}',function ($id){
+    $crmCustomer = CrmCustomer::find($id);
+//        $crmCustomer->load('status', 'leadTasks');
+
+    return view('admin.crmCustomer.print',compact('crmCustomer'));
 });
 
 Route::redirect('/', '/login');

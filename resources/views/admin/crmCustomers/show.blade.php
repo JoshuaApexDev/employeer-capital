@@ -12,6 +12,9 @@
                 <a class="btn btn-default" href="{{ route('admin.crm-customers.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
+                <a class="btn btn-warning" href="print/{{$crmCustomer->id}}">
+                    Print
+                </a>
             </div>
             <table class="table table-bordered table-striped">
                 <tbody>
