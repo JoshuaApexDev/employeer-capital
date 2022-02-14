@@ -23,6 +23,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css" rel="stylesheet" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
     @yield('styles')
+
 </head>
 
 <body class="c-app">
@@ -34,6 +35,12 @@
                     <div class="col-md-8 col-lg-12 col-sm-4">
                         <form action="/store/applicant" method="POST">
                             @csrf
+                            <div class="text-center">
+                                <img src="/apexlogo2.png" width="200px" height="200px" alt="">
+                                <h1 class="text-white"><b>Solicitud de nuevo ingreso</b></h1>
+
+
+                            </div>
                             <div class="card card-primary">
                                 <div class="card-header text-center">
                                     <h3><b>Personal Information</b></h3>
@@ -299,7 +306,7 @@
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <label for="curp">{{ trans('cruds.crmCustomer.fields.curp') }}</label>
-                                                <input class="form-control {{ $errors->has('curp') ? 'is-invalid' : '' }}" type="text" name="curp" id="curp" value="{{ old('curp', '') }}">
+                                                <input class="form-control {{ $errors->has('curp') ? 'is-invalid' : '' }}" type="text" name="curp" id="curp" value="{{ old('curp', '') }}" required>
                                                 @if($errors->has('curp'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('curp') }}
@@ -311,7 +318,7 @@
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <label for="rfc">{{ trans('cruds.crmCustomer.fields.rfc') }}</label>
-                                                <input class="form-control {{ $errors->has('rfc') ? 'is-invalid' : '' }}" type="text" name="rfc" id="rfc" value="{{ old('rfc', '') }}">
+                                                <input class="form-control {{ $errors->has('rfc') ? 'is-invalid' : '' }}" type="text" name="rfc" id="rfc" value="{{ old('rfc', '') }}" required>
                                                 @if($errors->has('rfc'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('rfc') }}
@@ -323,7 +330,7 @@
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <label for="ssn">{{ trans('cruds.crmCustomer.fields.ssn') }}</label>
-                                                <input class="form-control {{ $errors->has('ssn') ? 'is-invalid' : '' }}" type="text" name="ssn" id="ssn" value="{{ old('ssn', '') }}">
+                                                <input class="form-control {{ $errors->has('ssn') ? 'is-invalid' : '' }}" type="text" name="ssn" id="ssn" value="{{ old('ssn', '') }}" required>
                                                 @if($errors->has('ssn'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('ssn') }}
