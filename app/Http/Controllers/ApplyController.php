@@ -13,8 +13,8 @@ use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
-use Barryvdh\DomPDF\PDF;
-
+use Barryvdh\DomPDF\Facade as PDF;
+//use Barryvdh\DomPDF\PDF;
 class ApplyController extends Controller
 {
     public function index()
@@ -60,14 +60,13 @@ class ApplyController extends Controller
         $positions = Position::all();
         $html = view('admin.crmCustomers.print',compact('crmCustomer', 'positions'));
         $file = Storage::disk('public')->put('leadapplication'.$crmCustomer->id.'.html', $html);
-        $file = Storage::disk('public')->path('leadapplication'.$crmCustomer->id.'.html');
-        $pdf = \PDF::loadView('admin.crmCustomers.print',compact('crmCustomer', 'positions'));
-        return $pdf->download('archivo.pdf');
-        return response($html)->withHeaders([
-            'Content-Type' => 'text/html',
-            'Cache-Control' => 'no-store, no-cache',
-            'Content-Disposition' => 'attachment; filename="job_application.html',
-        ]);
+	//dd(env('APP_URL').'/storage/leadapplication'.$crmCustomer->id.'.html');
+	$pdf = PDF::loadHtml(file_get_contents(base_path().'/public/storage/'.'leadapplication'.$crmCustomer->id.'.html'));
+	//dd($pdf);
+        //$file = Storage::disk('public')->path('leadapplication'.$crmCustomer->id.'.html');
+	$pdf->render();
+        return  $pdf->stream();
+	//echo file_get_contents(base_path().'/public/storage/'.'leadapplication'.$crmCustomer->id.'.html');
     }
 
 

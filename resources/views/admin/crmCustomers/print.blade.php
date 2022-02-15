@@ -10,8 +10,6 @@
 
     <title>{{ trans('panel.site_title') }}</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet"/>
-    @yield('styles')
     <style>
         .col {
             float: left;
@@ -49,7 +47,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="">
-            <form action="/store/applicant" method="POST">
+            <form>
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
