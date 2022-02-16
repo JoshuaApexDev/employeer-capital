@@ -24,10 +24,22 @@ class ApplyController extends Controller
 
         return view('apply', compact( 'positions'));
     }
+    public function indexsp()
+    {
+
+        $positions = Position::all();
+
+        return view('applyspanish', compact( 'positions'));
+    }
 
     public function Store(Request $request){
         if ($crmCustomer = CrmCustomer::create($request->all())){
-            return view('admin.crmCustomers.thankyou');
+            if ($request->lang == 'spanish'){
+                return view('admin.crmCustomers.thankyousp');
+            }else{
+                return view('admin.crmCustomers.thankyou');
+            }
+
         }else{
             return redirect('apply');
         }
@@ -60,13 +72,13 @@ class ApplyController extends Controller
         $positions = Position::all();
         $html = view('admin.crmCustomers.print',compact('crmCustomer', 'positions'));
         $file = Storage::disk('public')->put('leadapplication'.$crmCustomer->id.'.html', $html);
-	//dd(env('APP_URL').'/storage/leadapplication'.$crmCustomer->id.'.html');
-	$pdf = PDF::loadHtml(file_get_contents(base_path().'/public/storage/'.'leadapplication'.$crmCustomer->id.'.html'));
-	//dd($pdf);
+	    //dd(env('APP_URL').'/storage/leadapplication'.$crmCustomer->id.'.html');
+	    $pdf = PDF::loadHtml(file_get_contents(base_path().'/public/storage/'.'leadapplication'.$crmCustomer->id.'.html'));
+	    //dd($pdf);
         //$file = Storage::disk('public')->path('leadapplication'.$crmCustomer->id.'.html');
-	$pdf->render();
+	    $pdf->render();
         return  $pdf->stream();
-	//echo file_get_contents(base_path().'/public/storage/'.'leadapplication'.$crmCustomer->id.'.html');
+	    //echo file_get_contents(base_path().'/public/storage/'.'leadapplication'.$crmCustomer->id.'.html');
     }
 
 

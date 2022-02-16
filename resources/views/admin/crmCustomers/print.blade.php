@@ -52,10 +52,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-head">
-                                <h4>RG - RL - 06</h4>
+                                <h6>RG - RL - 07 </h6>
+                                <h6>REV 01</h6>
+                                Solicitud de nuevo ingreso
                             </div>
                             <div class="col-head2">
-                                <h3>Solicitud de nuevo ingreso</h3>
+                                <h3>Job application</h3>
                             </div>
                         </div>
                     </div>
@@ -76,15 +78,16 @@
                                 <p> {{$crmCustomer->last_name}}</p>
                             </div>
                             <div class="col">
-                                <b>Email</b>
-                                <p> {{$crmCustomer->email}}</p>
+
+                                <b>Phone number</b>
+                                <p> {{$crmCustomer->phone}}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <b>Phone number</b>
-                                    <p> {{$crmCustomer->phone}}</p>
+                                    <b>Email</b>
+                                    <p> {{$crmCustomer->email}}</p>
                                 </div>
                             </div>
                             <div class="col">
@@ -140,16 +143,16 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
+                                <b>Social Security Number</b>
+                                <p>{{$crmCustomer->ssn}}</p>
+                            </div>
+                            <div class="col">
                                 <b>Curp</b>
                                 <p>{{$crmCustomer->curp}}</p>
                             </div>
                             <div class="col">
                                 <b>RFC</b>
                                 <p>{{$crmCustomer->rfc}}</p>
-                            </div>
-                            <div class="col">
-                                <b>Social Security Number</b>
-                                <p>{{$crmCustomer->ssn}}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -205,26 +208,29 @@
                                 <b>Elementary School Name</b>
                                 <p>{{ $crmCustomer->elementary_school_name }}</p>
                             </div>
-                            <div class="col">
+                            <div class="col2">
                                 <b>Elementary Graduate Date</b>
                                 <p>{{$crmCustomer->elementary_graduate_date}}</p>
                             </div>
+
+                        </div>
+                        <div class="row">
                             <div class="col">
                                 <b>Middle School Name</b>
                                 <p>{{$crmCustomer->middle_school_name}}</p>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
+                            <div class="col2">
                                 <b>Middle School Graduate Date</b>
                                 <p>{{$crmCustomer->middle_school_graduate_date}}</p>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col">
                                 <b>High School Name</b>
                                 <p>{{$crmCustomer->high_school_name}}</p>
                             </div>
-                            <div class="col">
-                                <b>HS Graduate Date</b>
+                            <div class="col2">
+                                <b>High School Graduate Date</b>
                                 <p>{{$crmCustomer->high_school_graduate_date}}</p>
                             </div>
                         </div>
@@ -233,10 +239,12 @@
                                 <b>College Name</b>
                                 <p>{{$crmCustomer->college_name}}</p>
                             </div>
-                            <div class="col">
+                            <div class="col2">
                                 <b>College Graduate Date</b>
                                 <p>{{$crmCustomer->college_graduate_date}}</p>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col">
                                 <b>Professional Career</b>
                                 <p>{{$crmCustomer->career}}</p>
@@ -282,23 +290,30 @@
                                 <b>Are you paying INFONAVIT?</b>
                                 <p>{{$crmCustomer->infonavit_credit}}</p>
                             </div>
-                            <div class="col">
+                            <div class="col2">
                                 <b>Do you have a Bank account?</b>
                                 <p>{{$crmCustomer->payment_method}}</p>
-                            </div>
-                            <div class="col">
-                                <b>How did you hear about us?</b>
-                                <p>{{$crmCustomer->how_you_knew}}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
+                                <b>How did you hear about us?</b>
+                                <p>{{$crmCustomer->how_you_knew}}</p>
+                            </div>
+                            <div class="col2">
                                 <b>Additional comments</b>
                                 <p>{{$crmCustomer->additional_comments}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
                 <div class="card card-primary">
                     <div class="card-header text-center">
                         <h4><b>Family Data</b></h4>
@@ -327,10 +342,7 @@
 
                     </div>
                 </div>
-                <br>
-                <br>
-                <br>
-                <br>
+
                 <div class="card card-primary">
                     <div class="card-header text-center">
                         <h4><b>References</b></h4>

@@ -1,6 +1,7 @@
 <?php
 
 Route::get('/apply', 'ApplyController@Index');
+Route::get('/apply/es', 'ApplyController@Indexsp');
 Route::get('/thankyou', function(){
     return view('admin.crmCustomer.thankyou');
 });
