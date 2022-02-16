@@ -14,70 +14,70 @@ class CrmCustomer extends Model
     use HasFactory;
 
     public const LIVED_IN_USA_SELECT = [
-        'yes' => 'Yes',
-        'no'  => 'No',
+        'yes' => 'Yes/Si',
+        'no'  => 'No/No',
     ];
 
     public const SPEAK_ENGLISH_SELECT = [
-        'yes' => 'Yes',
-        'no'  => 'No',
+        'yes' => 'Yes/Si',
+        'no'  => 'No/No',
     ];
 
     public const COVID_VACCINE_SELECT = [
-        'yes' => 'Yes',
-        'no'  => 'No',
+        'yes' => 'Yes/Si',
+        'no'  => 'No/No',
     ];
 
     public const GENDER_SELECT = [
-        'male'   => 'Male',
-        'female' => 'Female',
-        'other'  => 'Other',
+        'male'   => 'Male/Masculino',
+        'female' => 'Female/Femenino',
+        'other'  => 'Other/Otro',
     ];
 
     public const HAVE_HAD_COVID_SELECT = [
-        'yes'     => 'Yes',
-        'no'      => 'No',
-        'notsure' => 'Not sure',
+        'yes'     => 'Yes/Si',
+        'no'      => 'No/No',
+        'notsure' => 'Not sure/No estoy seguro',
     ];
 
     public const HEALTH_STATUS_SELECT = [
-        'good'    => 'Good',
-        'regular' => 'Regular',
-        'bad'     => 'Bad',
+        'good'    => 'Good/Bueno',
+        'regular' => 'Regular/Regular',
+        'bad'     => 'Bad/Malo',
     ];
 
     public const MARITAL_STATUS_SELECT = [
-        'single'  => 'Single',
-        'married' => 'Married',
+        'single'  => 'Single/Soltero',
+        'married' => 'Married/Casado',
         'other'   => 'Other',
     ];
 
     public const ENGLISH_LEVEL_SELECT = [
-        'excellent' => 'Excellent',
-        'good'      => 'Good',
-        'regular'   => 'Regular',
-        'none'      => 'None',
+        'excellent' => 'Excellent/Excelente',
+        'good'      => 'Good/Bueno',
+        'regular'   => 'Regular/Regular',
+        'none'      => 'None/Nada',
     ];
 
     public const WRITTEN_ENGLISH_SELECT = [
-        'excellent' => 'Excellent',
-        'good'      => 'Good',
-        'regular'   => 'Regular',
-        'none'      => 'None',
+        'excellent' => 'Excellent/Excelente',
+        'good'      => 'Good/Bueno',
+        'regular'   => 'Regular/Regular',
+        'none'      => 'None/Nada',
     ];
 
     public const DEPENDENTS_SELECT = [
-        'children' => 'Children',
-        'spouse'   => 'Spouse',
-        'parents'  => 'Parents',
-        'others'   => 'Others',
+        'children' => 'Children/Hijos',
+        'spouse'   => 'Spouse/Esposa',
+        'parents'  => 'Parents/Padres',
+        'others'   => 'Others/Otros',
     ];
 
     public const LIVING_WITH_SELECT = [
-        'parents'   => 'Parents',
-        'family'    => 'Family',
-        'relatives' => 'Relatives',
-        'alone'     => 'Alone',
+        'parents'   => 'Parents/Padres',
+        'family'    => 'Family/Familia',
+        'relatives' => 'Relatives/Parientes',
+        'alone'     => 'Alone/Solo',
     ];
 
     public $table = 'crm_customers';
