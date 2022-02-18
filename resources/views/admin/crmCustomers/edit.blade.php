@@ -457,7 +457,7 @@
             </div>
             <div class="form-group">
                 <label for="reference_phone_1">{{ trans('cruds.crmCustomer.fields.reference_phone_1') }}</label>
-                <input class="form-control {{ $errors->has('reference_phone_1') ? 'is-invalid' : '' }}" type="number" name="reference_phone_1" id="reference_phone_1" value="{{ old('reference_phone_1', $crmCustomer->reference_phone_1) }}" step="1">
+                <input class="form-control {{ $errors->has('reference_phone_1') ? 'is-invalid' : '' }}" type="number" name="reference_phone_1" id="reference_phone_1" value="{{ old('reference_phone_1', $crmCustomer->reference_phone_1) }}">
                 @if($errors->has('reference_phone_1'))
                     <div class="invalid-feedback">
                         {{ $errors->first('reference_phone_1') }}
@@ -487,7 +487,7 @@
             </div>
             <div class="form-group">
                 <label for="reference_phone_2">{{ trans('cruds.crmCustomer.fields.reference_phone_2') }}</label>
-                <input class="form-control {{ $errors->has('reference_phone_2') ? 'is-invalid' : '' }}" type="number" name="reference_phone_2" id="reference_phone_2" value="{{ old('reference_phone_2', $crmCustomer->reference_phone_2) }}" step="1">
+                <input class="form-control {{ $errors->has('reference_phone_2') ? 'is-invalid' : '' }}" type="number" name="reference_phone_2" id="reference_phone_2" value="{{ old('reference_phone_2', $crmCustomer->reference_phone_2) }}">
                 @if($errors->has('reference_phone_2'))
                     <div class="invalid-feedback">
                         {{ $errors->first('reference_phone_2') }}
@@ -517,7 +517,7 @@
             </div>
             <div class="form-group">
                 <label for="reference_phone_3">{{ trans('cruds.crmCustomer.fields.reference_phone_3') }}</label>
-                <input class="form-control {{ $errors->has('reference_phone_3') ? 'is-invalid' : '' }}" type="number" name="reference_phone_3" id="reference_phone_3" value="{{ old('reference_phone_3', $crmCustomer->reference_phone_3) }}" step="1">
+                <input class="form-control {{ $errors->has('reference_phone_3') ? 'is-invalid' : '' }}" type="number" name="reference_phone_3" id="reference_phone_3" value="{{ old('reference_phone_3', $crmCustomer->reference_phone_3) }}">
                 @if($errors->has('reference_phone_3'))
                     <div class="invalid-feedback">
                         {{ $errors->first('reference_phone_3') }}
@@ -537,7 +537,7 @@
             </div>
             <div class="form-group">
                 <label for="company_phone_1">{{ trans('cruds.crmCustomer.fields.company_phone_1') }}</label>
-                <input class="form-control {{ $errors->has('company_phone_1') ? 'is-invalid' : '' }}" type="number" name="company_phone_1" id="company_phone_1" value="{{ old('company_phone_1', $crmCustomer->company_phone_1) }}" step="1">
+                <input class="form-control {{ $errors->has('company_phone_1') ? 'is-invalid' : '' }}" type="number" name="company_phone_1" id="company_phone_1" value="{{ old('company_phone_1', $crmCustomer->company_phone_1) }}" >
                 @if($errors->has('company_phone_1'))
                     <div class="invalid-feedback">
                         {{ $errors->first('company_phone_1') }}
@@ -587,7 +587,7 @@
             </div>
             <div class="form-group">
                 <label for="company_phone_2">{{ trans('cruds.crmCustomer.fields.company_phone_2') }}</label>
-                <input class="form-control {{ $errors->has('company_phone_2') ? 'is-invalid' : '' }}" type="number" name="company_phone_2" id="company_phone_2" value="{{ old('company_phone_2', $crmCustomer->company_phone_2) }}" step="1">
+                <input class="form-control {{ $errors->has('company_phone_2') ? 'is-invalid' : '' }}" type="number" name="company_phone_2" id="company_phone_2" value="{{ old('company_phone_2', $crmCustomer->company_phone_2) }}" >
                 @if($errors->has('company_phone_2'))
                     <div class="invalid-feedback">
                         {{ $errors->first('company_phone_2') }}
