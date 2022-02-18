@@ -457,13 +457,7 @@
             </div>
             <div class="form-group">
                 <label for="reference_phone_1">{{ trans('cruds.crmCustomer.fields.reference_phone_1') }}</label>
-                <input class="form-control {{ $errors->has('reference_phone_1') ? 'is-invalid' : '' }}" type="number" name="reference_phone_1" id="reference_phone_1" value="{{ old('reference_phone_1', $crmCustomer->reference_phone_1) }}">
-                @if($errors->has('reference_phone_1'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('reference_phone_1') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.crmCustomer.fields.reference_phone_1_helper') }}</span>
+                <input class="form-control" type="number" name="reference_phone_1" id="reference_phone_1" value="{{ old('reference_phone_1', $crmCustomer->reference_phone_1) }}">
             </div>
             <div class="form-group">
                 <label for="reference_name_2">{{ trans('cruds.crmCustomer.fields.reference_name_2') }}</label>
