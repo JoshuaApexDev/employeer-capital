@@ -147,9 +147,8 @@ class UpdateCrmCustomerRequest extends FormRequest
             ],
             'reference_phone_1' => [
                 'nullable',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
+                'string',
+
             ],
             'reference_name_2' => [
                 'string',
@@ -161,9 +160,7 @@ class UpdateCrmCustomerRequest extends FormRequest
             ],
             'reference_phone_2' => [
                 'nullable',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
+                'string',
             ],
             'reference_name_3' => [
                 'string',
@@ -175,9 +172,7 @@ class UpdateCrmCustomerRequest extends FormRequest
             ],
             'reference_phone_3' => [
                 'nullable',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
+                'string',
             ],
             'company_name_1' => [
                 'string',
@@ -185,9 +180,7 @@ class UpdateCrmCustomerRequest extends FormRequest
             ],
             'company_phone_1' => [
                 'nullable',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
+                'string',
             ],
             'worked_from_1' => [
                 'date_format:' . config('panel.date_format'),
@@ -207,9 +200,7 @@ class UpdateCrmCustomerRequest extends FormRequest
             ],
             'company_phone_2' => [
                 'nullable',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
+                'string',
             ],
             'worked_from_2' => [
                 'date_format:' . config('panel.date_format'),
