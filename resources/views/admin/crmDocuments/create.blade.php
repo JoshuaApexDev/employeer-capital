@@ -13,7 +13,7 @@
                 <label class="required" for="customer_id">{{ trans('cruds.crmDocument.fields.customer') }}</label>
                 <select class="form-control select2 {{ $errors->has('customer') ? 'is-invalid' : '' }}" name="customer_id" id="customer_id" required>
                     @foreach($customers as $id => $entry)
-                        <option value="{{ $id }}" {{ old('customer_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        <option value="{{ $entry->id }}" {{ old('customer_id') == $entry->id ? 'selected' : '' }}>{{ $entry->first_name }} {{ $entry->last_name }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('customer'))
@@ -71,14 +71,14 @@
 <script>
     Dropzone.options.documentFileDropzone = {
     url: '{{ route('admin.crm-documents.storeMedia') }}',
-    maxFilesize: 2, // MB
+    maxFilesize: 20, // MB
     maxFiles: 1,
     addRemoveLinks: true,
     headers: {
       'X-CSRF-TOKEN': "{{ csrf_token() }}"
     },
     params: {
-      size: 2
+      size: 20
     },
     success: function (file, response) {
       $('form').find('input[name="document_file"]').remove()
