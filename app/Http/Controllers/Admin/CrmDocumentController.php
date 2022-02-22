@@ -55,7 +55,7 @@ class CrmDocumentController extends Controller
     {
         abort_if(Gate::denies('crm_document_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $customers = CrmCustomer::all()->pluck('first_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $customers = CrmCustomer::all();
 
         $crmDocument->load('customer');
 

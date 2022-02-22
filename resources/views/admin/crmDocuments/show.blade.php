@@ -33,6 +33,14 @@
                     </tr>
                     <tr>
                         <th>
+                            Last name
+                        </th>
+                        <td>
+                            {{ $crmDocument->customer->last_name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.crmDocument.fields.document_file') }}
                         </th>
                         <td>

@@ -14,7 +14,7 @@
                 <label class="required" for="customer_id">{{ trans('cruds.crmDocument.fields.customer') }}</label>
                 <select class="form-control select2 {{ $errors->has('customer') ? 'is-invalid' : '' }}" name="customer_id" id="customer_id" required>
                     @foreach($customers as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('customer_id') ? old('customer_id') : $crmDocument->customer->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        <option value="{{ $entry->id }}" {{ (old('customer_id') ? old('customer_id') : $crmDocument->customer->id ?? '') == $entry->id ? 'selected' : '' }}>{{ $entry->first_name }} {{ $entry->last_name }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('customer'))
