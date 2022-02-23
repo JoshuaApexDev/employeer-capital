@@ -71,6 +71,20 @@
                 <span class="help-block">{{ trans('cruds.crmCustomer.fields.description_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="status_id">{{ trans('cruds.crmCustomer.fields.status') }}</label>
+                <select class="form-control select2 {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status_id" id="status_id">
+                    @foreach($statuses as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('status_id') ? old('status_id') : $crmCustomer->status->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('status'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.crmCustomer.fields.status_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label class="required" for="age">{{ trans('cruds.crmCustomer.fields.age') }}</label>
                 <input class="form-control {{ $errors->has('age') ? 'is-invalid' : '' }}" type="number" name="age" id="age" value="{{ old('age', $crmCustomer->age) }}" step="1" required>
                 @if($errors->has('age'))
@@ -638,20 +652,6 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.crmCustomer.fields.when_start_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="status_id">{{ trans('cruds.crmCustomer.fields.status') }}</label>
-                <select class="form-control select2 {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status_id" id="status_id">
-                    @foreach($statuses as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('status_id') ? old('status_id') : $crmCustomer->status->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('status'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('status') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.crmCustomer.fields.status_helper') }}</span>
             </div>
             <div class="form-group">
                 <div class="form-check {{ $errors->has('official_valid') ? 'is-invalid' : '' }}">

@@ -76,6 +76,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.crmCustomer.fields.status') }}
+                        </th>
+                        <td>
+                            {{ $crmCustomer->status->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.crmCustomer.fields.age') }}
                         </th>
                         <td>
@@ -496,14 +504,6 @@
                         </th>
                         <td>
                             {{ $crmCustomer->when_start }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.status') }}
-                        </th>
-                        <td>
-                            {{ $crmCustomer->status->name ?? '' }}
                         </td>
                     </tr>
                     <tr>

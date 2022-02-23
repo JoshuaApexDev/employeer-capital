@@ -41,122 +41,11 @@
                             {{ trans('cruds.crmCustomer.fields.address') }}
                         </th>
                         <th>
-                            {{ trans('cruds.crmCustomer.fields.gender') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.when_start') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.crmCustomer.fields.status') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.official_valid') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.birth_certificate') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.have_curp') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.have_rfc') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.imss_number') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.proof_of_residence') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.highschool_diploma') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.position') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.infonavit_credit') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.payment_method') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.how_you_knew') }}
                         </th>
                         <th>
                             &nbsp;
                         </th>
-                    </tr>
-                    <tr>
-                        <td>
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <select class="search" strict="true">
-                                <option value>{{ trans('global.all') }}</option>
-                                @foreach(App\Models\CrmCustomer::GENDER_SELECT as $key => $item)
-                                    <option value="{{ $item }}">{{ $item }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                            <select class="search">
-                                <option value>{{ trans('global.all') }}</option>
-                                @foreach($crm_statuses as $key => $item)
-                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                            <select class="search">
-                                <option value>{{ trans('global.all') }}</option>
-                                @foreach($positions as $key => $item)
-                                    <option value="{{ $item->position_name }}">{{ $item->position_name }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                        </td>
                     </tr>
                 </thead>
                 <tbody>
@@ -184,54 +73,7 @@
                                 {{ $crmCustomer->address ?? '' }}
                             </td>
                             <td>
-                                {{ App\Models\CrmCustomer::GENDER_SELECT[$crmCustomer->gender] ?? '' }}
-                            </td>
-                            <td>
-                                {{ $crmCustomer->when_start ?? '' }}
-                            </td>
-                            <td>
                                 {{ $crmCustomer->status->name ?? '' }}
-                            </td>
-                            <td>
-                                <span style="display:none">{{ $crmCustomer->official_valid ?? '' }}</span>
-                                <input type="checkbox" disabled="disabled" {{ $crmCustomer->official_valid ? 'checked' : '' }}>
-                            </td>
-                            <td>
-                                <span style="display:none">{{ $crmCustomer->birth_certificate ?? '' }}</span>
-                                <input type="checkbox" disabled="disabled" {{ $crmCustomer->birth_certificate ? 'checked' : '' }}>
-                            </td>
-                            <td>
-                                <span style="display:none">{{ $crmCustomer->have_curp ?? '' }}</span>
-                                <input type="checkbox" disabled="disabled" {{ $crmCustomer->have_curp ? 'checked' : '' }}>
-                            </td>
-                            <td>
-                                <span style="display:none">{{ $crmCustomer->have_rfc ?? '' }}</span>
-                                <input type="checkbox" disabled="disabled" {{ $crmCustomer->have_rfc ? 'checked' : '' }}>
-                            </td>
-                            <td>
-                                <span style="display:none">{{ $crmCustomer->imss_number ?? '' }}</span>
-                                <input type="checkbox" disabled="disabled" {{ $crmCustomer->imss_number ? 'checked' : '' }}>
-                            </td>
-                            <td>
-                                <span style="display:none">{{ $crmCustomer->proof_of_residence ?? '' }}</span>
-                                <input type="checkbox" disabled="disabled" {{ $crmCustomer->proof_of_residence ? 'checked' : '' }}>
-                            </td>
-                            <td>
-                                <span style="display:none">{{ $crmCustomer->highschool_diploma ?? '' }}</span>
-                                <input type="checkbox" disabled="disabled" {{ $crmCustomer->highschool_diploma ? 'checked' : '' }}>
-                            </td>
-                            <td>
-                                {{ $crmCustomer->position->position_name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $crmCustomer->infonavit_credit ?? '' }}
-                            </td>
-                            <td>
-                                <span style="display:none">{{ $crmCustomer->payment_method ?? '' }}</span>
-                                <input type="checkbox" disabled="disabled" {{ $crmCustomer->payment_method ? 'checked' : '' }}>
-                            </td>
-                            <td>
-                                {{ $crmCustomer->how_you_knew ?? '' }}
                             </td>
                             <td>
                                 @can('crm_customer_show')
@@ -312,7 +154,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 let visibleColumnsIndexes = null;
 $('.datatable thead').on('input', '.search', function () {
       let strict = $(this).attr('strict') || false
