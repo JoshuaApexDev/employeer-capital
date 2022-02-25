@@ -799,6 +799,14 @@
                 <span class="help-block">{{ trans('cruds.crmCustomer.fields.position_helper') }}</span>
             </div>
             <div class="form-group">
+                <label class="required" for="location_id">Office to work at</label>
+                <select class="form-control select2 " name="location_id" id="location_id" required>
+                    @foreach($locations as $location)
+                        <option value="{{ $location->value }}">{{ $location->label }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="infonavit_credit">{{ trans('cruds.crmCustomer.fields.infonavit_credit') }}</label>
                 <input class="form-control {{ $errors->has('infonavit_credit') ? 'is-invalid' : '' }}" type="text" name="infonavit_credit" id="infonavit_credit" value="{{ old('infonavit_credit', $crmCustomer->infonavit_credit) }}">
                 @if($errors->has('infonavit_credit'))

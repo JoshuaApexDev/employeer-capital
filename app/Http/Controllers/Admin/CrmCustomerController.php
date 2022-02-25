@@ -10,6 +10,7 @@ use App\Models\CrmCustomer;
 use App\Models\CrmStatus;
 use App\Models\Position;
 use Gate;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -50,18 +51,29 @@ class CrmCustomerController extends Controller
     {
         abort_if(Gate::denies('crm_customer_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $client = new Client();
+        $res = $client->request('get', 'https://management.apexcallcenters.xyz/api/locations');
+        $locations = json_decode($res->getBody()->getContents());
+
         $statuses = CrmStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $positions = Position::pluck('position_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $crmCustomer->load('status', 'position');
 
-        return view('admin.crmCustomers.edit', compact('crmCustomer', 'positions', 'statuses'));
+        return view('admin.crmCustomers.edit', compact('crmCustomer', 'positions', 'statuses', 'locations'));
     }
 
     public function update(UpdateCrmCustomerRequest $request, CrmCustomer $crmCustomer)
     {
         $crmCustomer->update($request->all());
+        $crmCustomer->load('status', 'position');
+        if ($crmCustomer->status->name === 'Hired'){
+            $client = new Client();
+            $res = $client->request('POST', 'http://geosuna.management.apxdev/api/apply/employee/create/?full_name='.$crmCustomer->first_name.' '.$crmCustomer->last_name.'&location_id='.$request->location_id.'&position='.$crmCustomer->position->position_name);
+            $response = json_decode($res->getBody()->getContents());
+            return redirect()->route('admin.crm-customers.index');
+        }
 
         return redirect()->route('admin.crm-customers.index');
     }

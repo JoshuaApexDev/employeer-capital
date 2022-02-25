@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectTasksOptions">
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="C:\Users\CMontes689\Documents\sincro_files\apex_dev_applycrm_sync.ffs_batch" />
+      <option name="arguments" value="C:\Users\apxgera\Documents\shared\apex_dev_applycrm_sync.ffs_batch" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
       <option name="exitCodeBehavior" value="ERROR" />
