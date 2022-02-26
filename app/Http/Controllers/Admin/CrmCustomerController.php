@@ -13,6 +13,8 @@ use Gate;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use GuzzleHttp\RequestOptions;
+use App\Models\CrmDocument;
 
 class CrmCustomerController extends Controller
 {
@@ -66,11 +68,27 @@ class CrmCustomerController extends Controller
 
     public function update(UpdateCrmCustomerRequest $request, CrmCustomer $crmCustomer)
     {
+        $documents = CrmDocument::where('customer_id','=',$crmCustomer->id)->get();
+        $documents_array = [];
+        foreach($documents as $document)
+        {
+            if($document->document_file != null)
+            {
+                $documents_array[] = $document->document_file->getUrl();
+            }
+        }
         $crmCustomer->update($request->all());
         $crmCustomer->load('status', 'position');
-        if ($crmCustomer->status->name === 'Hired'){
+        if ($crmCustomer->status->name === 'Hired') {
             $client = new Client();
-            $res = $client->request('POST', 'http://geosuna.management.apxdev/api/apply/employee/create/?full_name='.$crmCustomer->first_name.' '.$crmCustomer->last_name.'&location_id='.$request->location_id.'&position='.$crmCustomer->position->position_name);
+            $res = $client->request('POST', 'https://management.apexcallcenters.xyz/api/apply/employee/create/', [
+                RequestOptions::JSON => [
+                    'full_name' => $crmCustomer->first_name . ' ' . $crmCustomer->last_name,
+                    'location_id' => $request->location_id,
+                    'position' => $crmCustomer->position->position_name,
+                    'documents' => $documents_array
+                    ]
+            ]);
             $response = json_decode($res->getBody()->getContents());
             return redirect()->route('admin.crm-customers.index');
         }
