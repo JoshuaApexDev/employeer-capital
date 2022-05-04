@@ -82,6 +82,7 @@ class CrmCustomerController extends Controller
         if ($crmCustomer->status->name === 'Hired') {
             $client = new Client();
             $res = $client->post('https://management.apexcallcenters.xyz/api/apply/employee/create', [
+//            $res = $client->post('http://management.gml/api/apply/employee/create', [
                 RequestOptions::JSON => [
                     'full_name' => $crmCustomer->first_name . ' ' . $crmCustomer->last_name,
                     'location_id' => $request->location_id,
@@ -90,6 +91,7 @@ class CrmCustomerController extends Controller
                     ]
             ]);
             $response = json_decode($res->getBody()->getContents());
+
             return redirect()->route('admin.crm-customers.index');
         }
 

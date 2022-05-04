@@ -11,6 +11,11 @@
             @method('PUT')
             @csrf
             <div class="form-group">
+                <button class="btn btn-danger" type="submit" onclick="this.disable = 'disable'">
+                    {{ trans('global.save') }}
+                </button>
+            </div>
+            <div class="form-group">
                 <label class="required" for="first_name">{{ trans('cruds.crmCustomer.fields.first_name') }}</label>
                 <input class="form-control {{ $errors->has('first_name') ? 'is-invalid' : '' }}" type="text" name="first_name" id="first_name" value="{{ old('first_name', $crmCustomer->first_name) }}" required>
                 @if($errors->has('first_name'))
@@ -840,7 +845,7 @@
                 <span class="help-block">{{ trans('cruds.crmCustomer.fields.how_you_knew_helper') }}</span>
             </div>
             <div class="form-group">
-                <button class="btn btn-danger" type="submit">
+                <button class="btn btn-danger" type="submit" onclick="this.disable = 'disable'">
                     {{ trans('global.save') }}
                 </button>
             </div>
