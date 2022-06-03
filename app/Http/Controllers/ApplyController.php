@@ -6,14 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyCrmCustomerRequest;
 use App\Http\Requests\StoreCrmCustomerRequest;
 use App\Http\Requests\UpdateCrmCustomerRequest;
+use App\Mail\newLead;
 use App\Models\CrmCustomer;
 use App\Models\CrmStatus;
 use App\Models\Position;
+use Carbon\Carbon;
 use Gate;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Mail;
 //use Barryvdh\DomPDF\PDF;
 class ApplyController extends Controller
 {
@@ -33,7 +37,29 @@ class ApplyController extends Controller
     }
 
     public function Store(Request $request){
-        if ($crmCustomer = CrmCustomer::create($request->all())){
+        $mails = [];
+        $fields = $request->all();
+        $status = CrmStatus::where('name', '=', 'Lead')->first();
+        $fields['status_id'] = $status->id;
+        if ($crmCustomer = CrmCustomer::create($fields)) {
+            $date = Carbon::now();
+            $guzzle = new Client();
+            $req = $guzzle->request('GET', 'management.apexcallcenters.xyz/api/auto-reports/get/');
+            $res = json_decode($req->getBody()->getContents());
+            foreach ($res as $r) {
+                if ($r->name == 'Applicants Mailing Report') {
+                    $req = $guzzle->request('GET', 'management.apexcallcenters.xyz/api/auto-reports/get-user-reports/' . $r->id);
+                    $res2 = json_decode($req->getBody()->getContents());
+                    $users = $res2;
+                    foreach ($users as $user) {
+                        $mail = $user->email;
+                        $mails[] = $mail;
+                    }
+                }
+            }
+            foreach ($mails as $mail) {
+                Mail::to($mail)->send(new newLead($crmCustomer, $date, $status));
+            }
             if ($request->lang == 'spanish'){
                 return view('admin.crmCustomers.thankyousp');
             }else{

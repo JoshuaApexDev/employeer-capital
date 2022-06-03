@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyCrmCustomerRequest;
 use App\Http\Requests\StoreCrmCustomerRequest;
 use App\Http\Requests\UpdateCrmCustomerRequest;
+use App\Mail\newLead;
 use App\Models\CrmCustomer;
 use App\Models\CrmStatus;
 use App\Models\Position;
+use Carbon\Carbon;
 use Gate;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpFoundation\Response;
 use GuzzleHttp\RequestOptions;
 use App\Models\CrmDocument;
@@ -68,6 +71,7 @@ class CrmCustomerController extends Controller
 
     public function update(UpdateCrmCustomerRequest $request, CrmCustomer $crmCustomer)
     {
+        $status = crmStatus::where('id', '=', $request->status_id)->first();
         $documents = CrmDocument::where('customer_id','=',$crmCustomer->id)->get();
         $documents_array = [];
         foreach($documents as $document)
@@ -93,6 +97,26 @@ class CrmCustomerController extends Controller
             $response = json_decode($res->getBody()->getContents());
 
             return redirect()->route('admin.crm-customers.index');
+        }
+        else {
+            $date = Carbon::now();
+            $guzzle = new Client();
+            $req = $guzzle->request('GET', 'management.apexcallcenters.xyz/api/auto-reports/get/');
+            $res = json_decode($req->getBody()->getContents());
+            foreach ($res as $r) {
+                if ($r->name == 'Applicants Mailing Report') {
+                    $req = $guzzle->request('GET', 'management.apexcallcenters.xyz/api/auto-reports/get-user-reports/' . $r->id);
+                    $res2 = json_decode($req->getBody()->getContents());
+                    $users = $res2;
+                    foreach ($users as $user) {
+                        $mail = $user->email;
+                        $mails[] = $mail;
+                    }
+                }
+            }
+            foreach ($mails as $mail) {
+                Mail::to($mail)->send(new newLead($crmCustomer, $date, $status));
+            }
         }
 
         return redirect()->route('admin.crm-customers.index');
