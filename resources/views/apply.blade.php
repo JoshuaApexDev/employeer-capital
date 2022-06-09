@@ -33,7 +33,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-8 col-lg-12 col-sm-4">
-                        <form action="/store/applicant" method="POST">
+                        <form id="apply" action="/store/applicant" method="POST">
                             @csrf
                             <div class="text-center">
                                 <img src="/apexlogo2.png" width="200px" height="200px" alt="">
@@ -1058,7 +1058,7 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <button class="btn btn-danger" type="submit">
+                                                <button class="btn btn-danger" type="button" id="btn_save">
                                                     {{ trans('global.save') }}
                                                 </button>
                                             </div>
@@ -1080,4 +1080,44 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('js/main.js') }}"></script>
+<script>
+    $('#btn_save').click(function (e){
+        e.preventDefault();
+        var email = $('#email').val();
+        var phone = $('#phone').val();
+        $.post('/api/validate/applicant', {
+            email: email,
+            phone: phone
+        }, function (data) {
+            // alert(data.error);
+            if (data.error) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: data.error,
+                    type: 'error',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                $('#apply').submit();
+            }
+        });
+
+    });
+
+    function notify (message, type) {
+        Swal.fire({
+            title: message,
+            type: type,
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = '/';
+            }
+        })
+    }
+</script>

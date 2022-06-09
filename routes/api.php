@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Admin\CrmCustomerApiController;
+use App\Http\Controllers\Api\V1\Admin\ApplyApiController;
 
 Route::get('employee/', [CrmCustomerApiController::class, 'employee']);
+Route::post('/validate/applicant', [ApplyApiController::class, 'Validar']);
 
 Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', 'middleware' => ['auth:sanctum']], function () {
     // Permissions
