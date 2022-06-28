@@ -11,11 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 class ApplyApiController extends Controller
 {
     public function Validar(Request $request){
-        $email = $request->email;
+       // $email = $request->email;
         $phone = $request->phone;
-        if (CrmCustomer::where('email', $email)->exists()){
-            return response()->json(['error' => 'Email already exists']);
-        }
+//        if (CrmCustomer::where('email', $email)->exists()){
+//            return response()->json(['error' => 'Email already exists']);
+//        }
         if (CrmCustomer::where('phone', $phone)->exists()){
             return response()->json(['error' => 'Phone already exists']);
         }

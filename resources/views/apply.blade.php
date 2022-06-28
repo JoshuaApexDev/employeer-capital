@@ -85,12 +85,11 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="form-group">
-                                                <label class="required"
+                                                <label
                                                        for="email">{{ trans('cruds.crmCustomer.fields.email') }}</label>
                                                 <input
                                                     class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                                                    type="text" name="email" id="email" value="{{ old('email', '') }}"
-                                                    required>
+                                                    type="text" name="email" id="email" value="{{ old('email', '') }}">
                                                 @if($errors->has('email'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('email') }}
@@ -1362,7 +1361,7 @@
             url: "{{ route('validate.applicant') }}",
             type: "POST",
             data: {
-                email: email,
+               // email: email,
                 phone: phone,
                 _token: "{{ csrf_token() }}"
             },
