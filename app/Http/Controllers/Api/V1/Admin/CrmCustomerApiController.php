@@ -67,7 +67,9 @@ class CrmCustomerApiController extends Controller
             }
         }
         foreach ($crmStatuses as $crmStatus) {
-            $status_count[$crmStatus->status->name]++;
+            if($crmStatus->status != null){
+                $status_count[$crmStatus->status->name]++;
+            }
         }
         return response()->json($status_count);
     }
