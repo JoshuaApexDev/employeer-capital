@@ -62,7 +62,9 @@ class CrmCustomerApiController extends Controller
         $crmStatuses = CrmCustomer::all();
         $status_count = [];
         foreach ($crmStatuses as $crmStatus) {
-            $status_count[$crmStatus->status->name] = 0;
+            if($crmStatus->status != null){
+                $status_count[$crmStatus->status->name] = 0;
+            }
         }
         foreach ($crmStatuses as $crmStatus) {
             $status_count[$crmStatus->status->name]++;
