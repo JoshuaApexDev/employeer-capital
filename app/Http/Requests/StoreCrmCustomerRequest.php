@@ -180,6 +180,7 @@ class StoreCrmCustomerRequest extends FormRequest
                 'max:2147483647',
             ],
             'company_name_1' => [
+                'required',
                 'string',
                 'nullable',
             ],

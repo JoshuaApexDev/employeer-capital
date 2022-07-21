@@ -41,7 +41,7 @@
                             @csrf
                             <div class="text-center">
                                 <img src="/apexlogo2.png" width="200px" height="200px" alt="">
-                                <h1 class="text-white"><b>Solicitud de nuevo ingreso</b></h1>
+                                <h1 class="text-white"><b>Job Application</b></h1>
                             </div>
                             <div class="card card-primary">
                                 <div class="card-header text-center">
@@ -85,11 +85,11 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="form-group">
-                                                <label
+                                                <label class="required"
                                                        for="email">{{ trans('cruds.crmCustomer.fields.email') }}</label>
                                                 <input
                                                     class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                                                    type="text" name="email" id="email" value="{{ old('email', '') }}">
+                                                    type="text" name="email" id="email" value="{{ old('email', '') }}" required>
                                                 @if($errors->has('email'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('email') }}
@@ -137,11 +137,11 @@
                                         </div>
                                         <div class="col-3">
                                             <div class="form-group">
-                                                <label
+                                                <label class="required"
                                                     for="description">Address {{ trans('cruds.crmCustomer.fields.description') }}</label>
                                                 <input
                                                     class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}"
-                                                    name="description" id="description">{{ old('description') }}</input>
+                                                    name="description" id="description" required>{{ old('description') }}
                                                 @if($errors->has('description'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('description') }}
@@ -172,11 +172,10 @@
                                     <div class="row">
                                         <div class="col-4">
                                             <div class="form-group">
-                                                <label
-                                                    class="required">{{ trans('cruds.crmCustomer.fields.gender') }}</label>
+                                                <label class="required">{{ trans('cruds.crmCustomer.fields.gender') }}</label>
                                                 <select
                                                     class="form-control {{ $errors->has('gender') ? 'is-invalid' : '' }}"
-                                                    name="gender" id="gender" required>
+                                                    name="gender" id="gender">
                                                     <option value
                                                             disabled {{ old('gender', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
                                                     @foreach(App\Models\CrmCustomer::GENDER_SELECT as $key => $label)
@@ -195,7 +194,7 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="form-group">
-                                                <label>{{ trans('cruds.crmCustomer.fields.living_with') }}</label>
+                                                <label class="required">{{ trans('cruds.crmCustomer.fields.living_with') }}</label>
                                                 <select
                                                     class="form-control {{ $errors->has('living_with') ? 'is-invalid' : '' }}"
                                                     name="living_with" id="living_with">
@@ -217,7 +216,7 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="form-group">
-                                                <label>{{ trans('cruds.crmCustomer.fields.dependents') }}</label>
+                                                <label class="required">{{ trans('cruds.crmCustomer.fields.dependents') }}</label>
                                                 <select
                                                     class="form-control {{ $errors->has('dependents') ? 'is-invalid' : '' }}"
                                                     name="dependents" id="dependents">
@@ -275,7 +274,7 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="form-group">
-                                                <label>{{ trans('cruds.crmCustomer.fields.marital_status') }}</label>
+                                                <label class="required">{{ trans('cruds.crmCustomer.fields.marital_status') }}</label>
                                                 <select
                                                     class="form-control {{ $errors->has('marital_status') ? 'is-invalid' : '' }}"
                                                     name="marital_status" id="marital_status">
@@ -1148,12 +1147,12 @@
                                     <div class="row">
                                         <div class="col-4">
                                             <div class="form-group">
-                                                <label
+                                                <label class="required"
                                                     for="company_name_1">{{ trans('cruds.crmCustomer.fields.company_name_1') }}</label>
                                                 <input
                                                     class="form-control {{ $errors->has('company_name_1') ? 'is-invalid' : '' }}"
                                                     type="text" name="company_name_1" id="company_name_1"
-                                                    value="{{ old('company_name_1', '') }}">
+                                                    value="{{ old('company_name_1', '') }}" required>
                                                 @if($errors->has('company_name_1'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('company_name_1') }}
@@ -1165,12 +1164,12 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="form-group">
-                                                <label
+                                                <label class="required"
                                                     for="company_phone_1">{{ trans('cruds.crmCustomer.fields.company_phone_1') }}</label>
                                                 <input
                                                     class="form-control {{ $errors->has('company_phone_1') ? 'is-invalid' : '' }}"
                                                     type="number" min="0" name="company_phone_1" id="company_phone_1"
-                                                    value="{{ old('company_phone_1', '') }}" step="1">
+                                                    value="{{ old('company_phone_1', '') }}" step="1" required>
                                                 @if($errors->has('company_phone_1'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('company_phone_1') }}
@@ -1182,12 +1181,12 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="form-group">
-                                                <label
+                                                <label class="required"
                                                     for="worked_from_1">{{ trans('cruds.crmCustomer.fields.worked_from_1') }}</label>
                                                 <input
                                                     class="form-control date {{ $errors->has('worked_from_1') ? 'is-invalid' : '' }}"
                                                     type="text" name="worked_from_1" id="worked_from_1"
-                                                    value="{{ old('worked_from_1') }}">
+                                                    value="{{ old('worked_from_1') }}" required>
                                                 @if($errors->has('worked_from_1'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('worked_from_1') }}
@@ -1201,12 +1200,12 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label
+                                                <label class="required"
                                                     for="worked_until_1">{{ trans('cruds.crmCustomer.fields.worked_until_1') }}</label>
                                                 <input
                                                     class="form-control date {{ $errors->has('worked_until_1') ? 'is-invalid' : '' }}"
                                                     type="text" name="worked_until_1" id="worked_until_1"
-                                                    value="{{ old('worked_until_1') }}">
+                                                    value="{{ old('worked_until_1') }}" required>
                                                 @if($errors->has('worked_until_1'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('worked_until_1') }}
@@ -1218,12 +1217,12 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label
+                                                <label class="required"
                                                     for="reason_for_leaving_1">{{ trans('cruds.crmCustomer.fields.reason_for_leaving_1') }}</label>
                                                 <input
                                                     class="form-control {{ $errors->has('reason_for_leaving_1') ? 'is-invalid' : '' }}"
                                                     type="text" name="reason_for_leaving_1" id="reason_for_leaving_1"
-                                                    value="{{ old('reason_for_leaving_1', '') }}">
+                                                    value="{{ old('reason_for_leaving_1', '') }}" required>
                                                 @if($errors->has('reason_for_leaving_1'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('reason_for_leaving_1') }}

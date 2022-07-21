@@ -82,12 +82,11 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="form-group">
-                                                <label class="required"
+                                                <label
                                                        for="email">Correo electronico</label>
                                                 <input
                                                     class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                                                    type="text" name="email" id="email" value="{{ old('email', '') }}"
-                                                    required>
+                                                    type="text" name="email" id="email" value="{{ old('email', '') }}">
                                                 @if($errors->has('email'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('email') }}
@@ -191,7 +190,7 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="form-group">
-                                                <label>Actualmente vivo con</label>
+                                                <label class="required">Actualmente vivo con</label>
                                                 <select
                                                     class="form-control {{ $errors->has('living_with') ? 'is-invalid' : '' }}"
                                                     name="living_with" id="living_with">
@@ -199,7 +198,7 @@
                                                             disabled {{ old('living_with', null) === null ? 'selected' : '' }}>Seleccione</option>
                                                     @foreach(App\Models\CrmCustomer::LIVING_WITH_SELECT as $key => $label)
                                                         <option
-                                                            value="{{ $key }}" {{ old('living_with', 'Do you currently live with?') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                                                            class="required" value="{{ $key }}" {{ old('living_with', 'Do you currently live with?') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
                                                     @endforeach
                                                 </select>
                                                 @if($errors->has('living_with'))
@@ -211,11 +210,11 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="form-group">
-                                                <label>Dependientes</label>
+                                                <label class="required">Dependientes</label>
                                                 <select
                                                     class="form-control {{ $errors->has('dependents') ? 'is-invalid' : '' }}"
                                                     name="dependents" id="dependents">
-                                                    <option value
+                                                    <option class="required" value
                                                             disabled {{ old('dependents', null) === null ? 'selected' : '' }}>Seleccione</option>
                                                     @foreach(App\Models\CrmCustomer::DEPENDENTS_SELECT as $key => $label)
                                                         <option
@@ -264,7 +263,7 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="form-group">
-                                                <label>Estado civil</label>
+                                                <label class="required">Estado civil</label>
                                                 <select
                                                     class="form-control {{ $errors->has('marital_status') ? 'is-invalid' : '' }}"
                                                     name="marital_status" id="marital_status">
@@ -272,7 +271,7 @@
                                                             disabled {{ old('marital_status', null) === null ? 'selected' : '' }}>Seleccione</option>
                                                     @foreach(App\Models\CrmCustomer::MARITAL_STATUS_SELECT as $key => $label)
                                                         <option
-                                                            value="{{ $key }}" {{ old('marital_status', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                                                           class="required" value="{{ $key }}" {{ old('marital_status', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
                                                     @endforeach
                                                 </select>
                                                 @if($errors->has('marital_status'))
@@ -294,7 +293,7 @@
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <label for="curp">CURP</label>
-                                                <input class="form-control {{ $errors->has('curp') ? 'is-invalid' : '' }}" type="text" name="curp" id="curp" value="{{ old('curp', '') }}" required>
+                                                <input class="form-control {{ $errors->has('curp') ? 'is-invalid' : '' }}" type="text" name="curp" id="curp" value="{{ old('curp', '') }}">
                                                 @if($errors->has('curp'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('curp') }}
@@ -306,7 +305,7 @@
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <label for="rfc">RFC</label>
-                                                <input class="form-control {{ $errors->has('rfc') ? 'is-invalid' : '' }}" type="text" name="rfc" id="rfc" value="{{ old('rfc', '') }}" required>
+                                                <input class="form-control {{ $errors->has('rfc') ? 'is-invalid' : '' }}" type="text" name="rfc" id="rfc" value="{{ old('rfc', '') }}">
                                                 @if($errors->has('rfc'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('rfc') }}
@@ -318,7 +317,7 @@
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <label for="ssn">Numero de seguro social</label>
-                                                <input class="form-control {{ $errors->has('ssn') ? 'is-invalid' : '' }}" type="text" name="ssn" id="ssn" value="{{ old('ssn', '') }}" required>
+                                                <input class="form-control {{ $errors->has('ssn') ? 'is-invalid' : '' }}" type="text" name="ssn" id="ssn" value="{{ old('ssn', '') }}">
                                                 @if($errors->has('ssn'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('ssn') }}

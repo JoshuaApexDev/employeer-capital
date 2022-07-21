@@ -66,8 +66,8 @@
                 <span class="help-block">{{ trans('cruds.crmCustomer.fields.address_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="description">{{ trans('cruds.crmCustomer.fields.description') }}</label>
-                <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $crmCustomer->description) }}</textarea>
+                <label class="required" for="description">{{ trans('cruds.crmCustomer.fields.description') }}</label>
+                <textarea class="form-control required {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $crmCustomer->description) }}</textarea>
                 @if($errors->has('description'))
                     <div class="invalid-feedback">
                         {{ $errors->first('description') }}
@@ -76,8 +76,8 @@
                 <span class="help-block">{{ trans('cruds.crmCustomer.fields.description_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="status_id">{{ trans('cruds.crmCustomer.fields.status') }}</label>
-                <select class="form-control select2 {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status_id" id="status_id">
+                <label class="required" for="status_id">{{ trans('cruds.crmCustomer.fields.status') }}</label>
+                <select class="form-control select2 required {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status_id" id="status_id">
                     @foreach($statuses as $id => $entry)
                         <option value="{{ $id }}" {{ (old('status_id') ? old('status_id') : $crmCustomer->status->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
@@ -115,8 +115,8 @@
                 <span class="help-block">{{ trans('cruds.crmCustomer.fields.gender_helper') }}</span>
             </div>
             <div class="form-group">
-                <label>{{ trans('cruds.crmCustomer.fields.living_with') }}</label>
-                <select class="form-control {{ $errors->has('living_with') ? 'is-invalid' : '' }}" name="living_with" id="living_with">
+                <label class="required">{{ trans('cruds.crmCustomer.fields.living_with') }}</label>
+                <select class="form-control required {{ $errors->has('living_with') ? 'is-invalid' : '' }}" name="living_with" id="living_with">
                     <option value disabled {{ old('living_with', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
                     @foreach(App\Models\CrmCustomer::LIVING_WITH_SELECT as $key => $label)
                         <option value="{{ $key }}" {{ old('living_with', $crmCustomer->living_with) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
@@ -130,8 +130,8 @@
                 <span class="help-block">{{ trans('cruds.crmCustomer.fields.living_with_helper') }}</span>
             </div>
             <div class="form-group">
-                <label>{{ trans('cruds.crmCustomer.fields.dependents') }}</label>
-                <select class="form-control {{ $errors->has('dependents') ? 'is-invalid' : '' }}" name="dependents" id="dependents">
+                <label class="required">{{ trans('cruds.crmCustomer.fields.dependents') }}</label>
+                <select class="form-control required {{ $errors->has('dependents') ? 'is-invalid' : '' }}" name="dependents" id="dependents">
                     <option value disabled {{ old('dependents', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
                     @foreach(App\Models\CrmCustomer::DEPENDENTS_SELECT as $key => $label)
                         <option value="{{ $key }}" {{ old('dependents', $crmCustomer->dependents) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
@@ -165,8 +165,8 @@
                 <span class="help-block">{{ trans('cruds.crmCustomer.fields.nationality_helper') }}</span>
             </div>
             <div class="form-group">
-                <label>{{ trans('cruds.crmCustomer.fields.marital_status') }}</label>
-                <select class="form-control {{ $errors->has('marital_status') ? 'is-invalid' : '' }}" name="marital_status" id="marital_status">
+                <label class="required">{{ trans('cruds.crmCustomer.fields.marital_status') }}</label>
+                <select class="form-control required {{ $errors->has('marital_status') ? 'is-invalid' : '' }}" name="marital_status" id="marital_status">
                     <option value disabled {{ old('marital_status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
                     @foreach(App\Models\CrmCustomer::MARITAL_STATUS_SELECT as $key => $label)
                         <option value="{{ $key }}" {{ old('marital_status', $crmCustomer->marital_status) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
