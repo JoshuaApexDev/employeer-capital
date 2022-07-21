@@ -57,5 +57,21 @@ class CrmCustomerApiController extends Controller
     public function employee(){
         dd('Hola Daniel');
     }
+    public function status()
+    {
+        $crmStatuses = CrmCustomer::all();
+        $status_count = [];
+        foreach ($crmStatuses as $crmStatus) {
+            if($crmStatus->status != null){
+                $status_count[$crmStatus->status->name] = 0;
+            }
+        }
+        foreach ($crmStatuses as $crmStatus) {
+            if($crmStatus->status != null){
+                $status_count[$crmStatus->status->name]++;
+            }
+        }
+        return response()->json($status_count);
+    }
 
 }

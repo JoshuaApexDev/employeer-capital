@@ -5,7 +5,7 @@ use App\Http\Controllers\Api\V1\Admin\ApplyApiController;
 
 Route::get('employee/', [CrmCustomerApiController::class, 'employee']);
 Route::post('/validate/applicant', [ApplyApiController::class, 'Validar'])->name('validate.applicant');
-
+Route::get('/leads/status', [CrmCustomerApiController::class , 'status']);
 Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', 'middleware' => ['auth:sanctum']], function () {
     // Permissions
     Route::apiResource('permissions', 'PermissionsApiController');
