@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAPICrmCustomerRequest;
+use App\Http\Requests\StoreCrmCustomerRequest;
 use App\Models\CrmCustomer;
-use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,6 +20,17 @@ class ApplyApiController extends Controller
         if (CrmCustomer::where('phone', $phone)->exists()){
             return response()->json(['error' => 'Phone already exists']);
         }
+        return response()->json(['success' => 'success'], Response::HTTP_OK);
+    }
+
+    public function createLead(Request $request){
+
+//        if request don't have first_name, last_name, phone, address, file_code return error
+        if (!$request->has('first_name') || !$request->has('last_name') || !$request->has('phone') || !$request->has('address') || !$request->has('file_code')){
+            return response()->json(['error' => 'Missing required fields'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $lead = CrmCustomer::create($request->all());
         return response()->json(['success' => 'success'], Response::HTTP_OK);
     }
 
