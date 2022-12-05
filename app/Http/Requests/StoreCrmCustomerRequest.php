@@ -66,6 +66,30 @@ class StoreCrmCustomerRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'w2_employees' => [
+                'string',
+                'nullable',
+            ],
+            'receive_erc' => [
+                'string',
+                'nullable',
+            ],
+            'ppp_loan' => [
+                'string',
+                'nullable',
+            ],
+            'employee_count' => [
+                'string',
+                'nullable',
+            ],
+            'first_name_verified' => [
+                'string',
+                'nullable',
+            ],
+            'last_name_verified' => [
+                'string',
+                'nullable',
+            ],
             'custom_field_1' => [
                 'string',
                 'nullable',

@@ -124,6 +124,54 @@
                             {{ $crmCustomer->file_code ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            W2 Employees
+                        </th>
+                        <td>
+                            {{ $crmCustomer->w2_employees ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Receive ERC
+                        </th>
+                        <td>
+                            {{ $crmCustomer->receive_erc ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            PPP Loan
+                        </th>
+                        <td>
+                            {{ $crmCustomer->ppp_loan ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Employee count
+                        </th>
+                        <td>
+                            {{ $crmCustomer->employee_count ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            First name verified
+                        </th>
+                        <td>
+                            {{ $crmCustomer->first_name_verified ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Last name verified
+                        </th>
+                        <td>
+                            {{ $crmCustomer->last_name_verified ?? '' }}
+                        </td>
+                    </tr>
                     @for($i = 1; $i <= 10; $i++)
                         @php
                             $field = 'custom_field_'.$i;

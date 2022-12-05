@@ -22,6 +22,12 @@ class CreateCrmCustomersTable extends Migration
             $table->string('state')->nullable();
             $table->string('zip_code')->nullable();
             $table->string('file_code')->nullable();
+            $table->string('w2_employees')->nullable();
+            $table->string('receive_erc')->nullable();
+            $table->string('ppp_loan')->nullable();
+            $table->string('employee_count')->nullable();
+            $table->string('first_name_verified')->nullable();
+            $table->string('last_name_verified')->nullable();
             $table->string('custom_field_1')->nullable();
             $table->string('custom_field_2')->nullable();
             $table->string('custom_field_3')->nullable();

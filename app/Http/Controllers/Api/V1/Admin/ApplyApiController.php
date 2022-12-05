@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAPICrmCustomerRequest;
 use App\Http\Requests\StoreCrmCustomerRequest;
 use App\Models\CrmCustomer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApplyApiController extends Controller
@@ -30,8 +31,15 @@ class ApplyApiController extends Controller
             return response()->json(['error' => 'Missing required fields'], Response::HTTP_BAD_REQUEST);
         }
 
-        $lead = CrmCustomer::create($request->all());
-        return response()->json(['success' => 'success'], Response::HTTP_OK);
+        if(isset($request->key)){
+//            if hashed key match with .env SECRET_PHRASE
+            if(Hash::check(env('SECRET_PHRASE'),$request->key)){
+            $lead = CrmCustomer::create($request->all());
+            return response()->json(['success' => 'success'], Response::HTTP_OK);
+            }
+        }else{
+            return response()->json(['error' => 'Missing key'], Response::HTTP_BAD_REQUEST);
+        }
     }
 
 }

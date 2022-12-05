@@ -151,7 +151,69 @@
                         </div>
                     @endif
                 </div>
-{{--                inputs for custom fields from 2 to 10 --}}
+                <div class="form-group">
+                    <label for="w2_employees">W2 Employees</label>
+                    <input class="form-control {{ $errors->has('w2_employees') ? 'is-invalid' : '' }}" type="text"
+                           name="w2_employees" id="w2_employees" value="{{ old('w2_employees', '') }}">
+                    @if($errors->has('w2_employees'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('w2_employees') }}
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="receive_erc">Receive ERC</label>
+                    <input class="form-control {{ $errors->has('receive_erc') ? 'is-invalid' : '' }}" type="text"
+                           name="receive_erc" id="receive_erc" value="{{ old('receive_erc', '') }}">
+                    @if($errors->has('receive_erc'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('receive_erc') }}
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="ppp_loan">PPP Loan</label>
+                    <input class="form-control {{ $errors->has('ppp_loan') ? 'is-invalid' : '' }}" type="text"
+                           name="ppp_loan" id="ppp_loan" value="{{ old('ppp_loan', '') }}">
+                    @if($errors->has('ppp_loan'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('ppp_loan') }}
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="employee_count">Employee Count</label>
+                    <input class="form-control {{ $errors->has('employee_count') ? 'is-invalid' : '' }}" type="text"
+                           name="employee_count" id="employee_count" value="{{ old('employee_count', '') }}">
+                    @if($errors->has('employee_count'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('employee_count') }}
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="first_name_verified">First Name Verified</label>
+                    <input class="form-control {{ $errors->has('first_name_verified') ? 'is-invalid' : '' }}"
+                           type="text" name="first_name_verified" id="first_name_verified"
+                           value="{{ old('first_name_verified', '') }}">
+                    @if($errors->has('first_name_verified'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('first_name_verified') }}
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="last_name_verified">Last Name Verified</label>
+                    <input class="form-control {{ $errors->has('last_name_verified') ? 'is-invalid' : '' }}"
+                           type="text" name="last_name_verified" id="last_name_verified"
+                           value="{{ old('last_name_verified', '') }}">
+                    @if($errors->has('last_name_verified'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('last_name_verified') }}
+                        </div>
+                    @endif
+                </div>
+                {{--                inputs for custom fields from 2 to 10 --}}
                 @for($i = 1; $i <= 10; $i++)
                     <div class="form-group">
                         <label for="custom_field_{{ $i }}">Custom Field {{ $i }}</label>
