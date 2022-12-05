@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'site_title' => 'Apexcallcenters Apply',
+    'site_title' => 'CRM ERC',
 ];

@@ -74,29 +74,8 @@ class ApplyController extends Controller
 
     public function Print($id){
         $crmCustomer = CrmCustomer::find($id);
-        if ($crmCustomer->proof_of_residence === 1){
-            $crmCustomer->proof_of_residence = 'Yes';
-        }else{
-            $crmCustomer->proof_of_residence = 'No';
-        }
-        if ($crmCustomer->birth_certificate === 1){
-            $crmCustomer->birth_certificate = 'Yes';
-        }else{
-            $crmCustomer->birth_certificate = 'No';
-        }
-        if ($crmCustomer->official_valid === 1){
-            $crmCustomer->official_valid = 'Yes';
-        }else{
-            $crmCustomer->official_valid = 'No';
-        }
-        if ($crmCustomer->payment_method === 1){
-            $crmCustomer->payment_method = 'Yes';
-        }else{
-            $crmCustomer->payment_method = 'No';
-        }
-        $crmCustomer->load('position');
-        $positions = Position::all();
-        $html = view('admin.crmCustomers.print',compact('crmCustomer', 'positions'));
+
+        $html = view('admin.crmCustomers.print',compact('crmCustomer', ));
         $file = Storage::disk('public')->put('leadapplication'.$crmCustomer->id.'.html', $html);
 	    //dd(env('APP_URL').'/storage/leadapplication'.$crmCustomer->id.'.html');
 	    $pdf = PDF::loadHtml(file_get_contents(base_path().'/public/storage/'.'leadapplication'.$crmCustomer->id.'.html'));

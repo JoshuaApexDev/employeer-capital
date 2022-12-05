@@ -25,13 +25,11 @@ class CrmCustomerController extends Controller
     {
         abort_if(Gate::denies('crm_customer_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $crmCustomers = CrmCustomer::with(['status', 'position'])->get();
+        $crmCustomers = CrmCustomer::with(['status'])->get();
 
         $crm_statuses = CrmStatus::get();
 
-        $positions = Position::get();
-
-        return view('admin.crmCustomers.index', compact('crmCustomers', 'crm_statuses', 'positions'));
+        return view('admin.crmCustomers.index', compact('crmCustomers', 'crm_statuses'));
     }
 
     public function create()
@@ -40,9 +38,7 @@ class CrmCustomerController extends Controller
 
         $statuses = CrmStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $positions = Position::pluck('position_name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('admin.crmCustomers.create', compact('positions', 'statuses'));
+        return view('admin.crmCustomers.create', compact('statuses'));
     }
 
     public function store(StoreCrmCustomerRequest $request)
@@ -62,11 +58,9 @@ class CrmCustomerController extends Controller
 
         $statuses = CrmStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $positions = Position::pluck('position_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $crmCustomer->load('status');
 
-        $crmCustomer->load('status', 'position');
-
-        return view('admin.crmCustomers.edit', compact('crmCustomer', 'positions', 'statuses', 'locations'));
+        return view('admin.crmCustomers.edit', compact('crmCustomer',  'statuses', 'locations'));
     }
 
     public function update(UpdateCrmCustomerRequest $request, CrmCustomer $crmCustomer)
@@ -82,44 +76,7 @@ class CrmCustomerController extends Controller
             }
         }
         $crmCustomer->update($request->all());
-        $crmCustomer->load('status', 'position');
-
-        if ($crmCustomer->status->name === 'Hired') {
-            $client = new Client();
-            $res = $client->post('https://management.apexcallcenters.xyz/api/apply/employee/create', [
-            //$res = $client->post('http://management.gml/api/apply/employee/create', [
-                RequestOptions::JSON => [
-                    'full_name' => $crmCustomer->first_name . ' ' . $crmCustomer->last_name,
-                    'location_id' => $request->location_id,
-                    'position' => $crmCustomer->position->position_name,
-                    'documents' => $documents_array
-                    ]
-            ]);
-
-            $response = json_decode($res->getBody()->getContents());
-
-            return redirect()->route('admin.crm-customers.index');
-        }
-        else {
-            $date = Carbon::now();
-            $guzzle = new Client();
-            $req = $guzzle->request('GET', 'management.apexcallcenters.xyz/api/auto-reports/get/');
-            $res = json_decode($req->getBody()->getContents());
-            foreach ($res as $r) {
-                if ($r->name == 'Applicants Mailing Report') {
-                    $req = $guzzle->request('GET', 'management.apexcallcenters.xyz/api/auto-reports/get-user-reports/' . $r->id);
-                    $res2 = json_decode($req->getBody()->getContents());
-                    $users = $res2;
-                    foreach ($users as $user) {
-                        $mail = $user->email;
-                        $mails[] = $mail;
-                    }
-                }
-            }
-            foreach ($mails as $mail) {
-                Mail::to($mail)->send(new newLead($crmCustomer, $date, $status));
-            }
-        }
+        $crmCustomer->load('status');
 
         return redirect()->route('admin.crm-customers.index');
     }
@@ -128,7 +85,7 @@ class CrmCustomerController extends Controller
     {
         abort_if(Gate::denies('crm_customer_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $crmCustomer->load('status', 'position', 'leadTasks');
+        $crmCustomer->load('status', 'leadTasks');
 
         return view('admin.crmCustomers.show', compact('crmCustomer'));
     }
