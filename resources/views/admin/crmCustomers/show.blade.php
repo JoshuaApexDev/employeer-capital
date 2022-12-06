@@ -14,6 +14,11 @@
                 <form action="{{ route("admin.crm-customers.sendEmail") }}" method="post">
                     @csrf
                     <div class="modal-body">
+                        <div class="d-flex justify-content-center">
+                            <div id="spinner" class="spinner-border" role="status" hidden>
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <input type="text" name="lead" id="lead" value="{{$crmCustomer->id}}" hidden>
                         </div>
@@ -31,7 +36,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button id="btnClose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button id="btnSend" type="button" class="btn btn-primary">Send</button>
                     </div>
                 </form>
@@ -259,8 +264,10 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
         crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+
 
         $(document).ready(function(){
             $('#btnEmail').click(function(){
@@ -279,6 +286,14 @@
                 var message = $('#message').val();
                 var lead = $('#lead').val();
                 var url = '{{ route('admin.crm-customers.sendEmail', $crmCustomer->id) }}';
+
+                //disable inputs and buttons until request is sent
+
+                $('#spinner').removeAttr('hidden');
+                $('#subject').attr('disabled', 'disabled');
+                $('#message').attr('disabled', 'disabled');
+                $('#btnSend').attr('disabled', 'disabled');
+
                 $.ajax({
                     url: url,
                     type: 'POST',
@@ -291,13 +306,35 @@
                     },
                     success: function (data) {
                         console.log(data);
-                        $('#emailModal').modal('hide');
+                        $('#spinner').attr('hidden', 'hidden');
+                        $('#subject').removeAttr('disabled');
+                        $('#message').removeAttr('disabled');
+                        $('#btnSend').removeAttr('disabled');
+                        $('.modal-backdrop').removeClass('show');
+                        $('#emailModal').modal('toggle');
+                        Swal.fire(
+                            'Email sent!',
+                            'Your email has been sent succesfully!',
+                            'success'
+                        )
                     },
                     error: function (data) {
                         console.log(data);
+                        $('#spinner').attr('hidden', 'hidden');
+                        $('#subject').removeAttr('disabled');
+                        $('#message').removeAttr('disabled');
+                        $('#btnSend').removeAttr('disabled');
+                        $('.modal-backdrop').removeClass('show');
+                        $('#emailModal').modal('toggle');
+                        Swal.fire(
+                            'Oh no!',
+                            'There is a problem sending your email, talk to your system administrator.',
+                            'error'
+                        )
                     }
                 });
             });
+
 
         });
 

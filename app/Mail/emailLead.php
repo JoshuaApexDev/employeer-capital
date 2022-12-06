@@ -16,12 +16,13 @@ class emailLead extends Mailable
      *
      * @return void
      */
-    public function __construct($lead, $date, $status)
+    public function __construct($subject, $message, $lead)
     {
+        $this->subject = $subject;
+        $this->message = $message;
         $this->lead = $lead;
-        $this->date = $date;
-        $this->status = $status;
     }
+
 
     /**
      * Build the message.
@@ -30,25 +31,11 @@ class emailLead extends Mailable
      */
     public function build()
     {
-        $subject = [
-            'Lead' => 'New lead has applied!',
-            'Not Hired' => 'Lead has been rejected!',
-            'Hired' => 'Lead has been hired!',
-            'Training' => 'Lead has been sent for training!',
-            'On floor' => 'Lead is on the floor!',
-        ];
-
-        foreach ($subject as $key => $value) {
-            if ($this->status->name == $key) {
-                return $this->subject($value . ' | ' . $this->lead->first_name . ' with position of: ' . $this->lead->position->position_name)->view('mail.newLead', [
-                    'lead' => $this->lead,
-                    'date' => $this->date,
-                    'status' => $this->status,
-                    'value' => $value,
-                ]);
-
-            }
-        }
+        return $this->subject($this->subject)->view('mail.emailLead', [
+            'lead' => $this->lead,
+            'body' => $this->message,
+            'subject' => $this->subject,
+        ]);
 
     }
 }
