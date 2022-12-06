@@ -278,12 +278,22 @@
                 $('#recipient_email').val(email);
                 $('#subject').val(subject);
                 $('#body').val(body);
+                $('.modal-backdrop').removeAttr('hidden');
             });
 
             $('#btnSend').click(function (){
                 var email = $('#recipient_email').val();
                 var subject = $('#subject').val();
                 var message = $('#message').val();
+                //validate if message is empty
+                if(message == ''){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Message is empty!',
+                    });
+                    return false;
+                }
                 var lead = $('#lead').val();
                 var url = '{{ route('admin.crm-customers.sendEmail', $crmCustomer->id) }}';
 
@@ -310,13 +320,14 @@
                         $('#subject').removeAttr('disabled');
                         $('#message').removeAttr('disabled');
                         $('#btnSend').removeAttr('disabled');
-                        $('.modal-backdrop').remove();
-                        $('#emailModal').modal('toggle');
+                        $('#emailModal').modal('hide');
+                        $('.modal-backdrop').attr('hidden', 'hidden');
                         Swal.fire(
                             'Email sent!',
                             'Your email has been sent succesfully!',
                             'success'
                         )
+                        Clear();
                     },
                     error: function (data) {
                         console.log(data);
@@ -324,8 +335,8 @@
                         $('#subject').removeAttr('disabled');
                         $('#message').removeAttr('disabled');
                         $('#btnSend').removeAttr('disabled');
-                        $('.modal-backdrop').remove();
-                        $('#emailModal').modal('toggle');
+                        $('#emailModal').modal('hide');
+                        $('.modal-backdrop').attr('hidden', 'hidden');
                         Swal.fire(
                             'Oh no!',
                             'There is a problem sending your email, talk to your system administrator.',
@@ -335,6 +346,11 @@
                 });
             });
 
+            function Clear(){
+                $('#recipient_email').val('');
+                $('#subject').val('');
+                $('#message').val('');
+            }
 
         });
 
