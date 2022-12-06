@@ -310,7 +310,7 @@
                         $('#subject').removeAttr('disabled');
                         $('#message').removeAttr('disabled');
                         $('#btnSend').removeAttr('disabled');
-                        $('.modal-backdrop').removeClass('show');
+                        $('.modal-backdrop').remove();
                         $('#emailModal').modal('toggle');
                         Swal.fire(
                             'Email sent!',
@@ -324,7 +324,7 @@
                         $('#subject').removeAttr('disabled');
                         $('#message').removeAttr('disabled');
                         $('#btnSend').removeAttr('disabled');
-                        $('.modal-backdrop').removeClass('show');
+                        $('.modal-backdrop').remove();
                         $('#emailModal').modal('toggle');
                         Swal.fire(
                             'Oh no!',
