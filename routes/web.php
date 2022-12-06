@@ -1,5 +1,16 @@
 <?php
 
+//test the emailLead view
+Route::get('emailLead', function(){
+   return view('mail.emailLead')->with(
+         [
+              'lead' => \App\Models\CrmCustomer::find(1),
+              'body' => 'This is the body',
+              'subject' => 'This is the subject',
+         ]
+   );
+});
+
 Route::get('/apply', 'ApplyController@Index');
 Route::get('/apply/es', 'ApplyController@Indexsp');
 Route::get('/thankyou', function(){
