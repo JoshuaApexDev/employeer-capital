@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyCrmCustomerRequest;
 use App\Http\Requests\StoreCrmCustomerRequest;
 use App\Http\Requests\UpdateCrmCustomerRequest;
-use App\Mail\newLead;
+use App\Mail\emailLead;
 use App\Models\CrmCustomer;
 use App\Models\CrmStatus;
 use App\Models\Position;
@@ -105,4 +105,16 @@ class CrmCustomerController extends Controller
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function sendEmail(Request $request){
+        $email = $request->recipient_email;
+        $subject = $request->subject;
+        $message = $request->message;
+        $leadid = $request->lead;
+        $lead = CrmCustomer::where('id', '=', $leadid)->first();
+
+        Mail::to($email)->send(new emailLead($subject, $message, $lead));
+
+    }
+
 }

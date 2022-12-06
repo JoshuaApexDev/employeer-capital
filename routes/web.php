@@ -20,6 +20,8 @@ Route::get('/home', function () {
 Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+//    Ruta para enviar correo
+    Route::post('/crm-customers/send-email', 'CrmCustomerController@sendEmail')->name('crm-customers.sendEmail');
     Route::get('/', 'HomeController@index')->name('home');
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');

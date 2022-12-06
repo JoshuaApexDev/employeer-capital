@@ -12,32 +12,33 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApplyApiController extends Controller
 {
-    public function Validar(Request $request){
-       // $email = $request->email;
+    public function Validar(Request $request)
+    {
+        // $email = $request->email;
         $phone = $request->phone;
 //        if (CrmCustomer::where('email', $email)->exists()){
 //            return response()->json(['error' => 'Email already exists']);
 //        }
-        if (CrmCustomer::where('phone', $phone)->exists()){
+        if (CrmCustomer::where('phone', $phone)->exists()) {
             return response()->json(['error' => 'Phone already exists']);
         }
         return response()->json(['success' => 'success'], Response::HTTP_OK);
     }
 
-    public function createLead(Request $request){
-
+    public function createLead(Request $request)
+    {
 //        if request don't have first_name, last_name, phone, address, file_code return error
-        if (!$request->has('first_name') || !$request->has('last_name') || !$request->has('phone') || !$request->has('address') || !$request->has('file_code')){
+        if (!$request->has('first_name') || !$request->has('last_name') || !$request->has('phone') || !$request->has('address') || !$request->has('file_code')) {
             return response()->json(['error' => 'Missing required fields'], Response::HTTP_BAD_REQUEST);
         }
 
-        if(isset($request->key)){
+        if (isset($request->key)) {
 //            if hashed key match with .env SECRET_PHRASE
-            if(Hash::check(env('SECRET_PHRASE'),$request->key)){
-            $lead = CrmCustomer::create($request->all());
-            return response()->json(['success' => 'success'], Response::HTTP_OK);
+            if (Hash::check(env('SECRET_PHRASE'), $request->key)) {
+                $lead = CrmCustomer::create($request->all());
+                return response()->json(['success' => 'success'], Response::HTTP_OK);
             }
-        }else{
+        } else {
             return response()->json(['error' => 'Missing key'], Response::HTTP_BAD_REQUEST);
         }
     }
