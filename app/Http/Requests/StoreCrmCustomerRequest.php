@@ -90,6 +90,26 @@ class StoreCrmCustomerRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'employee_amount' => [
+                'string',
+                'nullable',
+            ],
+            'payroll_amount' => [
+                'string',
+                'nullable',
+            ],
+            'erc_amount' => [
+                'string',
+                'nullable',
+            ],
+            'deal_revenue' => [
+                'string',
+                'nullable',
+            ],
+            'contingency_fee' => [
+                'string',
+                'nullable',
+            ],
             'custom_field_1' => [
                 'string',
                 'nullable',

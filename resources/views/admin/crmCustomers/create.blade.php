@@ -213,12 +213,63 @@
                         </div>
                     @endif
                 </div>
-                {{--                inputs for custom fields from 2 to 10 --}}
+                <div class="form-group">
+                    <label for="employee_amount">Employee Amount</label>
+                    <input class="form-control {{ $errors->has('employee_amount') ? 'is-invalid' : '' }}" type="text"
+                           name="employee_amount" id="employee_amount" value="{{ old('employee_amount', '') }}">
+                    @if($errors->has('employee_amount'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('employee_amount') }}
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="payroll_amount">Payroll Amount</label>
+                    <input class="form-control {{ $errors->has('payroll_amount') ? 'is-invalid' : '' }}" type="text"
+                           name="payroll_amount" id="payroll_amount" value="{{ old('payroll_amount', '') }}">
+                    @if($errors->has('payroll_amount'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('payroll_amount') }}
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="erc_amount">ERC Amount</label>
+                    <input class="form-control {{ $errors->has('erc_amount') ? 'is-invalid' : '' }}" type="text"
+                           name="erc_amount" id="erc_amount" value="{{ old('erc_amount', '') }}">
+                    @if($errors->has('erc_amount'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('erc_amount') }}
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="deal_revenue">Deal Revenue</label>
+                    <input class="form-control {{ $errors->has('deal_revenue') ? 'is-invalid' : '' }}" type="text"
+                           name="deal_revenue" id="deal_revenue" value="{{ old('deal_revenue', '') }}">
+                    @if($errors->has('deal_revenue'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('deal_revenue') }}
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="contingency_fee">Contingency Fee</label>
+                    <input class="form-control {{ $errors->has('contingency_fee') ? 'is-invalid' : '' }}" type="text"
+                           name="contingency_fee" id="contingency_fee" value="{{ old('contingency_fee', '') }}">
+                    @if($errors->has('contingency_fee'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('contingency_fee') }}
+                        </div>
+                    @endif
+                </div>
                 @for($i = 1; $i <= 10; $i++)
                     <div class="form-group">
                         <label for="custom_field_{{ $i }}">Custom Field {{ $i }}</label>
-                        <input class="form-control {{ $errors->has('custom_field_' . $i) ? 'is-invalid' : '' }}" type="text"
-                               name="custom_field_{{ $i }}" id="custom_field_{{ $i }}" value="{{ old('custom_field_' . $i, '') }}">
+                        <input class="form-control {{ $errors->has('custom_field_' . $i) ? 'is-invalid' : '' }}"
+                               type="text"
+                               name="custom_field_{{ $i }}" id="custom_field_{{ $i }}"
+                               value="{{ old('custom_field_' . $i, '') }}">
                         @if($errors->has('custom_field_' . $i))
                             <div class="invalid-feedback">
                                 {{ $errors->first('custom_field_' . $i) }}

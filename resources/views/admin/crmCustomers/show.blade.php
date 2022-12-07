@@ -218,6 +218,26 @@
                             {{ $crmCustomer->last_name_verified ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>Employee Amount</th>
+                        <td>{{$crmCustomer->employee_amount}}</td>
+                    </tr>
+                    <tr>
+                        <th>Payroll Amount</th>
+                        <td>{{$crmCustomer->payroll_amount}}</td>
+                    </tr>
+                    <tr>
+                        <th>ERC Amount</th>
+                        <td>{{$crmCustomer->erc_amount}}</td>
+                    </tr>
+                    <tr>
+                        <th>Deal Revenue</th>
+                        <td>{{$crmCustomer->deal_revenue}}</td>
+                    </tr>
+                    <tr>
+                        <th>Contingency Fee</th>
+                        <td>{{$crmCustomer->contingency_fee}}</td>
+                    </tr>
                     @for($i = 1; $i <= 10; $i++)
                         @php
                             $field = 'custom_field_'.$i;
