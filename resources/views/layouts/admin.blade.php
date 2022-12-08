@@ -40,6 +40,14 @@
             </button>
 
             <ul class="c-header-nav ml-auto">
+
+                @if(auth()->user()->sip_enabled)
+                <i id="telephony_indicator"  class="fa fa-fw fa-phone"></i>
+                @endif
+
+                <span class="c-avatar">
+                    <img class="c-avatar-img" src="{{ asset('images/user.png') }}" alt="{{ Auth::user()->name }}">
+                </span>
                 @if(count(config('panel.available_languages', [])) > 1)
                     <li class="c-header-nav-item dropdown d-md-down-none">
                         <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -89,8 +97,6 @@
 
         <div class="c-body">
             <main class="c-main">
-
-
                 <div class="container-fluid">
                     @if(session('message'))
                         <div class="row mb-2">
