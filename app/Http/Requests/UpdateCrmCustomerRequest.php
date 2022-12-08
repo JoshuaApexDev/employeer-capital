@@ -103,11 +103,11 @@ class UpdateCrmCustomerRequest extends FormRequest
                 'nullable',
             ],
             'full_time_operational_employees' => [
-                'string',
+                'numeric',
                 'nullable',
             ],
             'hm_w2_employees' => [
-                'string',
+                'numeric',
                 'nullable',
             ],
             'is_your_business_a_restaurant' => [
@@ -115,7 +115,7 @@ class UpdateCrmCustomerRequest extends FormRequest
                 'nullable',
             ],
             'periods_when_suspended' => [
-                'string',
+                'array',
                 'nullable',
             ],
             'quarter_with_declined_gross' => [
