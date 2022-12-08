@@ -82,6 +82,10 @@ class StoreCrmCustomerRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'verify_employee_count' => [
+                'string',
+                'nullable',
+            ],
             'first_name_verified' => [
                 'string',
                 'nullable',
@@ -99,6 +103,10 @@ class StoreCrmCustomerRequest extends FormRequest
                 'nullable',
             ],
             'erc_amount' => [
+                'string',
+                'nullable',
+            ],
+            'erc_advance' => [
                 'string',
                 'nullable',
             ],

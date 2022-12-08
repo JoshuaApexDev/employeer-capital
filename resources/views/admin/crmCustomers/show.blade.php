@@ -238,20 +238,20 @@
                         <th>Contingency Fee</th>
                         <td>{{$crmCustomer->contingency_fee}}</td>
                     </tr>
-                    @for($i = 1; $i <= 10; $i++)
-                        @php
-                            $field = 'custom_field_'.$i;
-                            $field = $crmCustomer->$field;
-                        @endphp
-                        <tr>
-                            <th>
-                                Custom Field {{$i}}
-                            </th>
-                            <td>
-                                {{ $field ?? '' }}
-                            </td>
-                        </tr>
-                    @endfor
+{{--                    @for($i = 1; $i <= 10; $i++)--}}
+{{--                        @php--}}
+{{--                            $field = 'custom_field_'.$i;--}}
+{{--                            $field = $crmCustomer->$field;--}}
+{{--                        @endphp--}}
+{{--                        <tr>--}}
+{{--                            <th>--}}
+{{--                                Custom Field {{$i}}--}}
+{{--                            </th>--}}
+{{--                            <td>--}}
+{{--                                {{ $field ?? '' }}--}}
+{{--                            </td>--}}
+{{--                        </tr>--}}
+{{--                    @endfor--}}
                     </tbody>
                 </table>
                 <div class="form-group">

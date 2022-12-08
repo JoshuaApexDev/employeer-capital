@@ -130,3 +130,8 @@ table.dataTable thead .sorting_desc {
 .custom-select.form-control-sm {
     padding: 0.25rem 1.5rem;
 }
+
+.bg-primary {
+    background-color: rgb(60, 75, 100) !important;
+    color: rgb(255, 255, 255);
+}

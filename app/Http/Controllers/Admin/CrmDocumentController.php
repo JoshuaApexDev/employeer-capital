@@ -27,13 +27,16 @@ class CrmDocumentController extends Controller
         return view('admin.crmDocuments.index', compact('crmDocuments'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         abort_if(Gate::denies('crm_document_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $customers = CrmCustomer::all();
 
-        return view('admin.crmDocuments.create', compact('customers'));
+        $customer_id = $request->customer_id ?? null;
+        $customer = CrmCustomer::find($customer_id);
+
+        return view('admin.crmDocuments.create', compact('customers', 'customer'));
     }
 
     public function store(StoreCrmDocumentRequest $request)

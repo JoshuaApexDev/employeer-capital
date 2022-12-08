@@ -50,31 +50,24 @@ class CrmCustomerController extends Controller
 
     public function edit(CrmCustomer $crmCustomer)
     {
+
         abort_if(Gate::denies('crm_customer_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $client = new Client();
-        $res = $client->request('get', 'https://management.apexcallcenters.xyz/api/locations');
-        $locations = json_decode($res->getBody()->getContents());
+//        $client = new Client();
+//        $res = $client->request('get', 'https://management.apexcallcenters.xyz/api/locations');
+//        $locations = json_decode($res->getBody()->getContents());
 
         $statuses = CrmStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $crmCustomer->load('status');
+        $crmDocuments = CrmDocument::where('customer_id', '=', $crmCustomer->id)->with(['customer', 'media'])->get();
 
-        return view('admin.crmCustomers.edit', compact('crmCustomer',  'statuses', 'locations'));
+        return view('admin.crmCustomers.edit', compact('crmCustomer',  'statuses', 'crmDocuments'));
     }
 
     public function update(UpdateCrmCustomerRequest $request, CrmCustomer $crmCustomer)
     {
-        $status = crmStatus::where('id', '=', $request->status_id)->first();
-        $documents = CrmDocument::where('customer_id','=',$crmCustomer->id)->get();
-        $documents_array = [];
-        foreach($documents as $document)
-        {
-            if($document->document_file != null)
-            {
-                $documents_array[] = $document->document_file->getUrl();
-            }
-        }
+
         $crmCustomer->update($request->all());
         $crmCustomer->load('status');
 

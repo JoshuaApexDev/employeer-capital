@@ -131,72 +131,71 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card card-primary">
-                        <div class="card-header text-center">
-                            <h4><b>Custom fields</b></h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <b>Custom field 1</b>
-                                    <p> {{$crmCustomer->custom_field_1}}</p>
-                                </div>
-                                <div class="col">
-                                    <b>Custom field 2</b>
-                                    <p> {{$crmCustomer->custom_field_2}}</p>
-                                </div>
-                                <div class="col">
-                                    <b>Custom field 3</b>
-                                    <p> {{$crmCustomer->custom_field_3}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <b>Custom field 4</b>
-                                    <p> {{$crmCustomer->custom_field_4}}</p>
-                                </div>
-                                <div class="col">
-                                    <b>Custom field 5</b>
-                                    <p> {{$crmCustomer->custom_field_5}}</p>
-                                </div>
-                                <div class="col">
-                                    <b>Custom field 6</b>
-                                    <p> {{$crmCustomer->custom_field_6}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <b>Custom field 7</b>
-                                    <p> {{$crmCustomer->custom_field_7}}</p>
-                                </div>
-                                <div class="col">
-                                    <b>Custom field 8</b>
-                                    <p> {{$crmCustomer->custom_field_8}}</p>
-                                </div>
-                                <div class="col">
-                                    <b>Custom field 9</b>
-                                    <p> {{$crmCustomer->custom_field_9}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <b>Custom field 10</b>
-                                    <p> {{$crmCustomer->custom_field_10}}</p>
-                                </div>
-                                <div class="col">
+                    {{--                    <div class="card card-primary">--}}
+                    {{--                        <div class="card-header text-center">--}}
+                    {{--                            <h4><b>Custom fields</b></h4>--}}
+                    {{--                        </div>--}}
+                    {{--                        <div class="card-body">--}}
+                    {{--                            <div class="row">--}}
+                    {{--                                <div class="col">--}}
+                    {{--                                    <b>Custom field 1</b>--}}
+                    {{--                                    <p> {{$crmCustomer->custom_field_1}}</p>--}}
+                    {{--                                </div>--}}
+                    {{--                                <div class="col">--}}
+                    {{--                                    <b>Custom field 2</b>--}}
+                    {{--                                    <p> {{$crmCustomer->custom_field_2}}</p>--}}
+                    {{--                                </div>--}}
+                    {{--                                <div class="col">--}}
+                    {{--                                    <b>Custom field 3</b>--}}
+                    {{--                                    <p> {{$crmCustomer->custom_field_3}}</p>--}}
+                    {{--                                </div>--}}
+                    {{--                            </div>--}}
+                    {{--                            <div class="row">--}}
+                    {{--                                <div class="col">--}}
+                    {{--                                    <b>Custom field 4</b>--}}
+                    {{--                                    <p> {{$crmCustomer->custom_field_4}}</p>--}}
+                    {{--                                </div>--}}
+                    {{--                                <div class="col">--}}
+                    {{--                                    <b>Custom field 5</b>--}}
+                    {{--                                    <p> {{$crmCustomer->custom_field_5}}</p>--}}
+                    {{--                                </div>--}}
+                    {{--                                <div class="col">--}}
+                    {{--                                    <b>Custom field 6</b>--}}
+                    {{--                                    <p> {{$crmCustomer->custom_field_6}}</p>--}}
+                    {{--                                </div>--}}
+                    {{--                            </div>--}}
+                    {{--                            <div class="row">--}}
+                    {{--                                <div class="col">--}}
+                    {{--                                    <b>Custom field 7</b>--}}
+                    {{--                                    <p> {{$crmCustomer->custom_field_7}}</p>--}}
+                    {{--                                </div>--}}
+                    {{--                                <div class="col">--}}
+                    {{--                                    <b>Custom field 8</b>--}}
+                    {{--                                    <p> {{$crmCustomer->custom_field_8}}</p>--}}
+                    {{--                                </div>--}}
+                    {{--                                <div class="col">--}}
+                    {{--                                    <b>Custom field 9</b>--}}
+                    {{--                                    <p> {{$crmCustomer->custom_field_9}}</p>--}}
+                    {{--                                </div>--}}
+                    {{--                            </div>--}}
+                    {{--                            <div class="row">--}}
+                    {{--                                <div class="col">--}}
+                    {{--                                    <b>Custom field 10</b>--}}
+                    {{--                                    <p> {{$crmCustomer->custom_field_10}}</p>--}}
+                    {{--                                </div>--}}
+                    {{--                                <div class="col">--}}
 
-                                </div>
-                                <div class="col">
+                    {{--                                </div>--}}
+                    {{--                                <div class="col">--}}
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {{--                                </div>--}}
+                    {{--                            </div>--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
                 </div>
+            </form>
         </div>
-        </form>
     </div>
-</div>
 </div>
 
 

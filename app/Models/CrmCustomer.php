@@ -13,6 +13,64 @@ class CrmCustomer extends Model
     use SoftDeletes;
     use HasFactory;
 
+    public const W2_EMPLOYEES_SELECT = [
+        'yes' => 'Yes',
+        'no'  => 'No',
+    ];
+
+    public const RECEIVE_ERC_SELECT = [
+        'yes' => 'Yes',
+        'no'  => 'No',
+    ];
+
+    public const PPP_LOAN_SELECT = [
+        'yes' => 'Yes',
+        'no'  => 'No',
+    ];
+
+    public const WAS_YOUR_BUSINESS_OPERATIONAL_SELECT = [
+        'yes' => 'Yes',
+        'no'  => 'No',
+    ];
+
+    public const IS_YOUR_BUSINESS_A_RESTAURANT_SELECT = [
+        'yes' => 'Yes',
+        'no'  => 'No',
+    ];
+
+    public const PERIODS_WHEN_SUSPENDED_SELECT = [
+        '2q-20' => '2Q-20',
+        '4q-20'  => '4Q-20',
+        '1q-21' => '1Q-21',
+        '3q-21' => '3Q-21',
+    ];
+
+    public const QUARTER_WITH_DECLINED_GROSS_SELECT = [
+        'yes' => 'Yes',
+        'no'  => 'No',
+    ];
+
+    public const Q1_2021_VS_Q1_2019_SELECT = [
+        'yes' => 'Yes',
+        'no'  => 'No',
+    ];
+
+    public const Q3_2021_VS_Q3_2019_SELECT = [
+        'yes' => 'Yes',
+        'no'  => 'No',
+    ];
+
+    public const Q2_2021_VS_Q2_2019_SELECT = [
+        'yes' => 'Yes',
+        'no'  => 'No',
+    ];
+
+    public const Q4_2021_VS_Q4_2019_SELECT = [
+        'yes' => 'Yes',
+        'no'  => 'No',
+    ];
+
+
     public const LIVED_IN_USA_SELECT = [
         'yes' => 'Yes/Si',
         'no'  => 'No/No',
@@ -115,13 +173,28 @@ class CrmCustomer extends Model
         'receive_erc',
         'ppp_loan',
         'employee_count',
+        'verify_employee_count',
         'first_name_verified',
         'last_name_verified',
         'employee_amount',
         'payroll_amount',
         'erc_amount',
+        'erc_advance',
         'deal_revenue',
         'contingency_fee',
+        'was_your_business_operational',
+        'full_time_operational_employees',
+        'hm_w2_employees',
+        'is_your_business_a_restaurant',
+        'periods_when_suspended',
+        'quarter_with_declined_gross',
+        'q1_2021_vs_q1_2019',
+        'q3_2021_vs_q3_2019',
+        'q2_2021_vs_q2_2019',
+        'q4_2021_vs_q4_2019',
+        'total_dollar_amount_ppp_loan_received_2020',
+        'total_dollar_amount_ppp_loan_received_2021',
+        'total_payroll_2020',
         'custom_field_1',
         'custom_field_2',
         'custom_field_3',
