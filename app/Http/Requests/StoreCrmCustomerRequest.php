@@ -118,6 +118,62 @@ class StoreCrmCustomerRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'was_your_business_operational' => [
+                'string',
+                'nullable',
+            ],
+            'full_time_operational_employees' => [
+                'numeric',
+                'nullable',
+            ],
+            'hm_w2_employees' => [
+                'numeric',
+                'nullable',
+            ],
+            'is_your_business_a_restaurant' => [
+                'string',
+                'nullable',
+            ],
+            'periods_when_suspended' => [
+                'array',
+                'nullable',
+            ],
+            'company_name' => [
+                'string',
+                'nullable',
+            ],
+            'quarter_with_declined_gross' => [
+                'string',
+                'nullable',
+            ],
+            'q1_2021_vs_q1_2019' => [
+                'string',
+                'nullable',
+            ],
+            'q3_2021_vs_q3_2019' => [
+                'string',
+                'nullable',
+            ],
+            'q2_2021_vs_q2_2019' => [
+                'string',
+                'nullable',
+            ],
+            'q4_2021_vs_q4_2019' => [
+                'string',
+                'nullable',
+            ],
+            'total_dollar_amount_ppp_loan_received_2020' => [
+                'string',
+                'nullable',
+            ],
+            'total_dollar_amount_ppp_loan_received_2021' => [
+                'string',
+                'nullable',
+            ],
+            'total_payroll_2020' => [
+                'string',
+                'nullable',
+            ],
             'custom_field_1' => [
                 'string',
                 'nullable',

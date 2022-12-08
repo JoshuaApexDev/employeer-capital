@@ -53,6 +53,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Crm Customer
     Route::delete('crm-customers/destroy', 'CrmCustomerController@massDestroy')->name('crm-customers.massDestroy');
     Route::resource('crm-customers', 'CrmCustomerController');
+    Route::post('crm-customer/claim/{id}', 'CrmCustomerController@claim')->name('crm-customers.claim');
+    Route::get('crm-customer/claim/{id}', 'CrmCustomerController@claim')->name('crm-customers.claim');
 
     // Crm Note
     Route::resource('crm-notes', 'CrmNoteController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);

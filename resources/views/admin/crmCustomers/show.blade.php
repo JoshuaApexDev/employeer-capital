@@ -2,7 +2,8 @@
 @section('content')
 
     <!-- Modal -->
-    <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -28,7 +29,8 @@
                         </div>
                         <div class="form-group">
                             <label for="subject">Subject</label>
-                            <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+                            <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject"
+                                   required>
                         </div>
                         <div class="form-group">
                             <label for="message">Body message</label>
@@ -36,7 +38,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button id="btnClose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="btnClose" type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                        </button>
                         <button id="btnSend" type="button" class="btn btn-primary">Send</button>
                     </div>
                 </form>
@@ -60,7 +63,8 @@
                     <a class="btn btn-warning" href="print/{{$crmCustomer->id }}">
                         Print
                     </a>
-                    <button id="btnEmail" type="button" class="btn btn-primary" data-toggle="modal" data-target="#emailModal">
+                    <button id="btnEmail" type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#emailModal">
                         Send Email
                     </button>
                 </div>
@@ -121,6 +125,10 @@
                         <td>
                             {{ $crmCustomer->other_phone }}
                         </td>
+                    </tr>
+                    <tr>
+                        <th>Company Name</th>
+                        <td>{{$crmCustomer->company_name}}</td>
                     </tr>
                     <tr>
                         <th>
@@ -238,20 +246,18 @@
                         <th>Contingency Fee</th>
                         <td>{{$crmCustomer->contingency_fee}}</td>
                     </tr>
-{{--                    @for($i = 1; $i <= 10; $i++)--}}
-{{--                        @php--}}
-{{--                            $field = 'custom_field_'.$i;--}}
-{{--                            $field = $crmCustomer->$field;--}}
-{{--                        @endphp--}}
-{{--                        <tr>--}}
-{{--                            <th>--}}
-{{--                                Custom Field {{$i}}--}}
-{{--                            </th>--}}
-{{--                            <td>--}}
-{{--                                {{ $field ?? '' }}--}}
-{{--                            </td>--}}
-{{--                        </tr>--}}
-{{--                    @endfor--}}
+                    <tr>
+                        <th>Employee Amount</th>
+                        <td>{{$crmCustomer->employe_amount}}</td>
+                    </tr>
+                    <tr>
+                        <th>Payroll Amount</th>
+                        <td>{{$crmCustomer->payroll_amount}}</td>
+                    </tr>
+                    <tr>
+                        <th>Verify Employee Count</th>
+                        <td>{{$crmCustomer->verify_employee_count}}</td>
+                    </tr>
                     </tbody>
                 </table>
                 <div class="form-group">
@@ -282,31 +288,31 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-        crossorigin="anonymous"></script>
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
 
 
-        $(document).ready(function(){
-            $('#btnEmail').click(function(){
+        $(document).ready(function () {
+            $('#btnEmail').click(function () {
                 var email = '{{ $crmCustomer->email }}';
                 var name = '{{ $crmCustomer->first_name }}';
-                var subject = 'Hello '+name;
-                var body = 'Hello '+name+',';
+                var subject = 'Hello ' + name;
+                var body = 'Hello ' + name + ',';
                 $('#recipient_email').val(email);
                 $('#subject').val(subject);
                 $('#body').val(body);
                 $('.modal-backdrop').removeAttr('hidden');
             });
 
-            $('#btnSend').click(function (){
+            $('#btnSend').click(function () {
                 var email = $('#recipient_email').val();
                 var subject = $('#subject').val();
                 var message = $('#message').val();
                 //validate if message is empty
-                if(message == ''){
+                if (message == '') {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -366,7 +372,7 @@
                 });
             });
 
-            function Clear(){
+            function Clear() {
                 $('#recipient_email').val('');
                 $('#subject').val('');
                 $('#message').val('');
