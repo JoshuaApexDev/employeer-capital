@@ -25,7 +25,7 @@
     @yield('styles')
 </head>
 
-<body class="c-app">
+<body id="app" class="c-app">
     @include('partials.menu')
     <div class="c-wrapper">
         <header class="c-header c-header-fixed px-3">
@@ -267,6 +267,9 @@
 });
 
     </script>
+    {{--    vue--}}
+    <script src="{{ mix('/js/app.js') }}"></script>
+
     @yield('scripts')
 </body>
 
