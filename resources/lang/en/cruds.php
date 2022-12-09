@@ -248,8 +248,8 @@ return [
         ],
     ],
     'crmNote' => [
-        'title'          => 'Notes(disabled)',
-        'title_singular' => 'Notes(disabled)',
+        'title'          => 'Notes',
+        'title_singular' => 'Notes',
         'fields'         => [
             'id'                => 'ID',
             'id_helper'         => ' ',

@@ -13,8 +13,6 @@
     @endif
 
     <div class="card-body">
-
-
         <form method="POST" action="{{ route("admin.crm-documents.store") }}" enctype="multipart/form-data">
             @csrf
             @if($customer != null)

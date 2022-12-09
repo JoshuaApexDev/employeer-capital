@@ -714,6 +714,22 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-header bg-primary">
+                                Notes History
+                            </div>
+                            <div class="card-body">
+                                <div class="row" style="margin-bottom: 10px;">
+                                    <div class="col-lg-12">
+                                        <a class="btn btn-success" href="/admin/crm-notes/create?customer_id={{$crmCustomer->id}}">
+                                            {{ trans('global.add') }} {{ trans('cruds.crmNote.title_singular') }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-danger" type="submit" onclick="this.disable = 'disable'">
