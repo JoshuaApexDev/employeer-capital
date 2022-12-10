@@ -432,7 +432,7 @@
                                             <label for="requested_documents">Requested</label>
                                             <input id="requested_documents" name="requested_documents[]"
                                                    type="checkbox" value="{{$documentType->id}}"
-                                                   @if($documentType->requested == 1) checked disabled @endif>
+                                                   @if($documentType->requested == 1) checked @endif>
                                         </div>
                                         <div class="col">
                                             <label for="received_documents">Received</label>

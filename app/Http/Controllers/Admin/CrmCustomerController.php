@@ -76,8 +76,13 @@ class CrmCustomerController extends Controller
             }else{
                 $documentType->requested = false;
             }
+            if(CrmDocument::where('customer_id', $crmCustomer->id)->where('document_type_id', $documentType->id)->exists()){
+                $documentType->received = true;
+            }else{
+                $documentType->received = false;
+            }
         }
-        dd($documentTypes->toArray());
+//        dd($documentTypes->toArray());
 
         $crmCustomer->load('status');
         $crmDocuments = CrmDocument::where('customer_id', '=', $crmCustomer->id)->with(['customer', 'media'])->get();
