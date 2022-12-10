@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAPICrmCustomerRequest;
 use App\Http\Requests\StoreCrmCustomerRequest;
 use App\Models\CrmCustomer;
 use App\Models\CrmStatus;
+use App\Models\RequiredDocument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;

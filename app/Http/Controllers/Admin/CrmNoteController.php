@@ -37,6 +37,10 @@ class CrmNoteController extends Controller
     {
         $crmNote = CrmNote::create($request->all());
 
+        if (isset($request->customer_id)) {
+            return redirect()->route('admin.crm-customers.edit', $request->customer_id);
+        }
+
         return redirect()->route('admin.crm-notes.index');
     }
 

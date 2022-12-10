@@ -423,6 +423,26 @@
                                 Documents
                             </div>
                             <div class="card-body">
+                                @foreach($documentTypes as $key => $documentType)
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <label for="document_type_{{ $key }}">{{ $documentType->name }}</label>
+                                        </div>
+                                        <div class="col">
+                                            <label for="requested_documents">Requested</label>
+                                            <input id="requested_documents" name="requested_documents[]"
+                                                   type="checkbox" value="{{$documentType->id}}"
+                                                   @if($documentType->requested == 1) checked disabled @endif>
+                                        </div>
+                                        <div class="col">
+                                            <label for="received_documents">Received</label>
+                                            <input id="received_documents" name="received_documents[]"
+                                                   type="checkbox" value="{{$documentType->id}}"
+                                                   @if($documentType->received == 1) checked @endif
+                                                   disabled>
+                                        </div>
+                                    </div>
+                                @endforeach
                                 <div class="row" style="margin-bottom: 10px;">
                                     <div class="col-lg-12">
                                         <a class="btn btn-success" href="/admin/crm-documents/create?customer_id={{$crmCustomer->id}}">
@@ -457,7 +477,7 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        {{ $crmDocument->name ?? '' }}
+                                                        {{ $crmDocument->documentType->name ?? '' }}
                                                     </td>
                                                     <td>
                                                         @can('crm_document_show')
@@ -727,6 +747,17 @@
                                         </a>
                                     </div>
                                 </div>
+                                @foreach($crmCustomer->leadNotes->sortDesc() as $key => $crmNote)
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <blockquote class="blockquote mb-0">
+                                                <p>{{ $crmNote->note }}</p>
+                                                <footer class="blockquote-footer">{{ $crmNote->created_at }}</footer>
+                                            </blockquote>
+                                        </div>
+                                    </div>
+
+                                @endforeach
                             </div>
                         </div>
                     </div>

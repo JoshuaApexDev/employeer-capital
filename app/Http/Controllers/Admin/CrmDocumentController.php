@@ -9,6 +9,7 @@ use App\Http\Requests\StoreCrmDocumentRequest;
 use App\Http\Requests\UpdateCrmDocumentRequest;
 use App\Models\CrmCustomer;
 use App\Models\CrmDocument;
+use App\Models\DocumentType;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -22,7 +23,7 @@ class CrmDocumentController extends Controller
     {
         abort_if(Gate::denies('crm_document_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $crmDocuments = CrmDocument::with(['customer', 'media'])->get();
+        $crmDocuments = CrmDocument::with(['customer', 'media', 'documentType'])->get();
 
         return view('admin.crmDocuments.index', compact('crmDocuments'));
     }
@@ -32,11 +33,12 @@ class CrmDocumentController extends Controller
         abort_if(Gate::denies('crm_document_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $customers = CrmCustomer::all();
+        $document_types = DocumentType::all();
 
         $customer_id = $request->customer_id ?? null;
         $customer = CrmCustomer::find($customer_id);
 
-        return view('admin.crmDocuments.create', compact('customers', 'customer'));
+        return view('admin.crmDocuments.create', compact('customers', 'customer', 'document_types'));
     }
 
     public function store(StoreCrmDocumentRequest $request)
@@ -59,10 +61,11 @@ class CrmDocumentController extends Controller
         abort_if(Gate::denies('crm_document_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $customers = CrmCustomer::all();
+        $document_types = DocumentType::all();
 
-        $crmDocument->load('customer');
+        $crmDocument->load('customer', 'documentType');
 
-        return view('admin.crmDocuments.edit', compact('customers', 'crmDocument'));
+        return view('admin.crmDocuments.edit', compact('customers', 'crmDocument', 'document_types'));
     }
 
     public function update(UpdateCrmDocumentRequest $request, CrmDocument $crmDocument)
@@ -87,7 +90,7 @@ class CrmDocumentController extends Controller
     {
         abort_if(Gate::denies('crm_document_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $crmDocument->load('customer');
+        $crmDocument->load('customer', 'documentType');
 
         return view('admin.crmDocuments.show', compact('crmDocument'));
     }

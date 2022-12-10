@@ -45,26 +45,36 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.crmDocument.fields.document_file_helper') }}</span>
             </div>
+{{--            <div class="form-group">--}}
+{{--                <label for="name">{{ trans('cruds.crmDocument.fields.name') }}</label>--}}
+{{--                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', '') }}">--}}
+{{--                @if($errors->has('name'))--}}
+{{--                    <div class="invalid-feedback">--}}
+{{--                        {{ $errors->first('name') }}--}}
+{{--                    </div>--}}
+{{--                @endif--}}
+{{--                <span class="help-block">{{ trans('cruds.crmDocument.fields.name_helper') }}</span>--}}
+{{--            </div>--}}
             <div class="form-group">
-                <label for="name">{{ trans('cruds.crmDocument.fields.name') }}</label>
-                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', '') }}">
-                @if($errors->has('name'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('name') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.crmDocument.fields.name_helper') }}</span>
+                <label for="document_type">Document Type</label>
+                <select
+                    class="form-control"
+                    name="document_type_id" id="document_type_id">
+                    @foreach($document_types as $id => $document_type)
+                        <option value="{{ $document_type->id }}" {{ old('document_type_id') == $document_type->id ? 'selected' : '' }}>{{ $document_type->name }}</option>
+                    @endforeach
+                </select>
             </div>
-            <div class="form-group">
-                <label for="description">{{ trans('cruds.crmDocument.fields.description') }}</label>
-                <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description') }}</textarea>
-                @if($errors->has('description'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('description') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.crmDocument.fields.description_helper') }}</span>
-            </div>
+{{--            <div class="form-group">--}}
+{{--                <label for="description">{{ trans('cruds.crmDocument.fields.description') }}</label>--}}
+{{--                <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description') }}</textarea>--}}
+{{--                @if($errors->has('description'))--}}
+{{--                    <div class="invalid-feedback">--}}
+{{--                        {{ $errors->first('description') }}--}}
+{{--                    </div>--}}
+{{--                @endif--}}
+{{--                <span class="help-block">{{ trans('cruds.crmDocument.fields.description_helper') }}</span>--}}
+{{--            </div>--}}
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}

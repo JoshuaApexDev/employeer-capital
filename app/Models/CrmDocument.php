@@ -32,6 +32,7 @@ class CrmDocument extends Model implements HasMedia
         'customer_id',
         'name',
         'description',
+        'document_type_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -57,4 +58,10 @@ class CrmDocument extends Model implements HasMedia
     {
         return $date->format('Y-m-d H:i:s');
     }
+
+    public function documentType()
+    {
+        return $this->belongsTo(DocumentType::class, 'document_type_id');
+    }
+
 }

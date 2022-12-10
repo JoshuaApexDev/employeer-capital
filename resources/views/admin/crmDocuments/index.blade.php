@@ -68,10 +68,10 @@
                                 @endif
                             </td>
                             <td>
-                                {{ $crmDocument->name ?? '' }}
+                                {{ $crmDocument->documentType->name ?? '' }}
                             </td>
                             <td>
-                                {{ $crmDocument->description ?? '' }}
+                                {{ $crmDocument->documentType->description ?? '' }}
                             </td>
                             <td>
                                 @can('crm_document_show')
@@ -152,7 +152,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 })
 
 </script>
