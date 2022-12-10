@@ -8,11 +8,12 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('crm_customers', function (Blueprint $table) {
+            $table->string('company_name')->nullable();
             $table->string('was_your_business_operational')->nullable();
             $table->string('full_time_operational_employees')->nullable();
             $table->string('hm_w2_employees')->nullable();
             $table->string('is_your_business_a_restaurant')->nullable();
-            $table->string('periods_when_suspended')->nullable();
+            $table->json('periods_when_suspended')->nullable();
             $table->string('quarter_with_declined_gross')->nullable();
             $table->string('q1_2021_vs_q1_2019')->nullable();
             $table->string('q3_2021_vs_q3_2019')->nullable();

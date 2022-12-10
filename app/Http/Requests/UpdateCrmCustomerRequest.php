@@ -74,10 +74,6 @@ class UpdateCrmCustomerRequest extends FormRequest
                 'string',
                 'nullable',
             ],
-            'erc_advance' => [
-                'string',
-                'nullable',
-            ],
             'ppp_loan' => [
                 'string',
                 'nullable',
@@ -95,6 +91,30 @@ class UpdateCrmCustomerRequest extends FormRequest
                 'nullable',
             ],
             'last_name_verified' => [
+                'string',
+                'nullable',
+            ],
+            'employee_amount' => [
+                'string',
+                'nullable',
+            ],
+            'payroll_amount' => [
+                'string',
+                'nullable',
+            ],
+            'erc_amount' => [
+                'string',
+                'nullable',
+            ],
+            'erc_advance' => [
+                'string',
+                'nullable',
+            ],
+            'deal_revenue' => [
+                'string',
+                'nullable',
+            ],
+            'contingency_fee' => [
                 'string',
                 'nullable',
             ],
@@ -116,6 +136,10 @@ class UpdateCrmCustomerRequest extends FormRequest
             ],
             'periods_when_suspended' => [
                 'array',
+                'nullable',
+            ],
+            'company_name' => [
+                'string',
                 'nullable',
             ],
             'quarter_with_declined_gross' => [

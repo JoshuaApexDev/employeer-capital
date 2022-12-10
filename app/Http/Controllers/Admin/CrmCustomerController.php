@@ -53,21 +53,17 @@ class CrmCustomerController extends Controller
 
         abort_if(Gate::denies('crm_customer_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-//        $client = new Client();
-//        $res = $client->request('get', 'https://management.apexcallcenters.xyz/api/locations');
-//        $locations = json_decode($res->getBody()->getContents());
-
         $statuses = CrmStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $crmCustomer->load('status');
         $crmDocuments = CrmDocument::where('customer_id', '=', $crmCustomer->id)->with(['customer', 'media'])->get();
+
 
         return view('admin.crmCustomers.edit', compact('crmCustomer',  'statuses', 'crmDocuments'));
     }
 
     public function update(UpdateCrmCustomerRequest $request, CrmCustomer $crmCustomer)
     {
-
         $crmCustomer->update($request->all());
         $crmCustomer->load('status');
 
@@ -108,6 +104,13 @@ class CrmCustomerController extends Controller
 
         Mail::to($email)->send(new emailLead($subject, $message, $lead));
 
+    }
+
+    public function claim($id){
+        $crmCustomer = CrmCustomer::where('id', '=', $id)->first();
+        $crmCustomer->user_id = auth()->user()->id;
+        $crmCustomer->save();
+        return redirect()->route('admin.crm-customers.index');
     }
 
 }
