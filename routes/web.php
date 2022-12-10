@@ -31,6 +31,9 @@ Route::get('/home', function () {
 Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+//    Telephony Area
+    Route::get('/telephony', 'HomeController@TelephonyArea')->name('telephony_area');
+
 //    Ruta para enviar correo
     Route::post('/crm-customers/send-email', 'CrmCustomerController@sendEmail')->name('crm-customers.sendEmail');
     Route::get('/', 'HomeController@index')->name('home');
@@ -42,9 +45,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('roles/destroy', 'RolesController@massDestroy')->name('roles.massDestroy');
     Route::resource('roles', 'RolesController');
 
-    // Users
+    // Users & Sip
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
     Route::resource('users', 'UsersController');
+    Route::post('users/sip/{user}', 'UsersController@updateSip')->name('user-sip.update');
 
     // Crm Status
     Route::delete('crm-statuses/destroy', 'CrmStatusController@massDestroy')->name('crm-statuses.massDestroy');
