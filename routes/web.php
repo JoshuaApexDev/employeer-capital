@@ -31,6 +31,9 @@ Route::get('/home', function () {
 Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+//    Telephony Area
+    Route::get('/telephony', 'HomeController@TelephonyArea')->name('telephony_area');
+
 //    Ruta para enviar correo
     Route::post('/crm-customers/send-email', 'CrmCustomerController@sendEmail')->name('crm-customers.sendEmail');
     Route::get('/', 'HomeController@index')->name('home');

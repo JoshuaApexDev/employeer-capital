@@ -27,6 +27,11 @@
     },
     "dependencies": {
         "alertifyjs": "^1.13.1",
-        "sweetalert2": "^11.4.8"
+        "cmc-voice-sipjs": "^1.0.0",
+        "floating-vue": "^1.0.0-beta.19",
+        "sip.js": "^0.21.2",
+        "sweetalert2": "^11.4.8",
+        "vue-router": "^3.6.5",
+        "vuetify": "^2.6.12"
     }
 }
