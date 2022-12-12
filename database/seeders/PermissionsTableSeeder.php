@@ -266,6 +266,10 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => 64,
                 'title' => 'crm_note_delete',
             ],
+            [
+                'id'   => 65,
+                'title' => 'leads_uploader_access',
+            ],
         ];
 
         Permission::insert($permissions);

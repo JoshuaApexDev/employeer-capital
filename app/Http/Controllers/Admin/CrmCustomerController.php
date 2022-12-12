@@ -47,7 +47,7 @@ class CrmCustomerController extends Controller
     {
         $data = $request->all();
 
-        dd($data);
+        // dd($data);
 
         $status = crmStatus::where('name', '=', 'New Lead')->first();
         $data['status_id'] = $status->id;
