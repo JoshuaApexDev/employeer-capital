@@ -3519,6 +3519,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var floating_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! floating-vue */ "./node_modules/floating-vue/dist/floating-vue.es.js");
 /* harmony import */ var floating_vue_dist_style_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! floating-vue/dist/style.css */ "./node_modules/floating-vue/dist/style.css");
 /* harmony import */ var _telnyx_webrtc__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @telnyx/webrtc */ "./node_modules/@telnyx/webrtc/lib/bundle.mjs");
+/* harmony import */ var floating_vue_eslintrc__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! floating-vue/.eslintrc */ "./node_modules/floating-vue/.eslintrc.js");
+/* harmony import */ var floating_vue_eslintrc__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(floating_vue_eslintrc__WEBPACK_IMPORTED_MODULE_5__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -3527,6 +3529,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
 
 
 
@@ -3607,6 +3610,21 @@ var app = new Vue({
     answer: function answer() {
       this.activeCall.answer();
       $('#incoming-call-modal').modal('hide');
+      $('#incoming-call-data').modal('show');
+      var lead_info_form = document.getElementById('lead-info-form');
+      var lead_info = [];
+      var key = '$2y$10$PHSqCSRCTAFEQ.5uezFBuesZZwEKmuGoo7826tpuX3oRKwkSfcyhO';
+      var url = '/api/get/lead/?key=' + key + '&phone=1' + this.activeCall.options.remoteCallerNumber;
+      axios.get(url).then(function (response) {
+        lead_info = response.data;
+        Object.keys(lead_info).forEach(function (key) {
+          var input = lead_info_form.elements[key];
+          if (input) {
+            input.value = lead_info[key];
+          }
+        });
+        lead_info_form.action = '/admin/crm-customers/' + lead_info.id;
+      });
     },
     makeCall: function makeCall(number) {
       this.client.newCall({
@@ -10952,6 +10970,73 @@ module.exports = function (cssWithMappingToString) {
 
   return list;
 };
+
+/***/ }),
+
+/***/ "./node_modules/floating-vue/.eslintrc.js":
+/*!************************************************!*\
+  !*** ./node_modules/floating-vue/.eslintrc.js ***!
+  \************************************************/
+/***/ ((module) => {
+
+module.exports = {
+  root: true,
+  env: {
+    browser: true,
+    node: true,
+    jest: true,
+  },
+  extends: [
+    'plugin:vue/recommended',
+    '@vue/standard',
+    '@vue/typescript/recommended',
+  ],
+  parserOptions: {
+    ecmaVersion: 2020,
+  },
+  globals: {
+    name: 'off',
+  },
+  rules: {
+    'arrow-parens': 0,
+    'generator-star-spacing': 0,
+    'no-debugger':  false ? 0 : 0,
+    'comma-dangle': ['error', 'always-multiline'],
+    'vue/multi-word-component-names': 'off',
+    'vue/html-closing-bracket-newline': [
+      'error',
+      {
+        singleline: 'never',
+        multiline: 'always',
+      },
+    ],
+    'no-var': ['error'],
+    '@typescript-eslint/member-delimiter-style': [
+      'error',
+      {
+        multiline: {
+          delimiter: 'none',
+        },
+        singleline: {
+          delimiter: 'comma',
+        },
+      },
+    ],
+    '@typescript-eslint/ban-ts-comment': 'warn',
+    '@typescript-eslint/no-use-before-define': 'off',
+    'no-use-before-define': 'off',
+    '@typescript-eslint/indent': ['error', 2],
+    quotes: ['error', 'single', { allowTemplateLiterals: true }],
+    '@typescript-eslint/no-empty-function': 'off',
+    indent: 'off',
+  },
+  ignorePatterns: [
+    'node_modules/',
+    'dist/',
+    '!.*',
+  ],
+}
+
 
 /***/ }),
 

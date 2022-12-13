@@ -13,6 +13,7 @@ import FloatingVue from "floating-vue";
 import 'floating-vue/dist/style.css'
 import {InvitationAcceptOptions} from "sip.js";
 import {TelnyxRTC} from "@telnyx/webrtc";
+import {env} from "floating-vue/.eslintrc";
 
 window.Vue = require('vue').default;
 Vue.use(FloatingVue);
@@ -88,6 +89,21 @@ const app = new Vue({
         answer() {
             this.activeCall.answer();
             $('#incoming-call-modal').modal('hide');
+            $('#incoming-call-data').modal('show');
+            var lead_info_form = document.getElementById('lead-info-form');
+            var lead_info = [];
+            var key = '$2y$10$PHSqCSRCTAFEQ.5uezFBuesZZwEKmuGoo7826tpuX3oRKwkSfcyhO';
+            var url = '/api/get/lead/?key=' + key + '&phone=1' + this.activeCall.options.remoteCallerNumber;
+            axios.get(url).then((response) => {
+                lead_info = response.data;
+                Object.keys(lead_info).forEach(function (key) {
+                    var input = lead_info_form.elements[key];
+                    if (input) {
+                        input.value = lead_info[key];
+                    }
+                });
+                lead_info_form.action = '/admin/crm-customers/' + lead_info.id;
+            });
         },
         makeCall(number) {
             this.client.newCall({
