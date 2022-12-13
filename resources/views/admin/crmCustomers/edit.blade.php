@@ -2,7 +2,22 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            {{ trans('global.edit') }} {{ trans('cruds.crmCustomer.title_singular') }}
+            <div>
+                @if(auth()->user()->sip_enabled)
+                    <div v-if="registered" id="makecallcard">
+                        <div class="btn btn-danger"
+                             v-if="activeCall  != null &&  activeCall.state != 'active' && activeCall.state != 'destroy' && activeCall.state != 'early'"
+                             v-on:click="hangup()">@{{$root.activeCall.state}}</div>
+                        <div class="btn btn-danger"
+                             v-else-if="activeCall  != null && activeCall.state === 'active' ||activeCall  != null && activeCall.state === 'early'"
+                             v-on:click="hangup()">Hang up
+                        </div>
+                        <div v-else>
+                            <div class="btn btn-primary" v-on:click="makeCall('{{$crmCustomer->phone}}')">Call {{$crmCustomer->first_name ?? ''}} {{$crmCustomer->last_name ?? ''}}</div>
+                        </div>
+                    </div>
+                @endif
+            </div>
         </div>
 
         <div class="card-body">
@@ -14,22 +29,6 @@
                     <button class="btn btn-danger" type="submit" onclick="this.disable = 'disable'">
                         {{ trans('global.save') }}
                     </button>
-                </div>
-                <div>
-                    @if(auth()->user()->sip_enabled)
-                        <div v-if="registered" id="makecallcard" class="row">
-                            <div class="btn btn-danger"
-                                 v-if="activeCall  != null &&  activeCall.state != 'active' && activeCall.state != 'destroy' && activeCall.state != 'early'"
-                                 v-on:click="hangup()">@{{$root.activeCall.state}}</div>
-                            <div class="btn btn-danger"
-                                 v-else-if="activeCall  != null && activeCall.state === 'active' ||activeCall  != null && activeCall.state === 'early'"
-                                 v-on:click="hangup()">Hang up
-                            </div>
-                            <div v-else>
-                                <div class="btn btn-primary" v-on:click="makeCall('{{$crmCustomer->phone}}')">Call</div>
-                            </div>
-                        </div>
-                    @endif
                 </div>
                 <div class="row">
                     <div class="col-4">
