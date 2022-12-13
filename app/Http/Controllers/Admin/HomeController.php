@@ -8,4 +8,9 @@ class HomeController
     {
         return view('home');
     }
+
+    public function TelephonyArea()
+    {
+        return view('admin.telephony.index');
+    }
 }

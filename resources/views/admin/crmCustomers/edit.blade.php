@@ -15,6 +15,22 @@
                         {{ trans('global.save') }}
                     </button>
                 </div>
+                <div>
+                    @if(auth()->user()->sip_enabled)
+                        <div v-if="registered" id="makecallcard" class="row">
+                            <div class="btn btn-danger"
+                                 v-if="activeCall  != null &&  activeCall.state != 'active' && activeCall.state != 'destroy' && activeCall.state != 'early'"
+                                 v-on:click="hangup()">@{{$root.activeCall.state}}</div>
+                            <div class="btn btn-danger"
+                                 v-else-if="activeCall  != null && activeCall.state === 'active' ||activeCall  != null && activeCall.state === 'early'"
+                                 v-on:click="hangup()">Hang up
+                            </div>
+                            <div v-else>
+                                <div class="btn btn-primary" v-on:click="makeCall('{{$crmCustomer->phone}}')">Call</div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
                 <div class="row">
                     <div class="col-4">
                         <div class="card">
@@ -27,11 +43,12 @@
                                         <div class="form-group">
                                             <label class="required"
                                                    for="first_name">{{ trans('cruds.crmCustomer.fields.first_name') }}</label>
-                                            <input class="form-control {{ $errors->has('first_name') ? 'is-invalid' : '' }}"
-                                                   type="text"
-                                                   name="first_name" id="first_name"
-                                                   value="{{ old('first_name', $crmCustomer->first_name) }}"
-                                                   required>
+                                            <input
+                                                class="form-control {{ $errors->has('first_name') ? 'is-invalid' : '' }}"
+                                                type="text"
+                                                name="first_name" id="first_name"
+                                                value="{{ old('first_name', $crmCustomer->first_name) }}"
+                                                required>
                                             @if($errors->has('first_name'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('first_name') }}
@@ -45,11 +62,12 @@
                                         <div class="form-group">
                                             <label class="required"
                                                    for="last_name">{{ trans('cruds.crmCustomer.fields.last_name') }}</label>
-                                            <input class="form-control {{ $errors->has('last_name') ? 'is-invalid' : '' }}"
-                                                   type="text"
-                                                   name="last_name" id="last_name"
-                                                   value="{{ old('last_name', $crmCustomer->last_name) }}"
-                                                   required>
+                                            <input
+                                                class="form-control {{ $errors->has('last_name') ? 'is-invalid' : '' }}"
+                                                type="text"
+                                                name="last_name" id="last_name"
+                                                value="{{ old('last_name', $crmCustomer->last_name) }}"
+                                                required>
                                             @if($errors->has('last_name'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('last_name') }}
@@ -445,14 +463,16 @@
                                 @endforeach
                                 <div class="row" style="margin-bottom: 10px;">
                                     <div class="col-lg-12">
-                                        <a class="btn btn-success" href="/admin/crm-documents/create?customer_id={{$crmCustomer->id}}">
+                                        <a class="btn btn-success"
+                                           href="/admin/crm-documents/create?customer_id={{$crmCustomer->id}}">
                                             {{ trans('global.add') }} {{ trans('cruds.crmDocument.title_singular') }}
                                         </a>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class=" table table-bordered table-striped table-hover datatable datatable-CrmDocument">
+                                        <table
+                                            class=" table table-bordered table-striped table-hover datatable datatable-CrmDocument">
                                             <thead>
                                             <tr>
                                                 <th>
@@ -471,7 +491,8 @@
                                                 <tr data-entry-id="{{ $crmDocument->id }}">
                                                     <td>
                                                         @if($crmDocument->document_file)
-                                                            <a href="{{ $crmDocument->document_file->getUrl() }}" target="_blank">
+                                                            <a href="{{ $crmDocument->document_file->getUrl() }}"
+                                                               target="_blank">
                                                                 {{ trans('global.view_file') }}
                                                             </a>
                                                         @endif
@@ -496,7 +517,8 @@
 
                                                         @can('crm_document_delete')
                                                             <input type="submit" class="btn btn-xs btn-danger"
-                                                                   value="{{ trans('global.delete') }}" onclick="deleteDocument({{$crmDocument->id}})">
+                                                                   value="{{ trans('global.delete') }}"
+                                                                   onclick="deleteDocument({{$crmDocument->id}})">
                                                         @endcan
 
                                                     </td>
@@ -519,7 +541,8 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="was_your_business_operational">Was your business operational as of January 1, 2019?</label>
+                                            <label for="was_your_business_operational">Was your business operational as
+                                                of January 1, 2019?</label>
                                             <select
                                                 class="form-control select2 {{ $errors->has('was_your_business_operational') ? 'is-invalid' : '' }}"
                                                 name="was_your_business_operational" id="was_your_business_operational">
@@ -535,12 +558,14 @@
                                             @endif
                                         </div>
                                         <div class="form-group">
-                                            <label for="full_time_operational_employees">How many full-time employees did you average for each month you were operational in 2019?</label>
-                                            <input class="form-control {{ $errors->has('full_time_operational_employees') ? 'is-invalid' : '' }}"
-                                                   type="number" name="full_time_operational_employees" min="0"
-                                                   id="full_time_operational_employees"
-                                                   value="{{ old('full_time_operational_employees', $crmCustomer->full_time_operational_employees) }}"
-                                                   step="1">
+                                            <label for="full_time_operational_employees">How many full-time employees
+                                                did you average for each month you were operational in 2019?</label>
+                                            <input
+                                                class="form-control {{ $errors->has('full_time_operational_employees') ? 'is-invalid' : '' }}"
+                                                type="number" name="full_time_operational_employees" min="0"
+                                                id="full_time_operational_employees"
+                                                value="{{ old('full_time_operational_employees', $crmCustomer->full_time_operational_employees) }}"
+                                                step="1">
                                             @if($errors->has('full_time_operational_employees'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('full_time_operational_employees') }}
@@ -548,11 +573,13 @@
                                             @endif
                                         </div>
                                         <div class="form-group">
-                                            <label for="hm_w2_employees">Approximately how many W-2 employees did you have at the end of 2020?</label>
-                                            <input class="form-control {{ $errors->has('hm_w2_employees') ? 'is-invalid' : '' }}"
-                                                   type="number" name="hm_w2_employees" id="hm_w2_employees" min="0"
-                                                   value="{{ old('hm_w2_employees', $crmCustomer->hm_w2_employees) }}"
-                                                   step="1">
+                                            <label for="hm_w2_employees">Approximately how many W-2 employees did you
+                                                have at the end of 2020?</label>
+                                            <input
+                                                class="form-control {{ $errors->has('hm_w2_employees') ? 'is-invalid' : '' }}"
+                                                type="number" name="hm_w2_employees" id="hm_w2_employees" min="0"
+                                                value="{{ old('hm_w2_employees', $crmCustomer->hm_w2_employees) }}"
+                                                step="1">
                                             @if($errors->has('hm_w2_employees'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('hm_w2_employees') }}
@@ -560,8 +587,9 @@
                                             @endif
                                         </div>
                                         <div class="form-group">
-                                            <label for="is_your_business_a_restaurant">Is your business a restaurant? Or does the taxpayer who owns this business
-                                            also own a restaurant?</label>
+                                            <label for="is_your_business_a_restaurant">Is your business a restaurant? Or
+                                                does the taxpayer who owns this business
+                                                also own a restaurant?</label>
                                             <select
                                                 class="form-control select2 {{ $errors->has('is_your_business_a_restaurant') ? 'is-invalid' : '' }}"
                                                 name="is_your_business_a_restaurant" id="is_your_business_a_restaurant">
@@ -584,14 +612,16 @@
                                                     $selected = [];
                                                 }
                                             @endphp
-                                            <label for="periods_when_suspended">Select all periods that your business was partially or fully suspended due to goverment orders</label>
+                                            <label for="periods_when_suspended">Select all periods that your business
+                                                was partially or fully suspended due to goverment orders</label>
                                             <select
                                                 class="form-control select2 {{ $errors->has('periods_when_suspended') ? 'is-invalid' : '' }}"
                                                 multiple
                                                 name="periods_when_suspended[]" id="periods_when_suspended">
 
                                                 @foreach(App\Models\CrmCustomer::PERIODS_WHEN_SUSPENDED_SELECT as $key => $label)
-                                                    <option value="{{ $key }}" @if(in_array($key, $selected)) selected="selected" @endif>{{$label}}</option>
+                                                    <option value="{{ $key }}"
+                                                            @if(in_array($key, $selected)) selected="selected" @endif>{{$label}}</option>
                                                 @endforeach
                                             </select>
                                             @if($errors->has('periods_when_suspended'))
@@ -601,8 +631,9 @@
                                             @endif
                                         </div>
                                         <div class="form-group">
-                                            <label for="quarter_with_declined_gross">Did any quarter of 2020 have a decline in gross
-                                            receipts of 50% or more compared to the same quarter in 2019</label>
+                                            <label for="quarter_with_declined_gross">Did any quarter of 2020 have a
+                                                decline in gross
+                                                receipts of 50% or more compared to the same quarter in 2019</label>
                                             <select
                                                 class="form-control select2 {{ $errors->has('quarter_with_declined_gross') ? 'is-invalid' : '' }}"
                                                 name="quarter_with_declined_gross" id="quarter_with_declined_gross">
@@ -621,7 +652,8 @@
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="q1_2021_vs_q1_2019">Did Q1 of 2021 have a 20% or more decline compared to Q1 of
+                                            <label for="q1_2021_vs_q1_2019">Did Q1 of 2021 have a 20% or more decline
+                                                compared to Q1 of
                                                 2019?</label>
                                             <select
                                                 class="form-control select2 {{ $errors->has('q1_2021_vs_q1_2019') ? 'is-invalid' : '' }}"
@@ -638,7 +670,8 @@
                                             @endif
                                         </div>
                                         <div class="form-group">
-                                            <label for="q3_2021_vs_q3_2019">Did Q3 of 2021 have a decline of 20% or more compared
+                                            <label for="q3_2021_vs_q3_2019">Did Q3 of 2021 have a decline of 20% or more
+                                                compared
                                                 to Q3 of 2019?</label>
                                             <select
                                                 class="form-control select2 {{ $errors->has('q3_2021_vs_q3_2019') ? 'is-invalid' : '' }}"
@@ -655,8 +688,9 @@
                                             @endif
                                         </div>
                                         <div class="form-group">
-                                            <label for="q2_2021_vs_q2_2019">Did Q2 of 2021 have a 20% or more decline compared
-                                            to Q2 of 2019?</label>
+                                            <label for="q2_2021_vs_q2_2019">Did Q2 of 2021 have a 20% or more decline
+                                                compared
+                                                to Q2 of 2019?</label>
                                             <select
                                                 class="form-control select2 {{ $errors->has('q2_2021_vs_q2_2019') ? 'is-invalid' : '' }}"
                                                 name="q2_2021_vs_q2_2019" id="q2_2021_vs_q2_2019">
@@ -673,7 +707,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="q4_2021_vs_q4_2019">Did Q4 of 2020 decline 20% or more compare
-                                            to Q2 of 2019?</label>
+                                                to Q2 of 2019?</label>
                                             <select
                                                 class="form-control select2 {{ $errors->has('q4_2021_vs_q4_2019') ? 'is-invalid' : '' }}"
                                                 name="q4_2021_vs_q4_2019" id="q4_2021_vs_q4_2019">
@@ -689,13 +723,14 @@
                                             @endif
                                         </div>
                                         <div class="form-group">
-                                            <label for="total_dollar_amount_ppp_loan_received_2020">What is the total dollar amount
-                                            of PPP Loans received in 2020?</label>
+                                            <label for="total_dollar_amount_ppp_loan_received_2020">What is the total
+                                                dollar amount
+                                                of PPP Loans received in 2020?</label>
                                             <input type="text"
-                                                class="form-control {{ $errors->has('total_dollar_amount_ppp_loan_received_2020') ? 'is-invalid' : '' }}"
-                                                name="total_dollar_amount_ppp_loan_received_2020"
-                                                id="total_dollar_amount_ppp_loan_received_2020"
-                                                value="{{ old('total_dollar_amount_ppp_loan_received_2020', $crmCustomer->total_dollar_amount_ppp_loan_received_2020) }}">
+                                                   class="form-control {{ $errors->has('total_dollar_amount_ppp_loan_received_2020') ? 'is-invalid' : '' }}"
+                                                   name="total_dollar_amount_ppp_loan_received_2020"
+                                                   id="total_dollar_amount_ppp_loan_received_2020"
+                                                   value="{{ old('total_dollar_amount_ppp_loan_received_2020', $crmCustomer->total_dollar_amount_ppp_loan_received_2020) }}">
                                             @if($errors->has('total_dollar_amount_ppp_loan_received_2020'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('total_dollar_amount_ppp_loan_received_2020') }}
@@ -703,13 +738,14 @@
                                             @endif
                                         </div>
                                         <div class="form-group">
-                                            <label for="total_dollar_amount_ppp_loan_received_2021">What is the total dollar amount
-                                            of PPP Loans received in 2021?</label>
+                                            <label for="total_dollar_amount_ppp_loan_received_2021">What is the total
+                                                dollar amount
+                                                of PPP Loans received in 2021?</label>
                                             <input type="text"
-                                                class="form-control {{ $errors->has('total_dollar_amount_ppp_loan_received_2021') ? 'is-invalid' : '' }}"
-                                                name="total_dollar_amount_ppp_loan_received_2021"
-                                                id="total_dollar_amount_ppp_loan_received_2021"
-                                                value="{{ old('total_dollar_amount_ppp_loan_received_2021', $crmCustomer->total_dollar_amount_ppp_loan_received_2021) }}">
+                                                   class="form-control {{ $errors->has('total_dollar_amount_ppp_loan_received_2021') ? 'is-invalid' : '' }}"
+                                                   name="total_dollar_amount_ppp_loan_received_2021"
+                                                   id="total_dollar_amount_ppp_loan_received_2021"
+                                                   value="{{ old('total_dollar_amount_ppp_loan_received_2021', $crmCustomer->total_dollar_amount_ppp_loan_received_2021) }}">
                                             @if($errors->has('total_dollar_amount_ppp_loan_received_2021'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('total_dollar_amount_ppp_loan_received_2021') }}
@@ -718,11 +754,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="total_payroll_2020">What was your total payroll for 2020?
-                                            This does not include 1099. As 1099 do not qualify or contract workers.</label>
+                                                This does not include 1099. As 1099 do not qualify or contract
+                                                workers.</label>
                                             <input type="text"
-                                                class="form-control {{ $errors->has('total_payroll_2020') ? 'is-invalid' : '' }}"
-                                                name="total_payroll_2020" id="total_payroll_2020"
-                                                value="{{ old('total_payroll_2020', $crmCustomer->total_payroll_2020) }}">
+                                                   class="form-control {{ $errors->has('total_payroll_2020') ? 'is-invalid' : '' }}"
+                                                   name="total_payroll_2020" id="total_payroll_2020"
+                                                   value="{{ old('total_payroll_2020', $crmCustomer->total_payroll_2020) }}">
                                             @if($errors->has('total_payroll_2020'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('total_payroll_2020') }}
@@ -770,8 +807,6 @@
             </form>
         </div>
     </div>
-
-
 
 @endsection
 
