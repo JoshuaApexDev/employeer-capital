@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\CrmCustomer;
 use Illuminate\Console\Command;
 
 class request_docs extends Command
@@ -37,6 +38,6 @@ class request_docs extends Command
      */
     public function handle()
     {
-        dd('Requesting documents');
+
     }
 }
