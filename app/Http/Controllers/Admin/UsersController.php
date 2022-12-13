@@ -83,4 +83,21 @@ class UsersController extends Controller
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function updateSip(Request $request, User $user)
+    {
+
+        if(isset($request->sip_enabled)){
+            $user->sip_enabled = 1;
+            $user->sip_extension = $request->sip_extension;
+            $user->sip_password = $request->sip_password;
+            $user->save();
+        }else{
+            $user->sip_enabled = 0;
+            $user->sip_extension = null;
+            $user->sip_password = null;
+            $user->save();
+        }
+        return redirect()->route('admin.users.index');
+    }
 }
