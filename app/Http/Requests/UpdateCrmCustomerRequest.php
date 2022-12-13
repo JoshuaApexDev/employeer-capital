@@ -174,6 +174,10 @@ class UpdateCrmCustomerRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'requested_documents' => [
+                'array',
+                'nullable',
+            ],
             'custom_field_1' => [
                 'string',
                 'nullable',

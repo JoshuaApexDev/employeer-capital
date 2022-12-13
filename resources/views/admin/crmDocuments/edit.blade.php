@@ -36,25 +36,38 @@
                 <span class="help-block">{{ trans('cruds.crmDocument.fields.document_file_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="name">{{ trans('cruds.crmDocument.fields.name') }}</label>
-                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $crmDocument->name) }}">
-                @if($errors->has('name'))
+                <label class="" for="document_type">Document Type</label>
+                <select class="form-control select2 {{ $errors->has('document_type') ? 'is-invalid' : '' }}" name="document_type_id" id="document_type_id" required>
+                    @foreach($document_types as $id => $entry)
+                        <option value="{{ $entry->id }}" {{ (old('document_type_id') ? old('document_type_id') : $crmDocument->documentType->id ?? '') == $entry->id ? 'selected' : '' }}>{{ $entry->name }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('document_type'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('name') }}
+                        {{ $errors->first('document_type') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.crmDocument.fields.name_helper') }}</span>
             </div>
-            <div class="form-group">
-                <label for="description">{{ trans('cruds.crmDocument.fields.description') }}</label>
-                <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $crmDocument->description) }}</textarea>
-                @if($errors->has('description'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('description') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.crmDocument.fields.description_helper') }}</span>
-            </div>
+{{--            <div class="form-group">--}}
+{{--                <label for="name">{{ trans('cruds.crmDocument.fields.name') }}</label>--}}
+{{--                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $crmDocument->name) }}">--}}
+{{--                @if($errors->has('name'))--}}
+{{--                    <div class="invalid-feedback">--}}
+{{--                        {{ $errors->first('name') }}--}}
+{{--                    </div>--}}
+{{--                @endif--}}
+{{--                <span class="help-block">{{ trans('cruds.crmDocument.fields.name_helper') }}</span>--}}
+{{--            </div>--}}
+{{--            <div class="form-group">--}}
+{{--                <label for="description">{{ trans('cruds.crmDocument.fields.description') }}</label>--}}
+{{--                <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $crmDocument->description) }}</textarea>--}}
+{{--                @if($errors->has('description'))--}}
+{{--                    <div class="invalid-feedback">--}}
+{{--                        {{ $errors->first('description') }}--}}
+{{--                    </div>--}}
+{{--                @endif--}}
+{{--                <span class="help-block">{{ trans('cruds.crmDocument.fields.description_helper') }}</span>--}}
+{{--            </div>--}}
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}

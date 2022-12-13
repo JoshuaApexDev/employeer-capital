@@ -4,13 +4,15 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-import {Inviter, Registerer, SessionState, UserAgent} from "sip.js";
+import {Invitation, Inviter, Referral, Registerer, Session, SessionState, UserAgent} from "sip.js";
 
 require('./bootstrap');
 import Telephony from "./layouts/Telephony";
 import HotDial from "./layouts/HotDial";
 import FloatingVue from "floating-vue";
 import 'floating-vue/dist/style.css'
+import {InvitationAcceptOptions} from "sip.js";
+import {TelnyxRTC} from "@telnyx/webrtc";
 
 window.Vue = require('vue').default;
 Vue.use(FloatingVue);
@@ -40,13 +42,12 @@ const app = new Vue({
     el: '#app',
     data: {
         user: JSON.parse(localStorage.user),
-        sip_server: 'wss://pbx1.apexcallcenters.xyz:8089/ws',
-        UA: null,
+        client: null,
         registered: false,
-        on_call: false,
         device: null,
         inviter: null,
         audio_interface: document.getElementById('audio-interface'),
+        activeCall: null,
     },
     beforeDestroy() {
         alert('destroyed');
@@ -57,74 +58,46 @@ const app = new Vue({
     },
     methods: {
         register() {
-            const uri = UserAgent.makeURI('sip:' + this.user.sip_extension + '@pbx1.apexcallcenters.xyz');
-            const transportOptions = {
-                server: this.sip_server
-            };
-
-            const userAgentOptions = {
-                authorizationPassword: this.user.sip_password,
-                authorizationUser: this.user.sip_extension,
+            this.client = new TelnyxRTC({
+                login: this.user.sip_extension,
                 password: this.user.sip_password,
-                transportOptions,
-                uri
-            };
-
-            this.UA = new UserAgent(userAgentOptions);
-            const registerer = new Registerer(this.UA);
-            this.UA.start().then(() => {
-                registerer.register().then(() => {
-                    this.registered = true;
-                });
             });
+            this.client.connect().then((status)=>{
+                this.client.remoteElement = this.audio_interface;
+            })
+            this.client
+                .on('telnyx.ready', () => {
+                    console.log('telnyx.ready');
+                    this.registered = true;
+                })
+                .on('telnyx.error', () => console.log('error'))
+                // Events are fired on both session and call updates
+                // ex: when the session has been established
+                // ex: when there's an incoming call
+                .on('telnyx.notification', (notification) => {
+                    if (notification.type === 'callUpdate') {
+                        this.activeCall = notification.call;
+                        console.log('telnyx.notification', this.activeCall.state);
+
+                        if(this.activeCall.state === 'ringing' && this.activeCall.direction != 'outbound'){
+                            $('#incoming-call-modal').modal('show');
+                        }
+                    }
+                });
+        },
+        answer() {
+            this.activeCall.answer();
+            $('#incoming-call-modal').modal('hide');
         },
         makeCall(number) {
-            let target = UserAgent.makeURI('sip:' + number + '@pbx1.apexcallcenters.xyz');
-            this.buildInviter(target);
-            this.on_call = true;
-            this.inviter.stateChange.addListener((newState) => {
-                switch (newState) {
-                    case SessionState.Establishing:
-                        // Session is establishing
-                        break;
-                    case SessionState.Established:
-                        this.inviter.sessionDescriptionHandler.peerConnection.getReceivers().forEach((receiver) => {
-                            if (receiver.track) {
-                                this.audio_interface.srcObject = new MediaStream([receiver.track]);
-                            }
-                        });
-                        break;
-                    case SessionState.Terminated:
-                        // Session is terminated
-                        this.audio_interface.srcObject = null;
-                        this.on_call = false;
-                        break;
-                    default:
-                        break;
-                }
-            });
-
-            this.inviter.invite();
+            this.client.newCall({
+                destinationNumber: number,
+                callerNumber: this.user.sip_extension,
+            })
         },
         hangup() {
-            switch (this.inviter.state) {
-                case SessionState.Established:
-                    this.inviter.bye();
-                    break;
-                case SessionState.Establishing:
-                    this.inviter.cancel();
-                    break;
-                default:
-                    break;
-            }
-            this.on_call = false;
+            this.activeCall.hangup();
+            this.activeCall = null;
         },
-        buildInviter(target) {
-            this.inviter = new Inviter(this.UA, target, {
-                sessionDescriptionHandlerOptions: {
-                    constraints: {audio: true, video: false},
-                }
-            });
-        }
     }
 });

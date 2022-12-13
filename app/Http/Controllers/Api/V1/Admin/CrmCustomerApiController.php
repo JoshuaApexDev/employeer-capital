@@ -9,6 +9,7 @@ use App\Http\Resources\Admin\CrmCustomerResource;
 use App\Models\CrmCustomer;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class CrmCustomerApiController extends Controller
@@ -54,9 +55,6 @@ class CrmCustomerApiController extends Controller
         return response(null, Response::HTTP_NO_CONTENT);
     }
 
-    public function employee(){
-        dd('Hola Daniel');
-    }
     public function status()
     {
         $crmStatuses = CrmCustomer::all();
@@ -72,6 +70,25 @@ class CrmCustomerApiController extends Controller
             }
         }
         return response()->json($status_count);
+    }
+
+    public function getLead(Request $request)
+    {
+        if (isset($request->key)) {
+//            if hashed key match with .env SECRET_PHRASE
+            if (Hash::check(env('SECRET_PHRASE'), $request->key)) {
+                if (!CrmCustomer::where('phone','=', $request->phone)->exists()) {
+                    return response()->json(['error' => 'Phone not found'], Response::HTTP_BAD_REQUEST);
+                }else{
+                    $lead = CrmCustomer::where('phone', '=', $request->phone)->first();
+                    return response()->json($lead, Response::HTTP_OK);
+                }
+            }else{
+                return response()->json(['error' => 'Invalid key'], Response::HTTP_BAD_REQUEST);
+            }
+        } else {
+            return response()->json(['error' => 'Missing key'], Response::HTTP_BAD_REQUEST);
+        }
     }
 
 }

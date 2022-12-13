@@ -210,6 +210,7 @@ class CrmCustomer extends Model
         'updated_at',
         'deleted_at',
         'user_id',
+        'requested_documents',
     ];
 
     public function owner(){
@@ -219,6 +220,16 @@ class CrmCustomer extends Model
     public function leadTasks()
     {
         return $this->hasMany(Task::class, 'lead_id', 'id');
+    }
+
+    public function leadNotes()
+    {
+        return $this->hasMany(CrmNote::class, 'customer_id', 'id');
+    }
+
+    public function documents()
+    {
+        return $this->hasMany(CrmDocument::class, 'customer_id', 'id');
     }
 
     public function getDateOfBirthAttribute($value)

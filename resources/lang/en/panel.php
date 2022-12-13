@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'site_title' => 'CRM ERC',
+    'site_title' => 'ERC CRM',
 ];

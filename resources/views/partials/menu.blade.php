@@ -172,6 +172,17 @@
                 </ul>
             </li>
         @endcan
+        @can('leads_uploader_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.leads-uploader.index") }}"
+                   class="c-sidebar-nav-link {{ request()->is("admin/leads-uploader") || request()->is("admin/leads-uploader/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-paste c-sidebar-nav-icon">
+
+                    </i>
+                    Leads Uploader
+                </a>
+            </li>
+        @endcan
         @can('user_alert_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.user-alerts.index") }}"
