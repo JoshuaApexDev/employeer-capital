@@ -13,7 +13,7 @@ class LeadUploaderController extends Controller
     //
     public function index()
     {
-        return view('admin.leadsUploader.index');
+        return view('admin.LeadsUploader.index');
     }
 
     public function uploadLeadsReport(Request $request)

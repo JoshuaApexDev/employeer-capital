@@ -235,7 +235,7 @@
                                             <select
                                                 class="form-control {{ $errors->has('w2_employees') ? 'is-invalid' : '' }}"
                                                 name="w2_employees" id="w2_employees">
-                                                @foreach(App\Models\crmCustomer::W2_EMPLOYEES_SELECT as $key => $label)
+                                                @foreach(App\Models\CrmCustomer::W2_EMPLOYEES_SELECT as $key => $label)
                                                     <option value="{{ $key }}" {{ old('w2_employees', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
                                                 @endforeach
                                             </select>
@@ -250,7 +250,7 @@
                                             <select
                                                 class="form-control {{ $errors->has('receive_erc') ? 'is-invalid' : '' }}"
                                                 name="receive_erc" id="receive_erc">
-                                                @foreach(App\Models\crmCustomer::RECEIVE_ERC_SELECT as $key => $label)
+                                                @foreach(App\Models\CrmCustomer::RECEIVE_ERC_SELECT as $key => $label)
                                                     <option value="{{ $key }}" {{ old('receive_erc', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
                                                 @endforeach
                                             </select>
@@ -265,7 +265,7 @@
                                             <select
                                                 class="form-control {{ $errors->has('ppp_loan') ? 'is-invalid' : '' }}"
                                                 name="ppp_loan" id="ppp_loan">
-                                                @foreach(App\Models\crmCustomer::PPP_LOAN_SELECT as $key => $label)
+                                                @foreach(App\Models\CrmCustomer::PPP_LOAN_SELECT as $key => $label)
                                                     <option value="{{ $key }}" {{ old('ppp_loan', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
                                                 @endforeach
                                             </select>
