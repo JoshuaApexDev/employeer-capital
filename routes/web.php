@@ -36,7 +36,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('/', 'HomeController@index')->name('home');
     // Rutas para subir listas csv de leads
     Route::get('/leads-uploader', 'LeadUploaderController@index')->name('leads-uploader.index');
-    Route::post('upload/ledas-report', 'LeadUploaderController@uploadLeadsReport')->name('upload.leads-report');
+    Route::post('upload/leads-report', 'LeadUploaderController@uploadLeadsReport')->name('upload.leads-report');
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
     Route::resource('permissions', 'PermissionsController');
