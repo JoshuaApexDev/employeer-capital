@@ -53,26 +53,28 @@ class leads_uploader extends Command
         $bar->start();
         $status = CrmStatus::where('name', 'New Lead')->first();
         foreach($csv_data as $row){
-            if(!CrmCustomer::where('phone', '=', $row['Phone'])->exists()){
+            if(!CrmCustomer::where('phone', '=', $row['PrimaryPhone'])->exists()){
                 $crmCustomer_model->create([
-                    'first_name' => $row['First name'],
-                    'last_name' => $row['Last name'],
-                    'email' => $row['Email'],
-                    'phone' => $row['Phone'],
+                    'first_name' => $row['FirstName'],
+                    'last_name' => $row['LastName'],
+//                    'email' => $row['Email'],
+                    'phone' => $row['PrimaryPhone'],
                     'address' => $row['Address'],
                     'city' => $row['City'],
                     'state' => $row['State'],
-                    'zip' => $row['Zip'],
-                    'w2_employees' => $row['W2_employees'],
-                    'receive_erc' => $row['Receive_ERC'],
-                    'ppp_loan' => $row['ppp_loan'],
-                    'employee_count' => $row['Employee_count'],
-                    'first_name_verified' => $row['fname_verify'],
-                    'last_name_verified' => $row['Lname_verify'],
+                    'zip' => $row['ZipCode'],
+                    'company_name' => $row['BorrowerName'],
+                    'erc_amount' => $row['CurrentApprovalAmount'],
+//                    'w2_employees' => $row['W2_employees'],
+//                    'receive_erc' => $row['Receive_ERC'],
+//                    'ppp_loan' => $row['ppp_loan'],
+//                    'employee_count' => $row['Employee_count'],
+//                    'first_name_verified' => $row['fname_verify'],
+//                    'last_name_verified' => $row['Lname_verify'],
                     'status_id' => $status->id,
                 ]);
             }else{
-                $this->info('Row: '.$bar->getProgress().' - Phone: '.$row['Phone'].' already exists');
+                $this->info('Row: '.$bar->getProgress().' - Phone: '.$row['PrimaryPhone'].' already exists');
             }
             $bar->advance();
         }
