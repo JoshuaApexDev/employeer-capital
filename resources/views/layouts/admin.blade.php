@@ -113,9 +113,9 @@
                                 {{ session('error') }}
                             </div>
                         @endif
-                        @if(session('succes'))
+                        @if(session('success'))
                             <div class="alert alert-success">
-                                {{ session('succes') }}
+                                {{ session('success') }}
                             </div>
                         @endif
                     @yield('content')

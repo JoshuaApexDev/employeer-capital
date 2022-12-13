@@ -29,7 +29,7 @@ class LeadUploaderController extends Controller
         }else{
             $file = Storage::put('/tmp', $request->file('file'));
 //            dd('cd '.base_path() . ' && nohup php artisan upload_leads:leads_uploader ' . storage_path('app/'.$file) . ' '.$user_id.' >/dev/null 2>&1 &');
-//            exec('cd '.base_path() . ' && nohup php artisan upload_leads:leads_uploader ' . storage_path('app/'.$file) . ' '.$user_id.' >/dev/null 2>&1 &');
+            exec('cd '.base_path() . ' && nohup php artisan upload_leads:leads_uploader ' . storage_path('app/'.$file) . ' '.$user_id.' >/dev/null 2>&1 &');
             return redirect()->back()->with('success', 'File is processing ...');
         }
     }
