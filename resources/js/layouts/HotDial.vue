@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div id="makecallcard" class="row">
-                    <div class="btn btn-danger" v-if="on_call" v-on:click="hangup()">Hang up</div>
+                    <div class="btn btn-danger" v-if="activeCall != null && activeCall.state == 'active'" v-on:click="hangup()">Hang up</div>
                     <div v-else class="btn btn-primary" v-on:click="makeCall(callnumber)">Call</div>
                 </div>
             </div>
