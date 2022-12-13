@@ -3309,10 +3309,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['callnumber'],
   name: "HotDial",
+  data: function data() {},
   methods: {
     makeCall: function makeCall() {
       this.$root.makeCall(this.callnumber);
@@ -3333,6 +3336,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3451,8 +3465,8 @@ var app = new Vue({
     register: function register() {
       var _this = this;
       this.client = new _telnyx_webrtc__WEBPACK_IMPORTED_MODULE_4__.TelnyxRTC({
-        login: 'crmuser1001',
-        password: '30wiwSPq'
+        login: this.user.sip_extension,
+        password: this.user.sip_password
       });
       this.client.connect().then(function (status) {
         _this.client.remoteElement = _this.audio_interface;
@@ -3470,11 +3484,15 @@ var app = new Vue({
         if (notification.type === 'callUpdate') {
           _this.activeCall = notification.call;
           console.log('telnyx.notification', _this.activeCall.state);
-          if (_this.activeCall.state === 'ringing') {
-            _this.activeCall.answer();
+          if (_this.activeCall.state === 'ringing' && _this.activeCall.direction != 'outbound') {
+            $('#incoming-call-modal').modal('show');
           }
         }
       });
+    },
+    answer: function answer() {
+      this.activeCall.answer();
+      $('#incoming-call-modal').modal('hide');
     },
     makeCall: function makeCall(number) {
       this.client.newCall({
@@ -30883,7 +30901,20 @@ var render = function () {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "row", attrs: { id: "makecallcard" } }, [
-          _vm.activeCall != null && _vm.activeCall.state == "active"
+          _vm.activeCall == null
+            ? _c(
+                "div",
+                {
+                  staticClass: "btn btn-primary",
+                  on: {
+                    click: function ($event) {
+                      return _vm.makeCall(_vm.callnumber)
+                    },
+                  },
+                },
+                [_vm._v("Call")]
+              )
+            : _vm.activeCall.state == "active"
             ? _c(
                 "div",
                 {
@@ -30896,7 +30927,8 @@ var render = function () {
                 },
                 [_vm._v("Hang up")]
               )
-            : _c(
+            : _vm.activeCall.state == "destroy"
+            ? _c(
                 "div",
                 {
                   staticClass: "btn btn-primary",
@@ -30907,7 +30939,8 @@ var render = function () {
                   },
                 },
                 [_vm._v("Call")]
-              ),
+              )
+            : _vm._e(),
         ]),
       ]),
     ]),
@@ -30946,7 +30979,59 @@ var render = function () {
         _vm.$root.registered
           ? _c("div", { staticClass: "row", attrs: { id: "makecallcard" } }, [
               _vm.$root.activeCall != null &&
-              _vm.$root.activeCall.state === "early"
+              _vm.$root.activeCall.state != "active" &&
+              _vm.$root.activeCall.state != "destroy" &&
+              _vm.$root.activeCall.state != "early"
+                ? _c("div", [
+                    _vm.$root.activeCall.direction != "outbound"
+                      ? _c("div", [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "btn btn-warning",
+                              on: {
+                                click: function ($event) {
+                                  return _vm.$root.answer()
+                                },
+                              },
+                            },
+                            [
+                              _vm._v(
+                                _vm._s(_vm.$root.activeCall.state) +
+                                  ": " +
+                                  _vm._s(
+                                    _vm.$root.activeCall.options
+                                      .remoteCallerNumber
+                                  )
+                              ),
+                            ]
+                          ),
+                        ])
+                      : _c("div", [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "btn btn-danger",
+                              on: {
+                                click: function ($event) {
+                                  return _vm.$root.hangup()
+                                },
+                              },
+                            },
+                            [
+                              _vm._v(
+                                _vm._s(_vm.$root.activeCall.state) +
+                                  ": " +
+                                  _vm._s(_vm.$root.activeCall.destinationNumber)
+                              ),
+                            ]
+                          ),
+                        ]),
+                  ])
+                : (_vm.$root.activeCall != null &&
+                    _vm.$root.activeCall.state === "active") ||
+                  (_vm.$root.activeCall != null &&
+                    _vm.$root.activeCall.state === "early")
                 ? _c(
                     "div",
                     {
@@ -30957,21 +31042,7 @@ var render = function () {
                         },
                       },
                     },
-                    [_vm._v("Calling: ")]
-                  )
-                : _vm.$root.activeCall != null &&
-                  _vm.$root.activeCall.state === "active"
-                ? _c(
-                    "div",
-                    {
-                      staticClass: "btn btn-danger",
-                      on: {
-                        click: function ($event) {
-                          return _vm.$root.hangup()
-                        },
-                      },
-                    },
-                    [_vm._v("Hang up")]
+                    [_vm._v("Hang up\n                ")]
                   )
                 : _c(
                     "div",

@@ -36,6 +36,8 @@
 <body class="c-app">
 @include('partials.menu')
 <div id="app" class="c-wrapper">
+
+
     <header class="c-header c-header-fixed px-3">
         <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar"
                 data-class="c-sidebar-show">
@@ -130,6 +132,22 @@
                     </div>
                 @endif
                 @yield('content')
+                    <div class="modal fade" id="incoming-call-modal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Incoming Call</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    Call from: <span v-if="activeCall != null" id="incoming-call-from"> @{{  activeCall.options.remoteCallerNumber }}</span>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal" v-on:click="answer()">Answer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
             </div>
 

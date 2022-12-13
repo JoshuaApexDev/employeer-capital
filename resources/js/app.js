@@ -59,8 +59,8 @@ const app = new Vue({
     methods: {
         register() {
             this.client = new TelnyxRTC({
-                login: 'crmuser1001',
-                password: '30wiwSPq'
+                login: this.user.sip_extension,
+                password: this.user.sip_password,
             });
             this.client.connect().then((status)=>{
                 this.client.remoteElement = this.audio_interface;
@@ -79,11 +79,15 @@ const app = new Vue({
                         this.activeCall = notification.call;
                         console.log('telnyx.notification', this.activeCall.state);
 
-                        if(this.activeCall.state === 'ringing'){
-                            this.activeCall.answer();
+                        if(this.activeCall.state === 'ringing' && this.activeCall.direction != 'outbound'){
+                            $('#incoming-call-modal').modal('show');
                         }
                     }
                 });
+        },
+        answer() {
+            this.activeCall.answer();
+            $('#incoming-call-modal').modal('hide');
         },
         makeCall(number) {
             this.client.newCall({
