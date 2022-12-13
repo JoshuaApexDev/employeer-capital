@@ -209,7 +209,12 @@ class CrmCustomer extends Model
         'created_at',
         'updated_at',
         'deleted_at',
+        'user_id',
     ];
+
+    public function owner(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
     public function leadTasks()
     {

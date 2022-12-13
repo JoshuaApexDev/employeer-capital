@@ -26,37 +26,43 @@
                                 Basic Info
                             </div>
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label class="required"
-                                           for="first_name">{{ trans('cruds.crmCustomer.fields.first_name') }}</label>
-                                    <input class="form-control {{ $errors->has('first_name') ? 'is-invalid' : '' }}"
-                                           type="text"
-                                           name="first_name" id="first_name"
-                                           value="{{ old('first_name', $crmCustomer->first_name) }}"
-                                           required>
-                                    @if($errors->has('first_name'))
-                                        <div class="invalid-feedback">
-                                            {{ $errors->first('first_name') }}
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="required"
+                                                   for="first_name">{{ trans('cruds.crmCustomer.fields.first_name') }}</label>
+                                            <input class="form-control {{ $errors->has('first_name') ? 'is-invalid' : '' }}"
+                                                   type="text"
+                                                   name="first_name" id="first_name"
+                                                   value="{{ old('first_name', $crmCustomer->first_name) }}"
+                                                   required>
+                                            @if($errors->has('first_name'))
+                                                <div class="invalid-feedback">
+                                                    {{ $errors->first('first_name') }}
+                                                </div>
+                                            @endif
+                                            <span
+                                                class="help-block">{{ trans('cruds.crmCustomer.fields.first_name_helper') }}</span>
                                         </div>
-                                    @endif
-                                    <span
-                                        class="help-block">{{ trans('cruds.crmCustomer.fields.first_name_helper') }}</span>
-                                </div>
-                                <div class="form-group">
-                                    <label class="required"
-                                           for="last_name">{{ trans('cruds.crmCustomer.fields.last_name') }}</label>
-                                    <input class="form-control {{ $errors->has('last_name') ? 'is-invalid' : '' }}"
-                                           type="text"
-                                           name="last_name" id="last_name"
-                                           value="{{ old('last_name', $crmCustomer->last_name) }}"
-                                           required>
-                                    @if($errors->has('last_name'))
-                                        <div class="invalid-feedback">
-                                            {{ $errors->first('last_name') }}
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="required"
+                                                   for="last_name">{{ trans('cruds.crmCustomer.fields.last_name') }}</label>
+                                            <input class="form-control {{ $errors->has('last_name') ? 'is-invalid' : '' }}"
+                                                   type="text"
+                                                   name="last_name" id="last_name"
+                                                   value="{{ old('last_name', $crmCustomer->last_name) }}"
+                                                   required>
+                                            @if($errors->has('last_name'))
+                                                <div class="invalid-feedback">
+                                                    {{ $errors->first('last_name') }}
+                                                </div>
+                                            @endif
+                                            <span
+                                                class="help-block">{{ trans('cruds.crmCustomer.fields.last_name_helper') }}</span>
                                         </div>
-                                    @endif
-                                    <span
-                                        class="help-block">{{ trans('cruds.crmCustomer.fields.last_name_helper') }}</span>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="required"
@@ -93,6 +99,18 @@
                                     @if($errors->has('cellphone'))
                                         <div class="invalid-feedback">
                                             {{ $errors->first('cellphone') }}
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="company_name">Company Name</label>
+                                    <input class="form-control {{ $errors->has('company_name') ? 'is-invalid' : '' }}"
+                                           type="text"
+                                           name="company_name" id="company_name"
+                                           value="{{ old('company_name', $crmCustomer->company_name) }}">
+                                    @if($errors->has('company_name'))
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('company_name') }}
                                         </div>
                                     @endif
                                 </div>
@@ -553,15 +571,21 @@
                                             @endif
                                         </div>
                                         <div class="form-group">
-                                            <label for="periods_when_suspended">Select all periods that your business
-                                                was partially or fully suspended due to goverment orders</label>
+                                            @php
+                                                if(isset($crmCustomer->periods_when_suspended)){
+                                                    $selected = json_decode($crmCustomer->periods_when_suspended, true);
+                                                }else{
+                                                    $selected = [];
+                                                }
+                                            @endphp
+                                            <label for="periods_when_suspended">Select all periods that your business was partially or fully suspended due to goverment orders</label>
                                             <select
                                                 class="form-control select2 {{ $errors->has('periods_when_suspended') ? 'is-invalid' : '' }}"
                                                 multiple
                                                 name="periods_when_suspended[]" id="periods_when_suspended">
+
                                                 @foreach(App\Models\CrmCustomer::PERIODS_WHEN_SUSPENDED_SELECT as $key => $label)
-                                                    <option
-                                                        value="{{ $key }}" {{ (old('periods_when_suspended') ? old('periods_when_suspended') : $crmCustomer->periods_when_suspended ?? '') == $key ? 'selected' : '' }}>{{ $label }}</option>
+                                                    <option value="{{ $key }}" @if(in_array($key, $selected)) selected="selected" @endif>{{$label}}</option>
                                                 @endforeach
                                             </select>
                                             @if($errors->has('periods_when_suspended'))

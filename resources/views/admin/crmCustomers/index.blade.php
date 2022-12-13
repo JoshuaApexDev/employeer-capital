@@ -76,25 +76,32 @@
                                 {{ $crmCustomer->status->name ?? '' }}
                             </td>
                             <td>
-                                @can('crm_customer_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.crm-customers.show', $crmCustomer->id) }}">
-                                        {{ trans('global.view') }}
+                                @if($crmCustomer->status->name === 'New Lead' && $crmCustomer->user_id === null)
+                                    <a class="btn btn-xs btn-warning" href="{{ route('admin.crm-customers.claim', $crmCustomer->id) }}">
+                                        Claim it
                                     </a>
-                                @endcan
+                                @endif
+                                @if($crmCustomer->user_id === \Illuminate\Support\Facades\Auth::user()->id || \Illuminate\Support\Facades\Auth::user()->getIsAdminAttribute() === true)
+                                    @can('crm_customer_show')
+                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.crm-customers.show', $crmCustomer->id) }}">
+                                            {{ trans('global.view') }}
+                                        </a>
+                                    @endcan
 
-                                @can('crm_customer_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.crm-customers.edit', $crmCustomer->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
+                                    @can('crm_customer_edit')
+                                        <a class="btn btn-xs btn-info" href="{{ route('admin.crm-customers.edit', $crmCustomer->id) }}">
+                                            {{ trans('global.edit') }}
+                                        </a>
+                                    @endcan
 
-                                @can('crm_customer_delete')
-                                    <form action="{{ route('admin.crm-customers.destroy', $crmCustomer->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
+                                    @can('crm_customer_delete')
+                                        <form action="{{ route('admin.crm-customers.destroy', $crmCustomer->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                        </form>
+                                    @endcan
+                                @endif
 
                             </td>
 
