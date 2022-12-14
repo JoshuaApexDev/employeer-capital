@@ -82,7 +82,7 @@
                                            for="email">{{ trans('cruds.crmCustomer.fields.email') }}</label>
                                     <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
                                            type="text" name="email"
-                                           id="email" value="{{ old('email', $crmCustomer->email) }}" required>
+                                           id="email" value="{{ old('email', $crmCustomer->email) }}">
                                     @if($errors->has('email'))
                                         <div class="invalid-feedback">
                                             {{ $errors->first('email') }}
@@ -95,7 +95,7 @@
                                            for="phone">{{ trans('cruds.crmCustomer.fields.phone') }}</label>
                                     <input class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}"
                                            type="text" name="phone"
-                                           id="phone" value="{{ old('phone', $crmCustomer->phone) }}" required>
+                                           id="phone" value="{{ old('phone', $crmCustomer->phone) }}"
                                     @if($errors->has('phone'))
                                         <div class="invalid-feedback">
                                             {{ $errors->first('phone') }}
@@ -142,7 +142,7 @@
                                     <input class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}"
                                            type="text"
                                            name="address" id="address"
-                                           value="{{ old('address', $crmCustomer->address) }}" required>
+                                           value="{{ old('address', $crmCustomer->address) }}">
                                     @if($errors->has('address'))
                                         <div class="invalid-feedback">
                                             {{ $errors->first('address') }}

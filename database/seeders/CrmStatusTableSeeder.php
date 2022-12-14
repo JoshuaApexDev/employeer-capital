@@ -106,6 +106,30 @@ class CrmStatusTableSeeder extends Seeder
                 'created_at' => '2021-04-26 22:37:11',
                 'updated_at' => '2021-04-26 22:37:11',
             ],
+            [
+                'id' => 17,
+                'name' => 'Contacted by Call',
+                'created_at' => '2021-04-26 22:37:11',
+                'updated_at' => '2021-04-26 22:37:11',
+            ],
+            [
+                'id' => 18,
+                'name' => 'Contacted by Email',
+                'created_at' => '2021-04-26 22:37:11',
+                'updated_at' => '2021-04-26 22:37:11',
+            ],
+            [
+                'id' => 19,
+                'name' => 'Already in a Program',
+                'created_at' => '2021-04-26 22:37:11',
+                'updated_at' => '2021-04-26 22:37:11',
+            ],
+            [
+                'id' => 20,
+                'name' => 'The Lead has the money already',
+                'created_at' => '2021-04-26 22:37:11',
+                'updated_at' => '2021-04-26 22:37:11',
+            ],
 
         ];
 

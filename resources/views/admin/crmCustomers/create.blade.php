@@ -47,7 +47,7 @@
                                 <div class="form-group">
                                     <label class="required" for="email">{{ trans('cruds.crmCustomer.fields.email') }}</label>
                                     <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="text" name="email"
-                                           id="email" value="{{ old('email', '') }}" required>
+                                           id="email" value="{{ old('email', '') }}">
                                     @if($errors->has('email'))
                                         <div class="invalid-feedback">
                                             {{ $errors->first('email') }}
@@ -58,7 +58,7 @@
                                 <div class="form-group">
                                     <label class="required" for="phone">{{ trans('cruds.crmCustomer.fields.phone') }}</label>
                                     <input class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" type="text" name="phone"
-                                           id="phone" value="{{ old('phone', '') }}" required>
+                                           id="phone" value="{{ old('phone', '') }}">
                                     @if($errors->has('phone'))
                                         <div class="invalid-feedback">
                                             {{ $errors->first('phone') }}
@@ -98,7 +98,7 @@
                                 <div class="form-group">
                                     <label class="required" for="address">{{ trans('cruds.crmCustomer.fields.address') }}</label>
                                     <input class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" type="text"
-                                           name="address" id="address" value="{{ old('address', '') }}" required>
+                                           name="address" id="address" value="{{ old('address', '') }}">
                                     @if($errors->has('address'))
                                         <div class="invalid-feedback">
                                             {{ $errors->first('address') }}
