@@ -26,8 +26,15 @@ class CrmCustomerController extends Controller
     public function index()
     {
         abort_if(Gate::denies('crm_customer_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $user = auth()->user();
 
-        $crmCustomers = CrmCustomer::with(['status'])->get();
+        if($user->getIsAdminAttribute() === true){
+            $crmCustomers = CrmCustomer::with(['status'])->get();
+        }else{
+            $crmCustomers = CrmCustomer::where('user_id', '=', null)->orwhere('user_id', '=', $user->id)->with(['status'])->get();
+        }
+//        dd($crmCustomers);
+//        $crmCustomers = CrmCustomer::with(['status'])->get();
 
         $crm_statuses = CrmStatus::get();
 
@@ -46,8 +53,11 @@ class CrmCustomerController extends Controller
     public function store(StoreCrmCustomerRequest $request)
     {
         $data = $request->all();
+        $user = auth()->user();
 
-        // dd($data);
+        if($user->getIsAdminAttribute() !== true) {
+            $data['user_id'] = $user->id;
+        }
 
         $status = crmStatus::where('name', '=', 'New Lead')->first();
         $data['status_id'] = $status->id;
