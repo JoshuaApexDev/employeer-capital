@@ -47,6 +47,8 @@ class ApplyApiController extends Controller
                     $phone = '1'.$phone;
                 }
 
+                $data['phone'] = $phone;
+
                 if(CrmCustomer::where('phone', $phone)->exists()) {
                     $lead = CrmCustomer::where('phone', $phone)->first();
                     $lead->update($data);
