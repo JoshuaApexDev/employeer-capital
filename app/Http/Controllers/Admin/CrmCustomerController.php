@@ -60,6 +60,12 @@ class CrmCustomerController extends Controller
 
         $status = crmStatus::where('name', '=', 'New Lead')->first();
         $data['status_id'] = $status->id;
+
+        $phone = $request->phone;
+        if(substr($phone, 0, 1) != '1'){
+            $phone = '1'.$phone;
+        }
+        $data['phone'] = $phone;
         $crmCustomer = CrmCustomer::create($data);
 
         return redirect()->route('admin.crm-customers.index');
