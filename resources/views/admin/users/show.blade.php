@@ -78,6 +78,10 @@
                                         <label for="sip_password">Password</label>
                                         <input type="text" name="sip_password" id="sip_password" class="form-control" value="{{$user->sip_password}}">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="sip_caller_id">Sip Caller ID</label>
+                                        <input type="text" name="sip_caller_id" id="sip_caller_id" class="form-control" value="{{$user->sip_caller_id}}">
+                                    </div>
                                     <div class="form-check">
                                         <input type="checkbox" name="sip_enabled" id="sip_enabled" class="form-check-input" {{($user->sip_enabled ? 'checked' : '')}}>
                                         <label class="form-check-label" for="sip_enabled">Enabled</label>
