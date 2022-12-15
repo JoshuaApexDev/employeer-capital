@@ -39,10 +39,14 @@ class CrmCustomer extends Model
     ];
 
     public const PERIODS_WHEN_SUSPENDED_SELECT = [
-        '2q-20' => '2Q-20',
-        '4q-20'  => '4Q-20',
-        '1q-21' => '1Q-21',
-        '3q-21' => '3Q-21',
+        '1q-20' => '1Q-2020',
+        '2q-20' => '2Q-2020',
+        '3q-20' => '3Q-2020',
+        '4q-20' => '4Q-2020',
+        '1q-21' => '1Q-2021',
+        '2q-21' => '2Q-2021',
+        '3q-21' => '3Q-2021',
+        '4q-21' => '4Q-2021',
     ];
 
     public const QUARTER_WITH_DECLINED_GROSS_SELECT = [
@@ -210,6 +214,7 @@ class CrmCustomer extends Model
         'updated_at',
         'deleted_at',
         'user_id',
+        'requested_documents',
     ];
 
     public function owner(){
@@ -219,6 +224,16 @@ class CrmCustomer extends Model
     public function leadTasks()
     {
         return $this->hasMany(Task::class, 'lead_id', 'id');
+    }
+
+    public function leadNotes()
+    {
+        return $this->hasMany(CrmNote::class, 'customer_id', 'id');
+    }
+
+    public function documents()
+    {
+        return $this->hasMany(CrmDocument::class, 'customer_id', 'id');
     }
 
     public function getDateOfBirthAttribute($value)

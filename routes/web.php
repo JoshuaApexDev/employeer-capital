@@ -37,6 +37,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 //    Ruta para enviar correo
     Route::post('/crm-customers/send-email', 'CrmCustomerController@sendEmail')->name('crm-customers.sendEmail');
     Route::get('/', 'HomeController@index')->name('home');
+    // Rutas para subir listas csv de leads
+    Route::get('/leads-uploader', 'LeadUploaderController@index')->name('leads-uploader.index');
+    Route::post('upload/leads-report', 'LeadUploaderController@uploadLeadsReport')->name('upload.leads-report');
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
     Route::resource('permissions', 'PermissionsController');
@@ -61,7 +64,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('crm-customer/claim/{id}', 'CrmCustomerController@claim')->name('crm-customers.claim');
 
     // Crm Note
-    Route::resource('crm-notes', 'CrmNoteController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+//    Route::resource('crm-notes', 'CrmNoteController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+    Route::resource('crm-notes', 'CrmNoteController');
 
     // Crm Document
     Route::delete('crm-documents/destroy', 'CrmDocumentController@massDestroy')->name('crm-documents.massDestroy');

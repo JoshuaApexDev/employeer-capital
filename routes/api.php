@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\Admin\CrmCustomerApiController;
 use App\Http\Controllers\Api\V1\Admin\ApplyApiController;
 
+Route::get('get/lead', [CrmCustomerApiController::class, 'getLead']);
 Route::get('employee/', [CrmCustomerApiController::class, 'employee']);
 Route::post('/validate/applicant', [ApplyApiController::class, 'Validar'])->name('validate.applicant');
 Route::get('/leads/status', [CrmCustomerApiController::class , 'status']);

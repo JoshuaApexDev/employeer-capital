@@ -2,7 +2,22 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            {{ trans('global.edit') }} {{ trans('cruds.crmCustomer.title_singular') }}
+            <div>
+                @if(auth()->user()->sip_enabled)
+                    <div v-if="registered" id="makecallcard">
+                        <div class="btn btn-danger"
+                             v-if="activeCall  != null &&  activeCall.state != 'active' && activeCall.state != 'destroy' && activeCall.state != 'early'"
+                             v-on:click="hangup()">@{{$root.activeCall.state}}</div>
+                        <div class="btn btn-danger"
+                             v-else-if="activeCall  != null && activeCall.state === 'active' ||activeCall  != null && activeCall.state === 'early'"
+                             v-on:click="hangup()">Hang up
+                        </div>
+                        <div v-else>
+                            <div class="btn btn-primary" v-on:click="makeCall('{{$crmCustomer->phone}}')">Call {{$crmCustomer->first_name ?? ''}} {{$crmCustomer->last_name ?? ''}}</div>
+                        </div>
+                    </div>
+                @endif
+            </div>
         </div>
 
         <div class="card-body">
@@ -14,22 +29,6 @@
                     <button class="btn btn-danger" type="submit" onclick="this.disable = 'disable'">
                         {{ trans('global.save') }}
                     </button>
-                </div>
-                <div>
-                    @if(auth()->user()->sip_enabled)
-                        <div v-if="registered" id="makecallcard" class="row">
-                            <div class="btn btn-danger"
-                                 v-if="activeCall  != null &&  activeCall.state != 'active' && activeCall.state != 'destroy' && activeCall.state != 'early'"
-                                 v-on:click="hangup()">@{{$root.activeCall.state}}</div>
-                            <div class="btn btn-danger"
-                                 v-else-if="activeCall  != null && activeCall.state === 'active' ||activeCall  != null && activeCall.state === 'early'"
-                                 v-on:click="hangup()">Hang up
-                            </div>
-                            <div v-else>
-                                <div class="btn btn-primary" v-on:click="makeCall('{{$crmCustomer->phone}}')">Call</div>
-                            </div>
-                        </div>
-                    @endif
                 </div>
                 <div class="row">
                     <div class="col-4">
@@ -83,7 +82,7 @@
                                            for="email">{{ trans('cruds.crmCustomer.fields.email') }}</label>
                                     <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
                                            type="text" name="email"
-                                           id="email" value="{{ old('email', $crmCustomer->email) }}" required>
+                                           id="email" value="{{ old('email', $crmCustomer->email) }}">
                                     @if($errors->has('email'))
                                         <div class="invalid-feedback">
                                             {{ $errors->first('email') }}
@@ -96,7 +95,7 @@
                                            for="phone">{{ trans('cruds.crmCustomer.fields.phone') }}</label>
                                     <input class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}"
                                            type="text" name="phone"
-                                           id="phone" value="{{ old('phone', $crmCustomer->phone) }}" required>
+                                           id="phone" value="{{ old('phone', $crmCustomer->phone) }}">
                                     @if($errors->has('phone'))
                                         <div class="invalid-feedback">
                                             {{ $errors->first('phone') }}
@@ -143,7 +142,7 @@
                                     <input class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}"
                                            type="text"
                                            name="address" id="address"
-                                           value="{{ old('address', $crmCustomer->address) }}" required>
+                                           value="{{ old('address', $crmCustomer->address) }}">
                                     @if($errors->has('address'))
                                         <div class="invalid-feedback">
                                             {{ $errors->first('address') }}
@@ -441,6 +440,26 @@
                                 Documents
                             </div>
                             <div class="card-body">
+                                @foreach($documentTypes as $key => $documentType)
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <label for="document_type_{{ $key }}">{{ $documentType->name }}</label>
+                                        </div>
+                                        <div class="col">
+                                            <label for="requested_documents">Requested</label>
+                                            <input id="requested_documents" name="requested_documents[]"
+                                                   type="checkbox" value="{{$documentType->id}}"
+                                                   @if($documentType->requested == 1) checked @endif>
+                                        </div>
+                                        <div class="col">
+                                            <label for="received_documents">Received</label>
+                                            <input id="received_documents" name="received_documents[]"
+                                                   type="checkbox" value="{{$documentType->id}}"
+                                                   @if($documentType->received == 1) checked @endif
+                                                   disabled>
+                                        </div>
+                                    </div>
+                                @endforeach
                                 <div class="row" style="margin-bottom: 10px;">
                                     <div class="col-lg-12">
                                         <a class="btn btn-success"
@@ -478,7 +497,7 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        {{ $crmDocument->name ?? '' }}
+                                                        {{ $crmDocument->documentType->name ?? '' }}
                                                     </td>
                                                     <td>
                                                         @can('crm_document_show')
@@ -748,6 +767,33 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-header bg-primary">
+                                Notes History
+                            </div>
+                            <div class="card-body">
+                                <div class="row" style="margin-bottom: 10px;">
+                                    <div class="col-lg-12">
+                                        <a class="btn btn-success" href="/admin/crm-notes/create?customer_id={{$crmCustomer->id}}">
+                                            {{ trans('global.add') }} {{ trans('cruds.crmNote.title_singular') }}
+                                        </a>
+                                    </div>
+                                </div>
+                                @foreach($crmCustomer->leadNotes->sortDesc() as $key => $crmNote)
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <blockquote class="blockquote mb-0">
+                                                <p>{{ $crmNote->note }}</p>
+                                                <footer class="blockquote-footer">{{ $crmNote->created_at }}</footer>
+                                            </blockquote>
+                                        </div>
+                                    </div>
+
+                                @endforeach
                             </div>
                         </div>
                     </div>

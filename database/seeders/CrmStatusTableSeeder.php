@@ -72,7 +72,7 @@ class CrmStatusTableSeeder extends Seeder
             ],
             [
                 'id' => 11,
-                'name' => 'File Submitted',
+                'name' => 'File Submitted to IRS for Refund',
                 'created_at' => '2021-04-26 22:37:11',
                 'updated_at' => '2021-04-26 22:37:11',
             ],
@@ -84,7 +84,7 @@ class CrmStatusTableSeeder extends Seeder
             ],
             [
                 'id' => 13,
-                'name' => 'After File Submitted ad',
+                'name' => 'After File Submitted Tax Resolution Plus for Analysis',
                 'created_at' => '2021-04-26 22:37:11',
                 'updated_at' => '2021-04-26 22:37:11',
             ],
@@ -103,6 +103,30 @@ class CrmStatusTableSeeder extends Seeder
             [
                 'id' => 16,
                 'name' => 'ERC Advance',
+                'created_at' => '2021-04-26 22:37:11',
+                'updated_at' => '2021-04-26 22:37:11',
+            ],
+            [
+                'id' => 17,
+                'name' => 'Contacted by Call',
+                'created_at' => '2021-04-26 22:37:11',
+                'updated_at' => '2021-04-26 22:37:11',
+            ],
+            [
+                'id' => 18,
+                'name' => 'Contacted by Email',
+                'created_at' => '2021-04-26 22:37:11',
+                'updated_at' => '2021-04-26 22:37:11',
+            ],
+            [
+                'id' => 19,
+                'name' => 'Already in a Program',
+                'created_at' => '2021-04-26 22:37:11',
+                'updated_at' => '2021-04-26 22:37:11',
+            ],
+            [
+                'id' => 20,
+                'name' => 'The Lead has the money already',
                 'created_at' => '2021-04-26 22:37:11',
                 'updated_at' => '2021-04-26 22:37:11',
             ],

@@ -41,6 +41,9 @@
                             {{ trans('cruds.crmCustomer.fields.address') }}
                         </th>
                         <th>
+                            State
+                        </th>
+                        <th>
                             {{ trans('cruds.crmCustomer.fields.status') }}
                         </th>
                         <th>
@@ -71,6 +74,9 @@
                             </td>
                             <td>
                                 {{ $crmCustomer->address ?? '' }}
+                            </td>
+                            <td>
+                                {{ $crmCustomer->state ?? '' }}
                             </td>
                             <td>
                                 {{ $crmCustomer->status->name ?? '' }}

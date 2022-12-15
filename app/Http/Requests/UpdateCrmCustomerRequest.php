@@ -27,7 +27,7 @@ class UpdateCrmCustomerRequest extends FormRequest
             ],
             'email' => [
                 'string',
-                'required',
+                'nullable',
             ],
             'phone' => [
                 'string',
@@ -43,24 +43,24 @@ class UpdateCrmCustomerRequest extends FormRequest
             ],
             'address' => [
                 'string',
-                'required',
+                'nullable',
             ],
             'city' => [
                 'string',
-                'required',
+                'nullable',
             ],
             'country' => [
                 'string',
                 'max:2',
-                'required',
+                'nullable',
             ],
             'state' => [
                 'string',
-                'required',
+                'nullable',
             ],
             'zip_code' => [
                 'string',
-                'required',
+                'nullable',
             ],
             'file_code' => [
                 'string',
@@ -172,6 +172,10 @@ class UpdateCrmCustomerRequest extends FormRequest
             ],
             'total_payroll_2020' => [
                 'string',
+                'nullable',
+            ],
+            'requested_documents' => [
+                'array',
                 'nullable',
             ],
             'custom_field_1' => [

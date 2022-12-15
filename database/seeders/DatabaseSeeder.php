@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             RoleUserTableSeeder::class,
             CrmStatusTableSeeder::class,
             TaskStatusTableSeeder::class,
+            DocumentTypesTableSeeder::class,
         ]);
     }
 }

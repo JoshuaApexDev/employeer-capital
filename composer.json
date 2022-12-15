@@ -20,6 +20,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "3.4.6",
         "laraveldaily/laravel-charts": "^0.1.24",
+        "league/csv": "^9.8",
         "spatie/laravel-medialibrary": "^8.7",
         "telnyx/telnyx-php": "^2.7",
         "yajra/laravel-datatables-oracle": "^9.18"

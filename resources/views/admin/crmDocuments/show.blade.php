@@ -56,7 +56,7 @@
                             {{ trans('cruds.crmDocument.fields.name') }}
                         </th>
                         <td>
-                            {{ $crmDocument->name }}
+                            {{ $crmDocument->documentType->name }}
                         </td>
                     </tr>
                     <tr>
@@ -64,7 +64,7 @@
                             {{ trans('cruds.crmDocument.fields.description') }}
                         </th>
                         <td>
-                            {{ $crmDocument->description }}
+                            {{ $crmDocument->documentType->description }}
                         </td>
                     </tr>
                 </tbody>
