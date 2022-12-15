@@ -62,7 +62,7 @@
         <ul class="c-header-nav ml-auto">
 
             @if(auth()->user()->sip_enabled)
-                <telephony v-bind:user="{{ json_encode(auth()->user()) }}"></telephony>
+                <telephony class="ml-4" v-bind:user="{{ json_encode(auth()->user()) }}"></telephony>
             @endif
 
             <span class="c-avatar">

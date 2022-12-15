@@ -22,6 +22,7 @@ class CrmNoteController extends Controller
 
         return view('admin.crmNotes.index', compact('crmNotes'));
     }
+
     public function create(Request $request)
     {
         abort_if(Gate::denies('crm_note_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -36,6 +37,8 @@ class CrmNoteController extends Controller
     public function store(StoreCrmNoteRequest $request)
     {
         $crmNote = CrmNote::create($request->all());
+        $crmNote->user_id = auth()->user()->id;
+        $crmNote->save();
 
         if (isset($request->customer_id)) {
             return redirect()->route('admin.crm-customers.edit', $request->customer_id);
@@ -66,8 +69,10 @@ class CrmNoteController extends Controller
 
     public function update(UpdateCrmNoteRequest $request, CrmNote $crmNote)
     {
+        $user = auth()->user();
         $crmNote->update($request->all());
-
+        $crmNote->user_id = $user->id;
+        $crmNote->save();
         return redirect()->route('admin.crm-notes.index');
 
     }

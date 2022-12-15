@@ -93,4 +93,8 @@ class User extends Authenticatable
     public function leads(){
         return $this->hasMany(crmCustomer::class, 'user_id', 'id');
     }
+
+    public function notes(){
+        return $this->hasMany(crmNote::class, 'user_id', 'id');
+    }
 }

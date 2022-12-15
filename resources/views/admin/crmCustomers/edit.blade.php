@@ -794,7 +794,7 @@
                                         <div class="card-body">
                                             <blockquote class="blockquote mb-0">
                                                 <p>{{ $crmNote->note }}</p>
-                                                <footer class="blockquote-footer">{{ $crmNote->created_at }}</footer>
+                                                <footer class="blockquote-footer">{{ $crmNote->created_at }} by @if(isset($crmNote->user->id)) {{ $crmNote->user->name ?? 'System Administrator' }}@endif</footer>
                                             </blockquote>
                                         </div>
                                     </div>

@@ -26,6 +26,11 @@ class CrmNote extends Model
         'deleted_at',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function customer()
     {
         return $this->belongsTo(CrmCustomer::class, 'customer_id');

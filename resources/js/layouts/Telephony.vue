@@ -1,7 +1,12 @@
 <template>
     <div>
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row" style="min-width: 300px; margin-right: 15px">
+            <div class="col-8">
+                <div class="row h-100 justify-content-center align-content-center">
+                    my number: {{ $root.user.sip_caller_id }}
+                </div>
+            </div>
+            <div class="col-4">
                 <div class="btn btn-primary" v-if="!$root.registered">Register</div>
 
                 <div v-if="$root.registered" id="makecallcard" class="row">
@@ -20,18 +25,15 @@
                     </div>
                     <div v-else>
                         <VDropdown>
-                            <i class="fa fa-phone primary"></i>
+                            <div class="btn btn-outline-primary">Make Call</div>
                             <template #popper>
                                 <input type="text" class="form-control" id="callnumber" v-model="callnumber"
                                        placeholder="Enter number">
                                 <div class="btn btn-primary" v-on:click="$root.makeCall(callnumber)">Call</div>
                             </template>
                         </VDropdown>
-
-
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

@@ -91,11 +91,13 @@ class UsersController extends Controller
             $user->sip_enabled = 1;
             $user->sip_extension = $request->sip_extension;
             $user->sip_password = $request->sip_password;
+            $user->sip_caller_id = $request->sip_caller_id;
             $user->save();
         }else{
             $user->sip_enabled = 0;
             $user->sip_extension = null;
             $user->sip_password = null;
+            $user->sip_caller_id = null;
             $user->save();
         }
         return redirect()->route('admin.users.index');
