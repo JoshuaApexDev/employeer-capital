@@ -49,9 +49,16 @@
 
     <div class="card">
         <div class="card-header">
-            {{ trans('global.show') }} lead: {{ $crmCustomer->first_name }} {{ $crmCustomer->last_name }} |
-            status:
-            <div class="badge badge-primary">{{ $crmCustomer->status->name ?? '' }}</div>
+            <div class="row">
+                <div class="col-10">
+                    {{ trans('global.show') }} lead: {{ $crmCustomer->first_name }} {{ $crmCustomer->last_name }} |
+                    status:
+                    <div class="badge badge-primary">{{ $crmCustomer->status->name ?? '' }}</div>
+                </div>
+                <div class="col-2 text-right">
+                    Lead claimed by: <span class="badge badge-primary">{{ $crmCustomer->owner->name ?? '' }}</span>
+                </div>
+            </div>
         </div>
 
         <div class="card-body">

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCrmCustomerRequest;
 use App\Http\Requests\UpdateCrmCustomerRequest;
 use App\Http\Resources\Admin\CrmCustomerResource;
 use App\Models\CrmCustomer;
+use App\Models\CrmStatus;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -57,18 +58,17 @@ class CrmCustomerApiController extends Controller
 
     public function status()
     {
-        $crmStatuses = CrmCustomer::all();
+        $crmStatuses = CrmStatus::all();
         $status_count = [];
-        foreach ($crmStatuses as $crmStatus) {
-            if($crmStatus->status != null){
-                $status_count[$crmStatus->status->name] = 0;
-            }
+        foreach ($crmStatuses as $status) {
+            $stat = [
+                'count' => CrmCustomer::where('status_id', $status->id)->count(),
+                'id' => $status->id,
+                'name' => $status->name,
+            ];
+            array_push($status_count, $stat);
         }
-        foreach ($crmStatuses as $crmStatus) {
-            if($crmStatus->status != null){
-                $status_count[$crmStatus->status->name]++;
-            }
-        }
+
         return response()->json($status_count);
     }
 
@@ -77,13 +77,13 @@ class CrmCustomerApiController extends Controller
         if (isset($request->key)) {
 //            if hashed key match with .env SECRET_PHRASE
             if (Hash::check(env('SECRET_PHRASE'), $request->key)) {
-                if (!CrmCustomer::where('phone','=', $request->phone)->exists()) {
+                if (!CrmCustomer::where('phone', '=', $request->phone)->exists()) {
                     return response()->json(['error' => 'Phone not found'], Response::HTTP_BAD_REQUEST);
-                }else{
+                } else {
                     $lead = CrmCustomer::where('phone', '=', $request->phone)->first();
                     return response()->json($lead, Response::HTTP_OK);
                 }
-            }else{
+            } else {
                 return response()->json(['error' => 'Invalid key'], Response::HTTP_BAD_REQUEST);
             }
         } else {
