@@ -43,16 +43,15 @@ class ApplyApiController extends Controller
             if (Hash::check(env('SECRET_PHRASE'), $request->key)) {
 
                 $phone = $request->phone;
+                if(substr($phone, 0, 1) != '1'){
+                    $phone = '1'.$phone;
+                }
 
                 if(CrmCustomer::where('phone', $phone)->exists()) {
                     $lead = CrmCustomer::where('phone', $phone)->first();
                     $lead->update($data);
                 }else {
                     $lead = CrmCustomer::create($data);
-                }
-
-                if(substr($phone, 0, 1) != '1'){
-                    $phone = '1'.$phone;
                 }
 
 //                retreaver posting ready2xfer
