@@ -23,21 +23,20 @@ use App\Models\CrmDocument;
 
 class CrmCustomerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('crm_customer_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $user = auth()->user();
-
         if($user->getIsAdminAttribute() === true){
-            $crmCustomers = CrmCustomer::with(['status'])->get();
+            $crmCustomers = CrmCustomer::with(['status', 'owner'])->get();
         }else{
-            $crmCustomers = CrmCustomer::where('user_id', '=', null)->orwhere('user_id', '=', $user->id)->with(['status'])->get();
+            $crmCustomers = CrmCustomer::where('user_id', '=', null)->orwhere('user_id', '=', $user->id)->with(['status', 'owner'])->get();
         }
-//        dd($crmCustomers);
-//        $crmCustomers = CrmCustomer::with(['status'])->get();
 
+        if(isset($request->status)){
+            $crmCustomers = CrmCustomer::where('status_id', '=', $request->status)->with(['status', 'owner'])->get();
+        }
         $crm_statuses = CrmStatus::get();
-
         return view('admin.crmCustomers.index', compact('crmCustomers', 'crm_statuses'));
     }
 
@@ -94,7 +93,7 @@ class CrmCustomerController extends Controller
         }
 //        dd($documentTypes->toArray());
 
-        $crmCustomer->load('status');
+        $crmCustomer->load('status', 'owner');
         $crmDocuments = CrmDocument::where('customer_id', '=', $crmCustomer->id)->with(['customer', 'media'])->get();
 
 
@@ -115,7 +114,7 @@ class CrmCustomerController extends Controller
     {
         abort_if(Gate::denies('crm_customer_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $crmCustomer->load('status', 'leadTasks');
+        $crmCustomer->load('status', 'leadTasks', 'owner');
 
         return view('admin.crmCustomers.show', compact('crmCustomer'));
     }
@@ -151,7 +150,8 @@ class CrmCustomerController extends Controller
         $crmCustomer = CrmCustomer::where('id', '=', $id)->first();
         $crmCustomer->user_id = auth()->user()->id;
         $crmCustomer->save();
-        return redirect()->route('admin.crm-customers.index');
+        $crmCustomer->load('status', 'owner');
+        return redirect()->route('admin.crm-customers.edit', $crmCustomer);
     }
 
 }

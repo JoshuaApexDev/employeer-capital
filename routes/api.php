@@ -8,6 +8,13 @@ Route::get('employee/', [CrmCustomerApiController::class, 'employee']);
 Route::post('/validate/applicant', [ApplyApiController::class, 'Validar'])->name('validate.applicant');
 Route::get('/leads/status', [CrmCustomerApiController::class , 'status']);
 Route::post('/crm/lead',[ApplyApiController::class, 'createLead']);
+
+Route::group(['prefix'=>'telnyx','namespace' => 'Api\V1\Admin'], function () {
+    Route::post('incoming-call-queue', 'TelnyxApiController@incomingCallQueue');
+    Route::get('connections', 'TelnyxApiController@getConections');
+    Route::get('calls', 'TelnyxApiController@getCalls');
+});
+
 Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', 'middleware' => ['auth:sanctum']], function () {
     // Permissions
     Route::apiResource('permissions', 'PermissionsApiController');

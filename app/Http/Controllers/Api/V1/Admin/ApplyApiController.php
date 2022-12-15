@@ -41,8 +41,30 @@ class ApplyApiController extends Controller
         if (isset($request->key)) {
 //            if hashed key match with .env SECRET_PHRASE
             if (Hash::check(env('SECRET_PHRASE'), $request->key)) {
-                $lead = CrmCustomer::create($data);
+
+                $phone = $request->phone;
+                if(substr($phone, 0, 1) != '1'){
+                    $phone = '1'.$phone;
+                }
+
+                if(CrmCustomer::where('phone', $phone)->exists()) {
+                    $lead = CrmCustomer::where('phone', $phone)->first();
+                    $lead->update($data);
+                }else {
+                    $lead = CrmCustomer::create($data);
+                }
+
+//                retreaver posting ready2xfer
+                $url = 'https://retreaverdata.com/data_writing?key=efd5e62a-b3d2-4a26-9697-f50db36c77f0&caller_number=1'.$phone.'&ready2xfer=true';
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                $output = curl_exec($ch);
+                curl_close($ch);
+
                 return response()->json(['success' => 'success'], Response::HTTP_OK);
+            }else{
+                return response()->json(['error' => 'Invalid key'], Response::HTTP_BAD_REQUEST);
             }
         } else {
             return response()->json(['error' => 'Missing key'], Response::HTTP_BAD_REQUEST);
