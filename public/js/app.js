@@ -3614,7 +3614,7 @@ var app = new Vue({
       var lead_info_form = document.getElementById('lead-info-form');
       var lead_info = [];
       var key = '$2y$10$PHSqCSRCTAFEQ.5uezFBuesZZwEKmuGoo7826tpuX3oRKwkSfcyhO';
-      var url = '/api/get/lead/?key=' + key + '&phone=1' + this.activeCall.options.remoteCallerNumber;
+      var url = '/api/get/lead/?key=' + key + '&phone=1' + this.activeCall.options.remoteCallerNumber + '&user_id=' + this.user.id;
       axios.get(url).then(function (response) {
         lead_info = response.data;
         Object.keys(lead_info).forEach(function (key) {

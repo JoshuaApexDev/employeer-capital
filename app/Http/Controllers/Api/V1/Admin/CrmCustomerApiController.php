@@ -7,6 +7,8 @@ use App\Http\Requests\StoreCrmCustomerRequest;
 use App\Http\Requests\UpdateCrmCustomerRequest;
 use App\Http\Resources\Admin\CrmCustomerResource;
 use App\Models\CrmCustomer;
+use App\Models\CrmNote;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -60,12 +62,12 @@ class CrmCustomerApiController extends Controller
         $crmStatuses = CrmCustomer::all();
         $status_count = [];
         foreach ($crmStatuses as $crmStatus) {
-            if($crmStatus->status != null){
+            if ($crmStatus->status != null) {
                 $status_count[$crmStatus->status->name] = 0;
             }
         }
         foreach ($crmStatuses as $crmStatus) {
-            if($crmStatus->status != null){
+            if ($crmStatus->status != null) {
                 $status_count[$crmStatus->status->name]++;
             }
         }
@@ -77,13 +79,37 @@ class CrmCustomerApiController extends Controller
         if (isset($request->key)) {
 //            if hashed key match with .env SECRET_PHRASE
             if (Hash::check(env('SECRET_PHRASE'), $request->key)) {
-                if (!CrmCustomer::where('phone','=', $request->phone)->exists()) {
-                    return response()->json(['error' => 'Phone not found'], Response::HTTP_BAD_REQUEST);
-                }else{
-                    $lead = CrmCustomer::where('phone', '=', $request->phone)->first();
+                $user = User::find($request->user_id);
+                if (!CrmCustomer::where('phone', '=', $request->phone)->exists()) {
+                    $lead = new CrmCustomer();
+                    $lead->first_name = 'new lead';
+                    $lead->last_name = 'new lead';
+                    $lead->phone = $request->phone;
+                    $lead->user_id = $user->id;
+                    $lead->save();
+
+                    $note = new CrmNote();
+                    $note->customer_id = $lead->id;
+                    $note->note = 'incoming call asigned to ' . $user->name;
+                    $note->save();
+
                     return response()->json($lead, Response::HTTP_OK);
+                } else {
+                    
+                    $lead = CrmCustomer::where('phone', '=', $request->phone)->first();
+                    $lead->user_id = $user->id;
+                    $lead->save();
+
+                    $note = new CrmNote();
+                    $note->customer_id = $lead->id;
+                    $note->note = 'incoming call asigned to ' . $user->name;
+                    $note->save();
+
+                    return response()->json($lead, Response::HTTP_OK);
+
+
                 }
-            }else{
+            } else {
                 return response()->json(['error' => 'Invalid key'], Response::HTTP_BAD_REQUEST);
             }
         } else {
