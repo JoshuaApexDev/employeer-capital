@@ -2,22 +2,28 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <div>
-                @if(auth()->user()->sip_enabled)
-                    <div v-if="registered" id="makecallcard">
-                        <div class="btn btn-danger"
-                             v-if="activeCall  != null &&  activeCall.state != 'active' && activeCall.state != 'destroy' && activeCall.state != 'early'"
-                             v-on:click="hangup()">@{{$root.activeCall.state}}</div>
-                        <div class="btn btn-danger"
-                             v-else-if="activeCall  != null && activeCall.state === 'active' ||activeCall  != null && activeCall.state === 'early'"
-                             v-on:click="hangup()">Hang up
+            <div class="row">
+                <div class="col-10">
+                    @if(auth()->user()->sip_enabled)
+                        <div v-if="registered" id="makecallcard">
+                            <div class="btn btn-danger"
+                                 v-if="activeCall  != null &&  activeCall.state != 'active' && activeCall.state != 'destroy' && activeCall.state != 'early'"
+                                 v-on:click="hangup()">@{{$root.activeCall.state}}</div>
+                            <div class="btn btn-danger"
+                                 v-else-if="activeCall  != null && activeCall.state === 'active' ||activeCall  != null && activeCall.state === 'early'"
+                                 v-on:click="hangup()">Hang up
+                            </div>
+                            <div v-else>
+                                <div class="btn btn-primary" v-on:click="makeCall('{{$crmCustomer->phone}}')">Call {{$crmCustomer->first_name ?? ''}} {{$crmCustomer->last_name ?? ''}}</div>
+                            </div>
                         </div>
-                        <div v-else>
-                            <div class="btn btn-primary" v-on:click="makeCall('{{$crmCustomer->phone}}')">Call {{$crmCustomer->first_name ?? ''}} {{$crmCustomer->last_name ?? ''}}</div>
-                        </div>
-                    </div>
-                @endif
+                    @endif
+                </div>
+                <div class="col-2 text-right">
+                    Lead claimed by: <span class="badge badge-primary">{{ $crmCustomer->owner->name ?? '' }}</span>
+                </div>
             </div>
+
         </div>
 
         <div class="card-body">

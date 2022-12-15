@@ -9,6 +9,7 @@ use App\Http\Resources\Admin\CrmCustomerResource;
 use App\Models\CrmCustomer;
 use App\Models\CrmNote;
 use App\Models\User;
+use App\Models\CrmStatus;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -59,18 +60,17 @@ class CrmCustomerApiController extends Controller
 
     public function status()
     {
-        $crmStatuses = CrmCustomer::all();
+        $crmStatuses = CrmStatus::all();
         $status_count = [];
-        foreach ($crmStatuses as $crmStatus) {
-            if ($crmStatus->status != null) {
-                $status_count[$crmStatus->status->name] = 0;
-            }
+        foreach ($crmStatuses as $status) {
+            $stat = [
+                'count' => CrmCustomer::where('status_id', $status->id)->count(),
+                'id' => $status->id,
+                'name' => $status->name,
+            ];
+            array_push($status_count, $stat);
         }
-        foreach ($crmStatuses as $crmStatus) {
-            if ($crmStatus->status != null) {
-                $status_count[$crmStatus->status->name]++;
-            }
-        }
+
         return response()->json($status_count);
     }
 
@@ -95,7 +95,7 @@ class CrmCustomerApiController extends Controller
 
                     return response()->json($lead, Response::HTTP_OK);
                 } else {
-                    
+
                     $lead = CrmCustomer::where('phone', '=', $request->phone)->first();
                     $lead->user_id = $user->id;
                     $lead->save();
