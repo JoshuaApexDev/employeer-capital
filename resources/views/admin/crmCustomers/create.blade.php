@@ -235,6 +235,9 @@
                                             <select
                                                 class="form-control {{ $errors->has('w2_employees') ? 'is-invalid' : '' }}"
                                                 name="w2_employees" id="w2_employees">
+                                                <option value disabled {{ old('w2_employees', null) === null ? 'selected' : '' }}>
+                                                    {{ trans('global.pleaseSelect') }}
+                                                </option>
                                                 @foreach(App\Models\CrmCustomer::W2_EMPLOYEES_SELECT as $key => $label)
                                                     <option value="{{ $key }}" {{ old('w2_employees', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
                                                 @endforeach
@@ -250,6 +253,9 @@
                                             <select
                                                 class="form-control {{ $errors->has('receive_erc') ? 'is-invalid' : '' }}"
                                                 name="receive_erc" id="receive_erc">
+                                                <option value disabled {{ old('receive_erc', null) === null ? 'selected' : '' }}>
+                                                    {{ trans('global.pleaseSelect') }}
+                                                </option>
                                                 @foreach(App\Models\CrmCustomer::RECEIVE_ERC_SELECT as $key => $label)
                                                     <option value="{{ $key }}" {{ old('receive_erc', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
                                                 @endforeach
@@ -265,6 +271,9 @@
                                             <select
                                                 class="form-control {{ $errors->has('ppp_loan') ? 'is-invalid' : '' }}"
                                                 name="ppp_loan" id="ppp_loan">
+                                                <option value disabled {{ old('ppp_loan', null) === null ? 'selected' : '' }}>
+                                                    {{ trans('global.pleaseSelect') }}
+                                                </option>
                                                 @foreach(App\Models\CrmCustomer::PPP_LOAN_SELECT as $key => $label)
                                                     <option value="{{ $key }}" {{ old('ppp_loan', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
                                                 @endforeach
@@ -361,6 +370,9 @@
                                             <select
                                                 class="form-control select2 {{ $errors->has('was_your_business_operational') ? 'is-invalid' : '' }}"
                                                 name="was_your_business_operational" id="was_your_business_operational">
+                                                <option value disabled {{ old('was_your_business_operational', null) === null ? 'selected' : '' }}>
+                                                    {{ trans('global.pleaseSelect') }}
+                                                </option>
                                                 @foreach(App\Models\CrmCustomer::WAS_YOUR_BUSINESS_OPERATIONAL_SELECT as $key => $label)
                                                     <option
                                                         value="{{ $key }}">{{ $label }}</option>
@@ -403,6 +415,9 @@
                                             <select
                                                 class="form-control select2 {{ $errors->has('is_your_business_a_restaurant') ? 'is-invalid' : '' }}"
                                                 name="is_your_business_a_restaurant" id="is_your_business_a_restaurant">
+                                                <option value disabled {{ old('is_your_business_a_restaurant', null) === null ? 'selected' : '' }}>
+                                                    {{ trans('global.pleaseSelect') }}
+                                                </option>
                                                 @foreach(App\Models\CrmCustomer::IS_YOUR_BUSINESS_A_RESTAURANT_SELECT as $key => $label)
                                                     <option
                                                         value="{{ $key }}" >{{ $label }}</option>
@@ -420,7 +435,9 @@
                                                 class="form-control select2 {{ $errors->has('periods_when_suspended') ? 'is-invalid' : '' }}"
                                                 multiple
                                                 name="periods_when_suspended[]" id="periods_when_suspended">
-
+                                                <option value disabled {{ old('periods_when_suspended', null) === null ? 'selected' : '' }}>
+                                                    {{ trans('global.pleaseSelect') }}
+                                                </option>
                                                 @foreach(App\Models\CrmCustomer::PERIODS_WHEN_SUSPENDED_SELECT as $key => $label)
                                                     <option value="{{ $key }}" >{{$label}}</option>
                                                 @endforeach
@@ -437,6 +454,9 @@
                                             <select
                                                 class="form-control select2 {{ $errors->has('quarter_with_declined_gross') ? 'is-invalid' : '' }}"
                                                 name="quarter_with_declined_gross" id="quarter_with_declined_gross">
+                                                <option value disabled {{ old('quarter_with_declined_gross', null) === null ? 'selected' : '' }}>
+                                                    {{ trans('global.pleaseSelect') }}
+                                                </option>
                                                 @foreach(App\Models\CrmCustomer::QUARTER_WITH_DECLINED_GROSS_SELECT as $key => $label)
                                                     <option
                                                         value="{{ $key }}">{{ $label }}</option>
@@ -457,6 +477,9 @@
                                             <select
                                                 class="form-control select2 {{ $errors->has('q1_2021_vs_q1_2019') ? 'is-invalid' : '' }}"
                                                 name="q1_2021_vs_q1_2019" id="q1_2021_vs_q1_2019">
+                                                <option value disabled {{ old('q1_2021_vs_q1_2019', null) === null ? 'selected' : '' }}>
+                                                    {{ trans('global.pleaseSelect') }}
+                                                </option>
                                                 @foreach(App\Models\CrmCustomer::Q1_2021_VS_Q1_2019_SELECT as $key => $label)
                                                     <option
                                                         value="{{ $key }}">{{ $label }}</option>
@@ -474,6 +497,9 @@
                                             <select
                                                 class="form-control select2 {{ $errors->has('q3_2021_vs_q3_2019') ? 'is-invalid' : '' }}"
                                                 name="q3_2021_vs_q3_2019" id="q3_2021_vs_q3_2019">
+                                                <option value disabled {{ old('q3_2021_vs_q3_2019', null) === null ? 'selected' : '' }}>
+                                                    {{ trans('global.pleaseSelect') }}
+                                                </option>
                                                 @foreach(App\Models\CrmCustomer::Q3_2021_VS_Q3_2019_SELECT as $key => $label)
                                                     <option
                                                         value="{{ $key }}">{{ $label }}</option>
@@ -491,6 +517,9 @@
                                             <select
                                                 class="form-control select2 {{ $errors->has('q2_2021_vs_q2_2019') ? 'is-invalid' : '' }}"
                                                 name="q2_2021_vs_q2_2019" id="q2_2021_vs_q2_2019">
+                                                <option value disabled {{ old('q2_2021_vs_q2_2019', null) === null ? 'selected' : '' }}>
+                                                    {{ trans('global.pleaseSelect') }}
+                                                </option>
                                                 @foreach(App\Models\CrmCustomer::Q2_2021_VS_Q2_2019_SELECT as $key => $label)
                                                     <option
                                                         value="{{ $key }}" >{{ $label }}</option>
@@ -508,6 +537,9 @@
                                             <select
                                                 class="form-control select2 {{ $errors->has('q4_2021_vs_q4_2019') ? 'is-invalid' : '' }}"
                                                 name="q4_2021_vs_q4_2019" id="q4_2021_vs_q4_2019">
+                                                <option value disabled {{ old('q4_2021_vs_q4_2019', null) === null ? 'selected' : '' }}>
+                                                    {{ trans('global.pleaseSelect') }}
+                                                </option>
                                                 @foreach(App\Models\CrmCustomer::Q4_2021_VS_Q4_2019_SELECT as $key => $label)
                                                     <option
                                                         value="{{ $key }}" >{{ $label }}</option>
@@ -566,12 +598,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
 
                 <div class="form-group">
                     <button class="btn btn-danger" type="submit">

@@ -168,6 +168,7 @@ class CrmCustomer extends Model
         'cellphone',
         'other_phone',
         'address',
+        'company_name',
         'city',
         'country',
         'state',

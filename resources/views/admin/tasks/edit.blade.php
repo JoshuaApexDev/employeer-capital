@@ -100,8 +100,11 @@
             <div class="form-group">
                 <label class="required" for="lead_id">{{ trans('cruds.task.fields.lead') }}</label>
                 <select class="form-control select2 {{ $errors->has('lead') ? 'is-invalid' : '' }}" name="lead_id" id="lead_id" required>
+                    <option value disabled {{ old('lead_id', null) === null ? 'selected' : '' }}>
+                        {{ trans('global.pleaseSelect') }}
+                    </option>
                     @foreach($leads as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('lead_id') ? old('lead_id') : $task->lead->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        <option value="{{ $entry->id }}" {{ (old('lead_id') ? old('lead_id') : $task->lead->id ?? '') == $entry->id ? 'selected' : '' }}>{{ $entry->first_name }} {{ $entry->last_name }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('lead'))
