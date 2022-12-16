@@ -40,7 +40,7 @@ class TaskController extends Controller
 
         $assigned_tos = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $leads = CrmCustomer::all()->pluck('first_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $leads = CrmCustomer::all();
 
         return view('admin.tasks.create', compact('statuses', 'tags', 'assigned_tos', 'leads'));
     }
@@ -70,7 +70,7 @@ class TaskController extends Controller
 
         $assigned_tos = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $leads = CrmCustomer::all()->pluck('first_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $leads = CrmCustomer::all();
 
         $task->load('status', 'tags', 'assigned_to', 'lead');
 
