@@ -11,6 +11,7 @@ Route::post('/crm/lead',[ApplyApiController::class, 'createLead']);
 
 Route::group(['prefix'=>'telnyx','namespace' => 'Api\V1\Admin'], function () {
     Route::post('incoming-call-queue', 'TelnyxApiController@incomingCallQueue');
+    Route::post('xfers', 'TelnyxApiController@xfers');
     Route::get('connections', 'TelnyxApiController@getConections');
     Route::get('calls', 'TelnyxApiController@getCalls');
 });

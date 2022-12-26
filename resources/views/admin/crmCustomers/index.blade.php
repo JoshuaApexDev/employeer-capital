@@ -82,7 +82,7 @@
                                 {{ $crmCustomer->status->name ?? '' }}
                             </td>
                             <td>
-                                @if($crmCustomer->status->name === 'New Lead' && $crmCustomer->user_id === null)
+                                @if($crmCustomer->status && $crmCustomer->status->name === 'New Lead' && $crmCustomer->user_id === null)
                                     <a class="btn btn-xs btn-warning" href="{{ route('admin.crm-customers.claim', $crmCustomer->id) }}">
                                         Claim it
                                     </a>

@@ -63,7 +63,7 @@ const app = new Vue({
                 login: this.user.sip_extension,
                 password: this.user.sip_password,
             });
-            this.client.connect().then((status)=>{
+            this.client.connect().then((status) => {
                 this.client.remoteElement = this.audio_interface;
             })
             this.client
@@ -80,7 +80,7 @@ const app = new Vue({
                         this.activeCall = notification.call;
                         console.log('telnyx.notification', this.activeCall.state);
 
-                        if(this.activeCall.state === 'ringing' && this.activeCall.direction != 'outbound'){
+                        if (this.activeCall.state === 'ringing' && this.activeCall.direction != 'outbound') {
                             $('#incoming-call-modal').modal('show');
                         }
                     }
@@ -94,7 +94,13 @@ const app = new Vue({
             var lead_info_form = document.getElementById('lead-info-form');
             var lead_info = [];
             var key = '$2y$10$PHSqCSRCTAFEQ.5uezFBuesZZwEKmuGoo7826tpuX3oRKwkSfcyhO';
-            var url = '/api/get/lead/?key=' + key + '&phone=1' + this.activeCall.options.remoteCallerNumber + '&user_id=' + this.user.id;
+
+            if (this.activeCall.options.remoteCallerNumber >= 10) {
+                var phone = this.activeCall.options.remoteCallerNumber;
+            } else {
+                var phone = '1' + this.activeCall.options.remoteCallerNumber;
+            }
+            var url = '/api/get/lead/?key=' + key + '&phone=' + phone + '&user_id=' + this.user.id;
             axios.get(url).then((response) => {
                 lead_info = response.data;
                 Object.keys(lead_info).forEach(function (key) {
