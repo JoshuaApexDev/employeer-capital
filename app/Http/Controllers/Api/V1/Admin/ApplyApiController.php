@@ -51,9 +51,9 @@ class ApplyApiController extends Controller
             if (Hash::check(env('SECRET_PHRASE'), $request->key)) {
 
                 $phone = $request->phone;
-                if(substr($phone, 0, 1) != '1'){
-                    $phone = '1'.$phone;
-                }
+//                if(substr($phone, 0, 1) != '1'){
+//                    $phone = '1'.$phone;
+//                }
 
                 $data['phone'] = $phone;
 
