@@ -33,7 +33,7 @@ class ApplyApiController extends Controller
     {
         $data = $request->all();
         if(isset($data['appointment'])){
-            $cita = Carbon::createFromFormat('m-d-Y H:i a', $data['appointment']);
+            $cita = Carbon::createFromFormat('m/d/Y H:i a', $data['appointment'])->format('m-d-Y H:i');
             $status = CrmStatus::where('name', '=', 'Appointment')->first();
             $data['status_id'] = $status->id;
         }else{
