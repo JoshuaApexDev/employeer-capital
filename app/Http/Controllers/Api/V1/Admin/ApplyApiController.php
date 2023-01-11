@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAPICrmCustomerRequest;
 use App\Http\Requests\StoreCrmCustomerRequest;
 use App\Models\CrmCustomer;
+use App\Models\CrmNote;
 use App\Models\CrmStatus;
 use App\Models\RequiredDocument;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,8 +32,14 @@ class ApplyApiController extends Controller
     public function createLead(Request $request)
     {
         $data = $request->all();
-        $status = crmStatus::where('name', '=', 'New Lead')->first();
-        $data['status_id'] = $status->id;
+        if(isset($data['appointment'])){
+            $cita = Carbon::createFromFormat('m-d-Y H:i a', $data['appointment']);
+            $status = CrmStatus::where('name', '=', 'Appointment')->first();
+            $data['status_id'] = $status->id;
+        }else{
+            $status = crmStatus::where('name', '=', 'New Lead')->first();
+            $data['status_id'] = $status->id;
+        }
 
 //        if request don't have first_name, last_name, phone, address, file_code return error
         if (!$request->has('first_name') || !$request->has('last_name') || !$request->has('phone') || !$request->has('address') || !$request->has('file_code')) {
@@ -52,8 +60,22 @@ class ApplyApiController extends Controller
                 if(CrmCustomer::where('phone', $phone)->exists()) {
                     $lead = CrmCustomer::where('phone', $phone)->first();
                     $lead->update($data);
+                    if(isset($data['appointment'])){
+                        crmNote::create([
+                            'note' => 'Call this lead on '.$cita,
+                            'customer_id' => $lead->id,
+                            'user_id' => 1,
+                        ]);
+                    }
                 }else {
                     $lead = CrmCustomer::create($data);
+                    if(isset($data['appointment'])){
+                        crmNote::create([
+                            'note' => 'Call this lead on '.$cita,
+                            'customer_id' => $lead->id,
+                            'user_id' => 1,
+                        ]);
+                    }
                 }
 
 //                retreaver posting ready2xfer

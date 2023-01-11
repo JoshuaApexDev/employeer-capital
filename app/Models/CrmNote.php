@@ -21,6 +21,7 @@ class CrmNote extends Model
     protected $fillable = [
         'customer_id',
         'note',
+        'user_id',
         'created_at',
         'updated_at',
         'deleted_at',
