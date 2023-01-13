@@ -92,14 +92,14 @@
 <script>
     Dropzone.options.documentFileDropzone = {
     url: '{{ route('admin.crm-documents.storeMedia') }}',
-    maxFilesize: 20, // MB
+    maxFilesize: 40, // MB
     maxFiles: 1,
     addRemoveLinks: true,
     headers: {
       'X-CSRF-TOKEN': "{{ csrf_token() }}"
     },
     params: {
-      size: 20
+      size: 40
     },
     success: function (file, response) {
       $('form').find('input[name="document_file"]').remove()
