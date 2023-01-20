@@ -36,6 +36,31 @@
                         {{ trans('global.save') }}
                     </button>
                 </div>
+                @if($user->getIsAdminAttribute())
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class=""
+                                       for="user_id">Assign to:</label>
+                                <select
+                                    class="form-control select2 {{ $errors->has('user_id') ? 'is-invalid' : '' }}"
+                                    name="user_id" id="user_id">
+                                    @foreach($users as $id => $entry)
+                                        <option
+                                            value="{{ $id }}" {{ (old('user_id') ? old('user_id') : $entry->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                    @endforeach
+                                </select>
+                                @if($errors->has('user_id'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('user_id') }}
+                                    </div>
+                                @endif
+                                <span
+                                    class="help-block">{{ trans('cruds.crmCustomer.fields.status_helper') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-4">
                         <div class="card">

@@ -38,7 +38,7 @@
                             {{ trans('cruds.crmCustomer.fields.phone') }}
                         </th>
                         <th>
-                            {{ trans('cruds.crmCustomer.fields.address') }}
+                            Assigned To
                         </th>
                         <th>
                             State
@@ -73,7 +73,7 @@
                                 {{ $crmCustomer->phone ?? '' }}
                             </td>
                             <td>
-                                {{ $crmCustomer->address ?? '' }}
+                                {{ $crmCustomer->owner->name ?? '' }}
                             </td>
                             <td>
                                 {{ $crmCustomer->state ?? '' }}

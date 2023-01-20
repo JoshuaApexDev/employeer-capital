@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateCrmCustomerRequest;
 use App\Mail\emailLead;
 use App\Models\CrmCustomer;
 use App\Models\CrmStatus;
+use App\Models\User;
 use App\Models\DocumentType;
 use App\Models\Position;
 use App\Models\RequiredDocument;
@@ -73,10 +74,10 @@ class CrmCustomerController extends Controller
 
     public function edit(CrmCustomer $crmCustomer)
     {
-
         abort_if(Gate::denies('crm_customer_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $statuses = CrmStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $users = User::pluck('name', 'id')->prepend(trans('Please select'), '');
         $documentTypes = DocumentType::all();
         $types = $documentTypes->pluck('id')->toArray();
         $documents = $crmCustomer->documents->pluck('document_type_id')->toArray();
@@ -98,12 +99,13 @@ class CrmCustomerController extends Controller
             }
         }
 //        dd($documentTypes->toArray());
+        $user = auth()->user();
 
         $crmCustomer->load('status', 'owner');
         $crmDocuments = CrmDocument::where('customer_id', '=', $crmCustomer->id)->with(['customer', 'media'])->get();
 
 
-        return view('admin.crmCustomers.edit', compact('crmCustomer',  'statuses', 'crmDocuments', 'documentTypes'));
+        return view('admin.crmCustomers.edit', compact('crmCustomer',  'statuses', 'crmDocuments', 'documentTypes', 'users', 'user'));
     }
 
     public function update(UpdateCrmCustomerRequest $request, CrmCustomer $crmCustomer)
