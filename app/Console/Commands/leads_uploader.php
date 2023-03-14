@@ -75,7 +75,11 @@ class leads_uploader extends Command
                     'status_id' => $status->id,
                 ]);
             }else{
-                $this->info('Row: '.$bar->getProgress().' - Phone: '.$row['Phone'].' already exists');
+                $status = CrmStatus::where('name', 'Internet MCA Leads')->first();
+                $crmCustomer = CrmCustomer::where('phone', '=', $row['Phone'])->first();
+                $crmCustomer->status_id = $status->id;
+                $this->info('Row: '.$bar->getProgress().' - Phone: '.$row['Phone'].' updated');
+//                $this->info('Row: '.$bar->getProgress().' - Phone: '.$row['Phone'].' already exists');
             }
             $bar->advance();
         }
