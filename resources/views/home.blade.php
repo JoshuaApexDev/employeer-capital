@@ -16,7 +16,7 @@
         </div>
     </div>
     <!-- use axios cdn -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         axios.get('/api/leads/status').then((res) => {
             var status = res.data;
