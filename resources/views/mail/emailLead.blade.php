@@ -41,9 +41,9 @@
 {{--                            <img src="http://crmerc.apexcallcenters.xyz/tax-logo.png" class="logo"--}}
 {{--                                 alt="Tax Resolution Plus Logo"--}}
 {{--                                 style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; max-width: 25%; border: none;"></a>--}}
-                        <a href="http://crmerc.apexcallcenters.xyz"
+                        <a href="#"
                            style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #bbbfc3; font-size: 19px; font-weight: bold; text-decoration: none; text-shadow: 0 1px 0 #ffffff; display: inline-block;">
-                            <img src="http://crmerc.apexcallcenters.xyz/tax-logo-s-fondo.png" class="logo"
+                            <img src="https://crmerc.apexcallcenter.com/tax-logo-s-fondo.png" class="logo"
                                  alt="Tax Resolution Plus Logo"
                                  style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; max-width: 25%; border: none;"></a>
                     </td>
@@ -78,7 +78,7 @@
                                 <td class="content-cell" align="center"
                                     style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; padding: 35px;">
                                     <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; line-height: 1.5em; margin-top: 0; color: #aeaeae; font-size: 12px; text-align: center;">
-                                        © 2022 Tax Resolution Plus. All rights reserved.</p>
+                                        © 2023 Tax Resolution Plus. All rights reserved.</p>
                                 </td>
                             </tr>
                         </table>

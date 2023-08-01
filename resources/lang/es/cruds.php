@@ -286,6 +286,15 @@ return [
             'deleted_at'           => 'Deleted At',
             'deleted_at_helper'    => ' ',
         ],
+        'instructions'    =>
+            [
+                'one_by_one' => 'Puedes subir un archivo a la vez',
+                'sure_category' => 'Asegúrese de seleccionar la categoría correcta para el archivo',
+                'allowed_file' =>'Tipos de archivos permitidos: pdf',
+                'max_file_size' =>'Tamaño máximo de archivo: 5 MB',
+                'drag_drop' =>'Arrastre y suelte los archivos aquí o haga clic para cargar',
+                'click_upload' =>'Haga clic en guardar para enviar',
+            ],
     ],
     'taskManagement' => [
         'title'          => 'Interviews management',

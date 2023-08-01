@@ -12,6 +12,7 @@ use App\Models\CrmDocument;
 use App\Models\DocumentType;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -121,5 +122,40 @@ class CrmDocumentController extends Controller
         $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
 
         return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
+    }
+    public function storeSecureLink(Request $request)
+    {
+        // Get the whole URL from the request
+        $parsedUrl = parse_url($request->headers->get('referer'));
+        // Get the host from the parsed URL
+        $parsedHost = $parsedUrl['host'];
+
+        // Get the host of your project
+        $projectHost = strtok($_SERVER['HTTP_HOST'], ':');
+
+        // Compare the two host values
+        if ($parsedHost === $projectHost) {
+            // The hosts match, perform the verification
+            $crmDocument = CrmDocument::create($request->all());
+            if ($request->input('document_file', false)) {
+                $crmDocument->addMedia(storage_path('tmp/uploads/' . basename($request->input('document_file'))))->toMediaCollection('document_file');
+            }
+            if ($media = $request->input('ck-media', false)) {
+                Media::whereIn('id', $media)->update(['model_id' => $crmDocument->id]);
+            }
+        } else {
+            // The hosts do not match, handle the mismatch
+            echo "Host mismatch! Verification failed.";
+        }
+
+//        return dd(Route::current(), $parsedUrl, $parsedHost, $projectHost);
+            return Redirect::away($request->headers->get('referer'))->with('message', 'Document uploaded successfully!');
+//        return redirect()->with('message', 'Document uploaded successfully!');
+    }
+    public function sendSecureLink(Request $request)
+    {
+        $crmDocument = CrmDocument::find($request->id);
+        $crmDocument->sendSecureLink($request->email);
+        return redirect()->route('admin.crm-documents.index');
     }
 }

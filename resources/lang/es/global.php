@@ -31,6 +31,7 @@ return [
     'remember_me'                    => 'Recuérdeme',
     'reset_password'                 => 'Restablecer contraseña',
     'send_password'                  => 'Enviar enlace para restablecer contraseña',
+    'send_secure_link'               => 'Enviar enlace seguro',
     'save'                           => 'Guardar',
     'search'                         => 'Búsqueda',
     'searching'                      => 'Buscando',

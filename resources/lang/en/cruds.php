@@ -286,6 +286,15 @@ return [
             'deleted_at'           => 'Deleted At',
             'deleted_at_helper'    => ' ',
         ],
+        'instructions'    =>
+            [
+                'one_by_one' => 'You can upload one file at a time',
+                'sure_category' => 'Make sure you select the correct category for the file',
+                'allowed_file' =>'Allowed file types: pdf',
+                'max_file_size' =>'Max file size: 5MB',
+                'drag_drop' =>'Drag and drop files here or click to upload',
+                'click_upload' =>'Click save to upload',
+            ],
     ],
     'taskManagement' => [
         'title'          => 'Interviews management',

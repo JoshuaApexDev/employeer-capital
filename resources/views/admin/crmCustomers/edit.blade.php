@@ -35,6 +35,9 @@
                     <button class="btn btn-danger" type="submit" onclick="this.disable = 'disable'">
                         {{ trans('global.save') }}
                     </button>
+                    <button class="btn btn-info" type="button" onclick="sendSecureLink({{$crmCustomer->id}},event)">
+                        {{ trans('global.send_secure_link') }}
+                    </button>
                 </div>
                 @if($user->getIsAdminAttribute())
                     <div class="row">
@@ -878,6 +881,23 @@
             $.ajax({
                 url: '/admin/crm-documents/' + id,
                 type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function (result) {
+                    location.reload();
+                }
+            });
+        }
+    }
+</script>
+<script>
+    sendSecureLink = function (id,e) {
+        e.preventDefault();
+        if (confirm('Are you sure you want to send this secure link?')) {
+            $.ajax({
+                url: '/admin/crm-documents/send-secure-link/' + id,
+                type: 'GET',
                 data: {
                     _token: '{{ csrf_token() }}'
                 },

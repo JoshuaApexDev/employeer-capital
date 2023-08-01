@@ -31,6 +31,7 @@ return [
     'remember_me'                    => 'Remember me',
     'reset_password'                 => 'Reset Password',
     'send_password'                  => 'Send Password Reset Link',
+    'send_secure_link'               => 'Send Secure Upload Link',
     'save'                           => 'Save',
     'search'                         => 'Search',
     'searching'                      => 'Searching',

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\SecureLinkController;
+use App\Http\Controllers\Admin\CrmDocumentController;
+
 //test the emailLead view
 Route::get('emailLead', function(){
    return view('mail.emailLead')->with(
@@ -72,6 +75,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('crm-documents/media', 'CrmDocumentController@storeMedia')->name('crm-documents.storeMedia');
     Route::post('crm-documents/ckmedia', 'CrmDocumentController@storeCKEditorImages')->name('crm-documents.storeCKEditorImages');
     Route::resource('crm-documents', 'CrmDocumentController');
+    // Secure Link
+    Route::get('crm-documents/send-secure-link/{id}', [SecureLinkController::class, 'sendSecureLink'])->name('send-link');
 
     // Task Status
     Route::delete('task-statuses/destroy', 'TaskStatusController@massDestroy')->name('task-statuses.massDestroy');
@@ -99,6 +104,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('positions/destroy', 'PositionController@massDestroy')->name('positions.massDestroy');
     Route::resource('positions', 'PositionController');
 });
+
+Route::get('crm-documents/secureupload/{id}', [SecureLinkController::class, 'secureLinkVerification'])->name('external-add-files')->middleware('signed');
+Route::post('crm-documents/media', [CrmDocumentController::class, 'storeMedia'])->name('crm-documents.storeMedia');
+Route::post('crm-documents/store/external', [CrmDocumentController::class, 'storeSecureLink'])->name('crm-documents.store.external');
+
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
     if (file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php'))) {
