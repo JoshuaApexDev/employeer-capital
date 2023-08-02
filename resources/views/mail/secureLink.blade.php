@@ -36,7 +36,7 @@
                             style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; padding: 25px 0; text-align: center;">
                             <a href="#"
                                style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #bbbfc3; font-size: 19px; font-weight: bold; text-decoration: none; text-shadow: 0 1px 0 #ffffff; display: inline-block;">
-                                <img src="https://crm.employercapital.com/unnamed (1).png" class="logo"
+                                <img src="https://crm.employercapital.com/unnamed%20(1).png" class="logo"
                                      alt="Employeer Capital Logo"
                                      style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; max-width: 25%; border: none;"></a>
                         </td>
